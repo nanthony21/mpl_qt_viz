@@ -27,7 +27,7 @@ from matplotlib.image import AxesImage
 from shapely.geometry import Polygon as shapelyPolygon, LinearRing, MultiPolygon
 from matplotlib.patches import Polygon
 
-from pwspy.utility.fluorescence import segmentAdaptive, segmentWatershed
+from ._segmentation import segmentAdaptive, segmentWatershed
 from pwspy.utility.matplotlibWidgets._creatorWidgets.FullImPaintSelector import LabeledSlider
 from .. import AxManager
 from . import CreatorWidgetBase

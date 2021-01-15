@@ -21,13 +21,14 @@ from typing import List
 
 from PyQt5 import QtCore
 from PyQt5.QtCore import QPoint
-from PyQt5.QtWidgets import QDialog, QWidget, QSlider, QLabel, QPushButton, QGridLayout, QHBoxLayout, QFormLayout
+from PyQt5.QtWidgets import QDialog, QWidget, QPushButton, QFormLayout
 from cycler import cycler
 from matplotlib.image import AxesImage
 from shapely.geometry import Polygon as shapelyPolygon, LinearRing, MultiPolygon
 from matplotlib.patches import Polygon
 
-from pwspy.utility.fluorescence import segmentAdaptive
+from mpl_qt_viz.roiSelection._creatorWidgets._sharedWidgets import LabeledSlider
+from ._segmentation import segmentAdaptive
 from .. import AxManager
 from . import CreatorWidgetBase
 
@@ -134,36 +135,6 @@ class FullImPaintCreator(CreatorWidgetBase):
         self._drawRois(polys)
 
 
-class LabeledSlider(QWidget):
-    """A slider with a label that indicates the current value."""
-    def __init__(self, Min, Max, Step, Value, parent=None):
-        super().__init__(parent)
-        self.display = QLabel(self)
-        self.slider = QSlider(QtCore.Qt.Horizontal, self)
-
-        self.slider.valueChanged.connect(lambda val: self.display.setText(str(val)))
-
-        self.setMaximum = lambda val: self.slider.setMaximum(val)
-        self.setMinimum = lambda val: self.slider.setMinimum(val)
-        self.setSingleStep = lambda val: self.slider.setSingleStep(val)
-        self.setValue = lambda val: self.slider.setValue(val)
-        self.value = lambda: self.slider.value()
-        self.valueChanged = self.slider.valueChanged
-
-        l = QHBoxLayout()
-        l.setContentsMargins(0, 0, 0, 0)
-        l.addWidget(self.slider)
-        l.addWidget(self.display)
-        l.setStretch(0, 0)
-        l.setStretch(1, 1)
-        self.setLayout(l)
-
-        self.setMinimum(Min)
-        self.setMaximum(Max)
-        self.setSingleStep(Step)
-        self.setValue(Value)
-
-
 class AdaptivePaintDialog(QDialog):
     """The dialog used by the FullImPaintSelector. Can adjust detection parameters.
 
@@ -190,7 +161,7 @@ class AdaptivePaintDialog(QDialog):
             self._paintDebounce.start()
 
         maxImSize = max(parentSelector.image.get_array().shape)
-        self.adptRangeSlider = LabeledSlider(3, maxImSize//2*2+1, 2, 551) # This must always have an odd value or opencv will have an error.
+        self.adptRangeSlider = LabeledSlider(3, maxImSize // 2 * 2 + 1, 2, 551) # This must always have an odd value or opencv will have an error.
         #TODO recommend value based on expected pixel size of a nucleus. need to access metadata.
 
         def adptRangeChanged(val):

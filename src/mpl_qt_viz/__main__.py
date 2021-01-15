@@ -6,6 +6,8 @@ if __name__ == '__main__':
     from PyQt5.QtWidgets import QApplication
 
     from mpl_qt_viz.visualizers import PlotNd, DockablePlotWindow
+    import mpl_qt_viz.roiSelection as roi
+    import matplotlib.pyplot as plt
 
     print("Starting test of mpl_qt_viz")
 
@@ -20,5 +22,12 @@ if __name__ == '__main__':
 
     ax.plot(np.arange(50), np.random.random((50,)))
     ax2.imshow(data.mean(axis=2))
+
+    fig, ax = plt.subplots()
+    axMan = roi.AxManager(ax)
+    im = ax.imshow(data.mean(axis=2))
+    ellipse = roi.EllipseCreator(axMan, im)
+    ellipse.set_active(True)
+    fig.show()
 
     sys.exit(app.exec())

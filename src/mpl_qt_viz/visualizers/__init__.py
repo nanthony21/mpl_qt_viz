@@ -16,7 +16,8 @@
 # along with mpl_qt_viz.  If not, see <https://www.gnu.org/licenses/>.
 
 
-"""Image Plotting
+"""
+Image Plotting
 
 Classes
 ----------
@@ -33,3 +34,5 @@ Classes
 from ._multiPlot import MultiPlot
 from ._PlotNd import PlotNd, PlotNdCanvas
 from ._dockPlot import DockablePlotWindow
+
+__all__ = ['MultiPlot', 'PlotNd', 'PlotNdCanvas', 'DockablePlotWindow']

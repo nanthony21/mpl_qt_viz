@@ -67,7 +67,8 @@ extensions = [
     'sphinx.ext.viewcode',
     "sphinx_rtd_theme",
     'sphinx.ext.inheritance_diagram',  #Need to add graphviz/bin to the path for this to work.
-    'sphinx.ext.mathjax'
+    'sphinx.ext.mathjax',
+    'sphinx_markdown_builder'
 ]
 
 autosummary_generate = True

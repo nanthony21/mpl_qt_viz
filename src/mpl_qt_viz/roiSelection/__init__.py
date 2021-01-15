@@ -18,17 +18,17 @@
 """
 Useful classes for interacting with Matplotlib plots. Mostly for the purpose of drawing ROIs.
 
-Selectors
+ROI Creators
 ----------
 .. autosummary::
    :toctree: generated/
 
-   EllipseSelector
-   LassoSelector
-   RegionalPaintSelector
-   PointSelector
-   FullImPaintSelector
-   WaterShedPaintSelector
+   EllipseCreator
+   LassoCreator
+   RegionalPaintCreator
+   PointCreator
+   FullImPaintCreator
+   WaterShedPaintCreator
 
 Utility
 --------
@@ -36,7 +36,7 @@ Utility
    :toctree: generated/
 
    AdjustableSelector
-   PolygonInteractor
+   PolygonModifier
    AxManager
 
 """

@@ -4,7 +4,7 @@ Contents
 .. toctree::
    :maxdepth: 3
 
-   pwspy
+   mpl_qt_viz
 
 Indices and tables
 ==================

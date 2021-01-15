@@ -21,6 +21,10 @@ from matplotlib.artist import Artist
 from matplotlib.axes import Axes
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
+from matplotlib.widgets import AxesWidget
+if typing.TYPE_CHECKING:
+    from matplotlib.backend_bases import LocationEvent, KeyEvent, MouseEvent
+    from matplotlib.image import AxesImage
 
 
 class AxManager:

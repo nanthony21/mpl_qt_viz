@@ -15,10 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with mpl_qt_viz.  If not, see <https://www.gnu.org/licenses/>.
 
-
+from __future__ import annotations
 import logging
-from typing import List
-
+import typing
 from PyQt5 import QtCore
 from PyQt5.QtCore import QPoint
 from PyQt5.QtWidgets import QDialog, QWidget, QPushButton, QFormLayout
@@ -26,11 +25,12 @@ from cycler import cycler
 from matplotlib.image import AxesImage
 from shapely.geometry import Polygon as shapelyPolygon, LinearRing, MultiPolygon
 from matplotlib.patches import Polygon
-
 from mpl_qt_viz.roiSelection._creatorWidgets._sharedWidgets import LabeledSlider
 from ._segmentation import segmentAdaptive
-from .. import AxManager
-from . import CreatorWidgetBase
+from mpl_qt_viz.roiSelection._creatorWidgets._base import CreatorWidgetBase
+
+if typing.TYPE_CHECKING:
+    from mpl_qt_viz.roiSelection import AxManager
 
 
 class FullImPaintCreator(CreatorWidgetBase):
@@ -78,7 +78,7 @@ class FullImPaintCreator(CreatorWidgetBase):
         else:
             self.dlg.close()
 
-    def _drawRois(self, polys: List[shapelyPolygon]):
+    def _drawRois(self, polys: typing.List[shapelyPolygon]):
         """Convert a list of shapely `Polygon` objects into matplotlib `Polygon`s and display them."""
         self._cachedRegions = polys
         if len(polys) > 0:

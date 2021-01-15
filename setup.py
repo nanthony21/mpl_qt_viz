@@ -24,7 +24,6 @@ from setuptools import setup, find_packages
 import os.path as osp
 import os
 
-
 setup(name='mpl_qt_viz',
       version="1",
       description='A Python library providing enhanced data visualization and ROI selection built on top of Matplotlib and PyQt5.',
@@ -37,8 +36,9 @@ setup(name='mpl_qt_viz',
                         'matplotlib',
                         'shapely',
                         'PyQt5',
-                        'scikit-image'],
+                        'scikit-image',
+                        'opencv-python'],
       package_dir={'': 'src'},
       package_data={'mpl_qt_viz': []},
       packages=find_packages('src')
-	)
+      )

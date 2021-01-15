@@ -14,19 +14,20 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with mpl_qt_viz.  If not, see <https://www.gnu.org/licenses/>.
-
+from __future__ import annotations
 import typing
 import numpy as np
 from matplotlib.axes import Axes
 from matplotlib.backend_bases import MouseEvent, KeyEvent
 from matplotlib.figure import Figure
-from matplotlib.image import AxesImage
 from matplotlib.lines import Line2D
 from matplotlib.patches import Polygon
 from matplotlib.text import Text
+from mpl_qt_viz.roiSelection._modifierWidgets._base import ModifierWidgetBase
 
-from .. import AxManager
-from . import ModifierWidgetBase
+if typing.TYPE_CHECKING:
+    from mpl_qt_viz.roiSelection import AxManager
+    from matplotlib.image import AxesImage
 
 
 class MovingModifier(ModifierWidgetBase):

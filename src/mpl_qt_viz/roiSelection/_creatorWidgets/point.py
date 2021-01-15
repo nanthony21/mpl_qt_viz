@@ -15,12 +15,14 @@
 # You should have received a copy of the GNU General Public License
 # along with mpl_qt_viz.  If not, see <https://www.gnu.org/licenses/>.
 
-
+from __future__ import annotations
+import typing
 from matplotlib.image import AxesImage
 from matplotlib.patches import Rectangle
+from ._base import CreatorWidgetBase
 
-from .. import AxManager
-from . import CreatorWidgetBase
+if typing.TYPE_CHECKING:
+    from mpl_qt_viz.roiSelection import AxManager
 
 
 class PointCreator(CreatorWidgetBase):

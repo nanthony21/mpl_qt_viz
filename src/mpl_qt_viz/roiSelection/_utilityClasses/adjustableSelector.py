@@ -17,10 +17,11 @@
 
 from __future__ import annotations
 import typing
+from .._modifierWidgets import PolygonModifier
 if typing.TYPE_CHECKING:
     from matplotlib.image import AxesImage
-    from .. import AxManager
-    from .._creatorWidgets import CreatorWidgetBase
+    from mpl_qt_viz.roiSelection import AxManager
+    from .._creatorWidgets._base import CreatorWidgetBase
 
 
 class AdjustableSelector:
@@ -41,7 +42,6 @@ class AdjustableSelector:
         self.image = image
         self.selector: CreatorWidgetBase = selectorClass(self.axMan, self.image, onselect=self._goPoly)
         self.selector.active = False
-        from pwspy.utility.matplotlibWidgets import PolygonModifier
         self.adjuster = PolygonModifier(self.axMan, onselect=self.finish, onCancelled=onPolyTuningCancelled)
         self.adjuster.active = False
         self.adjustable = False

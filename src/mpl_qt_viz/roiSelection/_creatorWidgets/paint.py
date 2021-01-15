@@ -15,17 +15,18 @@
 # You should have received a copy of the GNU General Public License
 # along with mpl_qt_viz.  If not, see <https://www.gnu.org/licenses/>.
 
-
-from typing import List
-
+from __future__ import annotations
+import typing
 from cycler import cycler
 from matplotlib.image import AxesImage
 from matplotlib.patches import Rectangle, Polygon
 from shapely.geometry import Polygon as shapelyPolygon, LinearRing, MultiPolygon
 import shapely
-from pwspy.utility.fluorescence import segmentOtsu
-from .. import AxManager
-from . import CreatorWidgetBase
+from ._segmentation import segmentOtsu
+from ._base import CreatorWidgetBase
+
+if typing.TYPE_CHECKING:
+    from mpl_qt_viz.roiSelection import AxManager
 
 
 class RegionalPaintCreator(CreatorWidgetBase):
@@ -79,7 +80,7 @@ class RegionalPaintCreator(CreatorWidgetBase):
             polys[i] = polys[i].simplify(3)  # Simplify the polygon a little bit for much faster saving.
         self._drawRois(polys)
 
-    def _drawRois(self, polys: List[shapelyPolygon]):
+    def _drawRois(self, polys: typing.List[shapelyPolygon]):
         """Draw ROIs detected by `findContours."""
         if len(polys) > 0:
             alpha = 0.3

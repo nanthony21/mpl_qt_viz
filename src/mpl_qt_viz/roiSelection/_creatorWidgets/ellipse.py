@@ -17,18 +17,16 @@
 
 
 from __future__ import annotations
-
 import enum
 import typing
 from time import time
-
 import numpy as np
 from matplotlib.image import AxesImage
 from matplotlib.patches import Ellipse, Circle
+from mpl_qt_viz.roiSelection._creatorWidgets._base import CreatorWidgetBase
 
-from .. import AxManager
-from . import CreatorWidgetBase
-
+if typing.TYPE_CHECKING:
+    from mpl_qt_viz.roiSelection import AxManager
 
 class _SelectionStatus(enum.Enum):
     """Helps keep track of where we are in the selection process"""

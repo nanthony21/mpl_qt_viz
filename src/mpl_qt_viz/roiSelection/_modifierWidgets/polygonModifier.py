@@ -22,10 +22,10 @@ import numpy as np
 from matplotlib.lines import Line2D
 from matplotlib.patches import Polygon
 from scipy import interpolate
-from . import ModifierWidgetBase
+from ._base import ModifierWidgetBase
 
 if typing.TYPE_CHECKING:
-    from .. import AxManager
+    from mpl_qt_viz.roiSelection import AxManager
 
 
 Vector3 = typing.Tuple[float, float, float]

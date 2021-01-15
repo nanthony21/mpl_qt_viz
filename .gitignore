@@ -4,5 +4,4 @@
 src/mpl_qt_viz.egg-info/
 docs/source/generated/
 
-docs/build/doctrees
-docs/build/html
+docs/build/

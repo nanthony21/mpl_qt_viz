@@ -24,12 +24,11 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QApplication, QPushButton, QGr
     QGraphicsScene, QGroupBox, QVBoxLayout, QCheckBox, QButtonGroup, QMessageBox
 from matplotlib import pyplot
 
-from pwspy.apps.sharedWidgets.rangeSlider import QRangeSlider
 from matplotlib.backends.backend_qt5 import NavigationToolbar2QT, FigureCanvasQT
 import numpy as np
-from MPLQtVisualization.roiSelection import LassoCreator, PointCreator, AdjustableSelector, AxManager
+from mpl_qt_viz.roiSelection import LassoCreator, PointCreator, AdjustableSelector, AxManager
 from ._canvas import PlotNdCanvas
-from .._sharedWidgets import AnimationDlg
+from .._sharedWidgets import AnimationDlg, QRangeSlider
 
 
 class _MyView(QGraphicsView):

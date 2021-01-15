@@ -242,7 +242,7 @@ class PlotNdCanvas(FigureCanvasQTAgg):
         """Connected to the matplotlib 'button_press_event'."""
         if event.inaxes is None:  # Don't do anything if the mouse wasn't over a plot.
             return
-        if event.dblclick:  # If it was a double click then open a new window plotting the current data of the plot that was clicked on.
+        if event.dblclick:  # If it was a double click then open a new window visualizers the current data of the plot that was clicked on.
             am = [artistManager for artistManager in self.artistManagers if artistManager.ax == event.inaxes][0]
             if isinstance(am, SidePlot):
                 fig, ax = plt.subplots()

@@ -1,0 +1,5 @@
+:mod:`pwspy`
+===============
+
+.. automodule:: pwspy
+

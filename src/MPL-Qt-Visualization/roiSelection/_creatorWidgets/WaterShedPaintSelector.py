@@ -1,19 +1,20 @@
-# Copyright 2018-2020 Nick Anthony, Backman Biophotonics Lab, Northwestern University
+# Copyright 2018-2021 Nick Anthony, Backman Biophotonics Lab, Northwestern University
 #
-# This file is part of PWSpy.
+# This file is part of MPL-Qt-Visualization.
 #
-# PWSpy is free software: you can redistribute it and/or modify
+# MPL-Qt-Visualization is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# PWSpy is distributed in the hope that it will be useful,
+# MPL-Qt-Visualization is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with PWSpy.  If not, see <https://www.gnu.org/licenses/>.
+# along with MPL-Qt-Visualization.  If not, see <https://www.gnu.org/licenses/>.
+
 
 import logging
 from typing import List
@@ -26,13 +27,14 @@ from matplotlib.image import AxesImage
 from shapely.geometry import Polygon as shapelyPolygon, LinearRing, MultiPolygon
 from matplotlib.patches import Polygon
 
-from pwspy.utility.fluorescence import segmentAdaptive
+from pwspy.utility.fluorescence import segmentAdaptive, segmentWatershed
+from pwspy.utility.matplotlibWidgets._creatorWidgets.FullImPaintSelector import LabeledSlider
 from pwspy.utility.matplotlibWidgets.coreClasses import AxManager
 from pwspy.utility.matplotlibWidgets._creatorWidgets import CreatorWidgetBase
 
 
-class FullImPaintCreator(CreatorWidgetBase):
-    """Uses adaptive thresholding in an attempt to highlight all bright selectable regions in a fluorescence image.
+class WaterShedPaintCreator(CreatorWidgetBase):
+    """Uses Watershed technique in an attempt to highlight all bright selectable regions in a fluorescence image.
 
     Args:
         axMan: The manager for a matplotlib `Axes` that you want to interact with.
@@ -41,7 +43,7 @@ class FullImPaintCreator(CreatorWidgetBase):
     """
     def __init__(self, axMan: AxManager, im: AxesImage, onselect=None):
         super().__init__(axMan, im, onselect=onselect)
-        self.dlg = AdaptivePaintDialog(self, self.ax.figure.canvas)
+        self.dlg = WaterShedPaintDialog(self, self.ax.figure.canvas)
 
         self._cachedRegions = None # We cache the detected polygons. No need to redetect if nothing has changed between selections.
         self._cachedImage = None # We cache a reference to the image data as a way of detecting when the image data has changed.
@@ -57,7 +59,7 @@ class FullImPaintCreator(CreatorWidgetBase):
 
     @staticmethod
     def getHelpText():
-        return "Segment a full image using opencv thresholding techniques."
+        return "Segment a full image using Watershed techniques."
 
     def reset(self):
         """Reset the state of the selector so it's ready for a new selection."""
@@ -119,7 +121,7 @@ class FullImPaintCreator(CreatorWidgetBase):
             stale = True
         if stale:
             try:
-                polys = segmentAdaptive(self.image.get_array(), **self.dlg.getSettings())
+                polys = segmentWatershed(self.image.get_array(), **self.dlg.getSettings())
             except Exception as e:
                 logging.getLogger(__name__).warning(f"adaptive segmentation failed with error:")
                 logging.getLogger(__name__).exception(e)
@@ -133,48 +135,18 @@ class FullImPaintCreator(CreatorWidgetBase):
         self._drawRois(polys)
 
 
-class LabeledSlider(QWidget):
-    """A slider with a label that indicates the current value."""
-    def __init__(self, Min, Max, Step, Value, parent=None):
-        super().__init__(parent)
-        self.display = QLabel(self)
-        self.slider = QSlider(QtCore.Qt.Horizontal, self)
-
-        self.slider.valueChanged.connect(lambda val: self.display.setText(str(val)))
-
-        self.setMaximum = lambda val: self.slider.setMaximum(val)
-        self.setMinimum = lambda val: self.slider.setMinimum(val)
-        self.setSingleStep = lambda val: self.slider.setSingleStep(val)
-        self.setValue = lambda val: self.slider.setValue(val)
-        self.value = lambda: self.slider.value()
-        self.valueChanged = self.slider.valueChanged
-
-        l = QHBoxLayout()
-        l.setContentsMargins(0, 0, 0, 0)
-        l.addWidget(self.slider)
-        l.addWidget(self.display)
-        l.setStretch(0, 0)
-        l.setStretch(1, 1)
-        self.setLayout(l)
-
-        self.setMinimum(Min)
-        self.setMaximum(Max)
-        self.setSingleStep(Step)
-        self.setValue(Value)
-
-
-class AdaptivePaintDialog(QDialog):
+class WaterShedPaintDialog(QDialog):
     """The dialog used by the FullImPaintSelector. Can adjust detection parameters.
 
     Args:
         parentSelector: A reference the the `FullImPaintSelector` that is being used with this dialog.
         parent: A QWidget to serve as the Qt parent for this QWidget.
     """
-    def __init__(self, parentSelector: FullImPaintCreator, parent: QWidget):
+    def __init__(self, parentSelector: WaterShedPaintCreator, parent: QWidget):
         super().__init__(parent=parent)
         self.setWindowFlags(QtCore.Qt.Window | QtCore.Qt.WindowTitleHint | QtCore.Qt.CustomizeWindowHint) #Get rid of the close button. this is handled by the selector widget active status
         self.parentSelector = parentSelector
-        self.setWindowTitle("Adaptive Painter")
+        self.setWindowTitle("Watershed Painter")
 
         self._stale = True  # Keeps track of if the settings have changed.
 
@@ -188,31 +160,11 @@ class AdaptivePaintDialog(QDialog):
             self._stale = True
             self._paintDebounce.start()
 
-        maxImSize = max(parentSelector.image.get_array().shape)
-        self.adptRangeSlider = LabeledSlider(3, maxImSize//2*2+1, 2, 551) # This must always have an odd value or opencv will have an error.
-        #TODO recommend value based on expected pixel size of a nucleus. need to access metadata.
+        self.closingSlider = LabeledSlider(0, 50, 1, 10, self)
+        self.closingSlider.valueChanged.connect(_valChanged)
 
-        def adptRangeChanged(val):
-            _valChanged()
-            if self.adptRangeSlider.value() % 2 == 0:
-                self.adptRangeSlider.setValue(self.adptRangeSlider.value()//2*2+1)#This shouldn't ever happen. but it sometimes does anyway. make sure that adptRangeSlider is an odd number
-
-        self.adptRangeSlider.valueChanged.connect(adptRangeChanged)
-
-        self.subSlider = LabeledSlider(-50, 50, 1, -10, self)
-        self.subSlider.valueChanged.connect(_valChanged)
-
-        self.erodeSlider = LabeledSlider(0, 50, 1, 10, self)
-        def erodeChanged(val):
-            _valChanged()
-            self.dilateSlider.setMaximum(val)
-        self.erodeSlider.valueChanged.connect(erodeChanged)
-
-        self.dilateSlider = LabeledSlider(0, self.erodeSlider.value(), 1, 10, self)
-        self.dilateSlider.valueChanged.connect(_valChanged)
-
-        self.simplificationSlider = LabeledSlider(0, 20, 1, 5, self)
-        self.simplificationSlider.valueChanged.connect(_valChanged)
+        self.openingSlider = LabeledSlider(0, self.closingSlider.value(), 1, 10, self)
+        self.openingSlider.valueChanged.connect(_valChanged)
 
         self.minAreaSlider = LabeledSlider(5, 300, 1, 100, self)
         self.minAreaSlider.valueChanged.connect(_valChanged)
@@ -223,19 +175,13 @@ class AdaptivePaintDialog(QDialog):
             self.parentSelector.paint()
         self.refreshButton.released.connect(refreshAction)
 
-        self.adptRangeSlider.setToolTip("The image is adaptively thresholded by comparing each pixel value to the average pixel value of gaussian window around the pixel. This value determines how large the area that is averaged will be. Lower values cause the threshold to adapt more quickly.")
-        self.subSlider.setToolTip("This offset is passed to `cv2.adaptiveThreshold` and sets the threshold the segmentation process")
-        self.erodeSlider.setToolTip("The number of pixels that the polygons should be eroded by. Combining this with dilation can help to close gaps.")
-        self.dilateSlider.setToolTip("The number of pixels that the polygons should be dilated by.")
-        self.simplificationSlider.setToolTip("This parameter will simplify the edges of the detected polygons to remove overly complicated geometry.")
+        self.closingSlider.setToolTip("The number of pixels that the polygons should be binary closed by.")
+        self.openingSlider.setToolTip("The number of pixels that the polygons should be binary opened by.")
         self.minAreaSlider.setToolTip("Detected regions with a pixel area lower than this value will be discarded.")
 
         l = QFormLayout()
-        l.addRow("Adaptive Range (px):", self.adptRangeSlider)
-        l.addRow("Threshold Offset:", self.subSlider)
-        l.addRow("Erode (px):", self.erodeSlider)
-        l.addRow("Dilate (px):", self.dilateSlider)
-        l.addRow("Simplification:", self.simplificationSlider)
+        l.addRow("Closing (px):", self.closingSlider)
+        l.addRow("Opening (px):", self.openingSlider)
         l.addRow("Minimum Area (px):", self.minAreaSlider)
         l.addRow(self.refreshButton)
         self.setLayout(l)
@@ -247,9 +193,8 @@ class AdaptivePaintDialog(QDialog):
     def getSettings(self) -> dict:
         self._stale = False
         return dict(
-            minArea=self.minAreaSlider.value(), adaptiveRange=self.adptRangeSlider.value(),
-            thresholdOffset=self.subSlider.value(), polySimplification=self.simplificationSlider.value(),
-            erode=self.erodeSlider.value(), dilate=self.dilateSlider.value()
+            closingRadius=self.closingSlider.value(), openingRadius=self.openingSlider.value(),
+            minimumArea=self.minAreaSlider.value()
         )
 
 if __name__ == '__main__':
@@ -258,7 +203,7 @@ if __name__ == '__main__':
 
     fig, ax = plt.subplots()
     im = ax.imshow(np.random.random((100, 100)))
-    sel = FullImPaintCreator(AxManager(ax), im)
+    sel = WaterShedPaintCreator(AxManager(ax), im)
     fig.show()
     plt.pause(.1)
     sel.set_active(True)

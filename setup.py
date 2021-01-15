@@ -21,12 +21,16 @@ This file is used to install the mpl_qt_viz package. for example navigate in you
 file and type `pip install .`. This file is also used by the Conda recipe (buildscripts/conda)
 """
 from setuptools import setup, find_packages
-import os.path as osp
-import os
+import pathlib
+
+HERE = pathlib.Path(__file__).parent  # The directory containing this file
+README = (HERE / "README.md").read_text()  # The text of the README file
 
 setup(name='mpl_qt_viz',
       version="1",
-      description='A Python library providing enhanced data visualization and ROI selection built on top of Matplotlib and PyQt5.',
+      description='A Python package providing enhanced data visualization and ROI selection built on top of Matplotlib and PyQt5.',
+      long_description=README,
+      long_description_content_type="text/markdown",
       author='Nick Anthony',
       author_email='nickmanthony@hotmail.com',
       url='https://github.com/nanthony21/mpl_qt_viz',

@@ -1,21 +1,20 @@
-# Copyright 2018-2020 Nick Anthony, Backman Biophotonics Lab, Northwestern University
+# Copyright 2018-2021 Nick Anthony, Backman Biophotonics Lab, Northwestern University
 #
-# This file is part of PWSpy.
+# This file is part of mpl_qt_viz.
 #
-# PWSpy is free software: you can redistribute it and/or modify
+# mpl_qt_viz is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
-# PWSpy is distributed in the hope that it will be useful,
+# mpl_qt_viz is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with PWSpy.  If not, see <https://www.gnu.org/licenses/>.
+# along with mpl_qt_viz.  If not, see <https://www.gnu.org/licenses/>.
 
-# -*- coding: utf-8 -*-
 #
 # Configuration file for the Sphinx documentation builder.
 #
@@ -31,19 +30,19 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../src')) #Point to the pwspy source code folder
-import pwspy
+sys.path.insert(0, os.path.abspath('../../src')) #Point to the mpl_qt_viz source code folder
+import mpl_qt_viz
 
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'pwspy'
-copyright = '2020, Nick Anthony'
+project = 'mpl_qt_viz'
+copyright = '2021, Nick Anthony'
 author = 'Nick Anthony'
 
 # The short X.Y version
-version = pwspy.__version__
+version = mpl_qt_viz.__version__
 # The full version, including alpha/beta/rc tags
 release = version
 
@@ -133,7 +132,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'pwspydoc'
+htmlhelp_basename = 'mpl_qt_viz_doc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -160,7 +159,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'pwspy.tex', 'pwspy Documentation',
+    (master_doc, 'mpl_qt_viz.tex', 'mpl_qt_viz Documentation',
      'Nick Anthony', 'manual'),
 ]
 
@@ -170,7 +169,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'pwspy', 'pwspy Documentation',
+    (master_doc, 'mpl_qt_viz', 'mpl_qt_viz Documentation',
      [author], 1)
 ]
 
@@ -181,8 +180,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'pwspy', 'pwspy Documentation',
-     author, 'pwspy', 'One line description of project.',
+    (master_doc, 'mpl_qt_viz', 'mpl_qt_viz Documentation',
+     author, 'mpl_qt_viz', 'One line description of project.',
      'Miscellaneous'),
 ]
 

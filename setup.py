@@ -27,7 +27,7 @@ HERE = pathlib.Path(__file__).parent  # The directory containing this file
 README = (HERE / "README.md").read_text()  # The text of the README file
 
 setup(name='mpl_qt_viz',
-      version="1.0.1",
+      version="1.0.2",
       description='A Python package providing enhanced data visualization and ROI selection built on top of Matplotlib and PyQt5.',
       long_description=README,
       long_description_content_type="text/markdown",

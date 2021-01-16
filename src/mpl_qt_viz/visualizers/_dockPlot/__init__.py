@@ -60,7 +60,13 @@ class DockablePlotWindow(QMainWindow):
             dockArea = dockMap[dockArea]
         except KeyError:
             raise ValueError(f"Dock are `{dockArea}` is not supported. must be: {list(dockMap.keys())}")
+        interactive = False
+        if plt.isinteractive():
+            interactive = True
+            plt.ioff()
         fig, ax = plt.subplots(**kwargs)
+        if interactive:
+            plt.ion()  # Set back to interactive if it originally was.
         fig.suptitle(title)
         suffix = 0
         finalTitle = title

@@ -10,6 +10,7 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
 
     print("Starting test of mpl_qt_viz")
+    plt.ion()
 
     data = np.random.random((20, 20, 20))
     app = QApplication([])
@@ -28,6 +29,5 @@ if __name__ == '__main__':
     im = ax.imshow(data.mean(axis=2))
     ellipse = roi.EllipseCreator(axMan, im)
     ellipse.set_active(True)
-    fig.show()
 
     sys.exit(app.exec())

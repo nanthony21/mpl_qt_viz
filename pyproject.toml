@@ -1,5 +1,25 @@
 [build-system]
 requires = ["setuptools>=42", "wheel", "setuptools_scm[toml]>=3.4"]
+build-backend="setuptools.build_meta"
+
+[project]
+name='mpl_qt_viz'
+requires-python='>=3.7'
+dependencies=['numpy',
+            'scipy',
+            'matplotlib',
+            'shapely',
+            'PyQt5',
+            'scikit-image',
+            'opencv-python'
+]
+readme='README.md'
+authors=[{email="nickmanthony@hotmail.com"}, {name='Nick Anthony'}]
+keywords=['matplotlib', 'qt', 'GUI']
+classifiers=['Programming Language :: Python']
+urls=['https://github.com/nanthony21/mpl_qt_viz']
+dynamic=['version'] # Let setuptool_scm do the version
 
 [tool.setuptools_scm]
-write_to = "pkg/version.py"
+write_to = "src/mpl_qt_viz/version.py"
+fallback_version = "1.x.x-dev"

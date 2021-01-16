@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mpl_qt_viz.roiSelection._utilityClasses.adjustableSelector &mdash; mpl_qt_viz 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> mpl_qt_viz
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../generated/mpl_qt_viz.roiSelection.html">mpl_qt_viz.roiSelection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../generated/mpl_qt_viz.visualizers.html">mpl_qt_viz.visualizers</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">mpl_qt_viz</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>mpl_qt_viz.roiSelection._utilityClasses.adjustableSelector</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for mpl_qt_viz.roiSelection._utilityClasses.adjustableSelector</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2018-2021 Nick Anthony, Backman Biophotonics Lab, Northwestern University</span>
+<span class="c1">#</span>
+<span class="c1"># This file is part of mpl_qt_viz.</span>
+<span class="c1">#</span>
+<span class="c1"># mpl_qt_viz is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># mpl_qt_viz is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with mpl_qt_viz.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">from</span> <span class="nn">.._modifierWidgets</span> <span class="kn">import</span> <span class="n">PolygonModifier</span>
+<span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">matplotlib.image</span> <span class="kn">import</span> <span class="n">AxesImage</span>
+    <span class="kn">from</span> <span class="nn">mpl_qt_viz.roiSelection</span> <span class="kn">import</span> <span class="n">AxManager</span>
+    <span class="kn">from</span> <span class="nn">.._creatorWidgets._base</span> <span class="kn">import</span> <span class="n">CreatorWidgetBase</span>
+
+
+<div class="viewcode-block" id="AdjustableSelector"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.AdjustableSelector.html#mpl_qt_viz.roiSelection.AdjustableSelector">[docs]</a><span class="k">class</span> <span class="nc">AdjustableSelector</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;This class manages an roi selector. By setting `adjustable` true then when the selector calls its `onselect` function</span>
+<span class="sd">    the results will be passed on to a PolygonInteractor for further tweaking. Tweaking can be confirmed by pressing enter.</span>
+<span class="sd">    at the end the selector will pass a set of coordinates to the `onfinished` function if it has been set.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ax: A matplotlib `Axes` to interact with.</span>
+<span class="sd">        image: A matplotlib `AxesImage`. Some selectors use the data in this image for their selection.</span>
+<span class="sd">        selectorClass: A class that implements `SelectorWidgetBase`. This will be the intial selector used.</span>
+<span class="sd">        onfinished: a callback function when the selection finished. The function should accept a single input argument</span>
+<span class="sd">            which is a list of the 2d coordinated outlining the selected polygon.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axManager</span><span class="p">:</span> <span class="n">AxManager</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">AxesImage</span><span class="p">,</span> <span class="n">selectorClass</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="n">CreatorWidgetBase</span><span class="p">],</span>
+                 <span class="n">onfinished</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">onPolyTuningCancelled</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Callable</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axMan</span> <span class="o">=</span> <span class="n">axManager</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="p">:</span> <span class="n">CreatorWidgetBase</span> <span class="o">=</span> <span class="n">selectorClass</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axMan</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">onselect</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_goPoly</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjuster</span> <span class="o">=</span> <span class="n">PolygonModifier</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axMan</span><span class="p">,</span> <span class="n">onselect</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">finish</span><span class="p">,</span> <span class="n">onCancelled</span><span class="o">=</span><span class="n">onPolyTuningCancelled</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjuster</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjustable</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onfinished</span> <span class="o">=</span> <span class="n">onfinished</span>
+
+<div class="viewcode-block" id="AdjustableSelector.reset"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.AdjustableSelector.html#mpl_qt_viz.roiSelection.AdjustableSelector.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Clear all artists used by the selector. :todo: Shouldn&#39;t this check if the `adjuster` is active and reset it as well?&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">adjustable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Determines whether or not the polygon interactor will be used to adjust the selection at the end of the initial</span>
+<span class="sd">        selection.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adjustable</span>
+
+    <span class="nd">@adjustable</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">adjustable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enabled</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_adjustable</span> <span class="o">=</span> <span class="n">enabled</span>
+        <span class="k">if</span> <span class="n">enabled</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="o">.</span><span class="n">onselect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_goPoly</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="o">.</span><span class="n">onselect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">finish</span>
+
+<div class="viewcode-block" id="AdjustableSelector.setActive"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.AdjustableSelector.html#mpl_qt_viz.roiSelection.AdjustableSelector.setActive">[docs]</a>    <span class="k">def</span> <span class="nf">setActive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">active</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This activates the selector. for a looping selection you should call this method from the onfinished function.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">active</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adjuster</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">adjuster</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AdjustableSelector.setSelector"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.AdjustableSelector.html#mpl_qt_viz.roiSelection.AdjustableSelector.setSelector">[docs]</a>    <span class="k">def</span> <span class="nf">setSelector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selectorClass</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Type</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove the current selector and replace it with a new type of selector.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            selectorClass: A class the implements `SelectorWidgetBase`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="o">.</span><span class="n">removeArtists</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selector</span> <span class="o">=</span> <span class="n">selectorClass</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axMan</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjustable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">adjustable</span></div>
+
+    <span class="k">def</span> <span class="nf">_goPoly</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verts</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Sequence</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="n">handles</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Sequence</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]):</span>
+        <span class="sd">&quot;&quot;&quot;This callback is registered with the selectorWidget when we are in adjustable mode. Upon completion of the</span>
+<span class="sd">        initial selection this callback passes the handles to the polygon adjuster.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjuster</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adjuster</span><span class="o">.</span><span class="n">initialize</span><span class="p">([</span><span class="n">handles</span><span class="p">])</span> <span class="c1"># It&#39;s important that this happens after `set_active` otherwise we get weird drawing issues</span>
+
+<div class="viewcode-block" id="AdjustableSelector.finish"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.AdjustableSelector.html#mpl_qt_viz.roiSelection.AdjustableSelector.finish">[docs]</a>    <span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">verts</span><span class="p">,</span> <span class="n">handles</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This callback is registered with the selectorWidget when we are not in adjustable mode. In adjustable mode it</span>
+<span class="sd">        is instead registered with the polygon adjuster. It deactivates the class and calls the `onfinished` callback.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setActive</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">onfinished</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">adjustable</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">onfinished</span><span class="p">(</span><span class="n">verts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># The polygon interactor has a slightly different signature than the `creatorwidgets`</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">onfinished</span><span class="p">(</span><span class="n">verts</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Nick Anthony
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

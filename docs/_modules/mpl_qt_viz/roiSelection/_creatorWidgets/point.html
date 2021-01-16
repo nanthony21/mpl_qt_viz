@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mpl_qt_viz.roiSelection._creatorWidgets.point &mdash; mpl_qt_viz 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> mpl_qt_viz
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../generated/mpl_qt_viz.roiSelection.html">mpl_qt_viz.roiSelection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../generated/mpl_qt_viz.visualizers.html">mpl_qt_viz.visualizers</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">mpl_qt_viz</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>mpl_qt_viz.roiSelection._creatorWidgets.point</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for mpl_qt_viz.roiSelection._creatorWidgets.point</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2018-2021 Nick Anthony, Backman Biophotonics Lab, Northwestern University</span>
+<span class="c1">#</span>
+<span class="c1"># This file is part of mpl_qt_viz.</span>
+<span class="c1">#</span>
+<span class="c1"># mpl_qt_viz is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># mpl_qt_viz is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with mpl_qt_viz.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">from</span> <span class="nn">matplotlib.image</span> <span class="kn">import</span> <span class="n">AxesImage</span>
+<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Rectangle</span>
+<span class="kn">from</span> <span class="nn">._base</span> <span class="kn">import</span> <span class="n">CreatorWidgetBase</span>
+
+<span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">mpl_qt_viz.roiSelection</span> <span class="kn">import</span> <span class="n">AxManager</span>
+
+
+<div class="viewcode-block" id="PointCreator"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.PointCreator.html#mpl_qt_viz.roiSelection.PointCreator">[docs]</a><span class="k">class</span> <span class="nc">PointCreator</span><span class="p">(</span><span class="n">CreatorWidgetBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axMan</span><span class="p">:</span> <span class="n">AxManager</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">AxesImage</span><span class="p">,</span> <span class="n">onselect</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sideLength</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; A selector widget that facilitates the selection of a single point in an image. If `sideLength` is greater than 1 it will actually be a square region.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            axMan (AxManager): An object that manages the re-rendering of the image. A single matplotlib.Axes can have many selector widgets but should only have one AxManager</span>
+<span class="sd">            image (AxesImage): the matplotlib image object in use.</span>
+<span class="sd">            onselect (callable): A function that will be executed after the user selects a point.</span>
+<span class="sd">            sideLength (int): The initial length (in pixels) of the rectangle used to select a point. This can be changed on the fly with the mouse wheel.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            np.ndarray: The 4 XY vertices of the selection square.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">axMan</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onselect</span> <span class="o">=</span> <span class="n">onselect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span> <span class="o">=</span> <span class="n">sideLength</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">patch</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">animated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ghostPatch</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">animated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ghostPatch</span><span class="o">.</span><span class="n">set_width</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ghostPatch</span><span class="o">.</span><span class="n">set_height</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addArtist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">patch</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addArtist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ghostPatch</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PointCreator.reset"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.PointCreator.html#mpl_qt_viz.roiSelection.PointCreator.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PointCreator.getHelpText"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.PointCreator.html#mpl_qt_viz.roiSelection.PointCreator.getHelpText">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">getHelpText</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s2">&quot;For selecting a single point with radius of `side`.&quot;</span></div>
+
+    <span class="k">def</span> <span class="nf">_onhover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ghostPatch</span><span class="o">.</span><span class="n">set_xy</span><span class="p">((</span><span class="n">event</span><span class="o">.</span><span class="n">xdata</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">ydata</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axMan</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_press</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">point</span> <span class="o">=</span> <span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">xdata</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">ydata</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_xy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">point</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_width</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_height</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">onselect</span><span class="p">:</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">get_xy</span><span class="p">()</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span><span class="p">]</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span><span class="p">,</span> <span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+            <span class="n">verts</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+            <span class="n">handles</span> <span class="o">=</span> <span class="n">verts</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">onselect</span><span class="p">(</span><span class="n">verts</span><span class="p">,</span> <span class="n">handles</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_on_scroll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">delta</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">step</span>
+        <span class="c1"># if event.button == &#39;down&#39;:</span>
+        <span class="c1">#     delta = -delta</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span> <span class="o">+=</span> <span class="n">delta</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ghostPatch</span><span class="o">.</span><span class="n">set_width</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ghostPatch</span><span class="o">.</span><span class="n">set_height</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sideLength</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axMan</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Nick Anthony
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

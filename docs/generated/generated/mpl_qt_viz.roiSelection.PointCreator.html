@@ -1,0 +1,352 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mpl_qt_viz.roiSelection.PointCreator &mdash; mpl_qt_viz 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="mpl_qt_viz.roiSelection.FullImPaintCreator" href="mpl_qt_viz.roiSelection.FullImPaintCreator.html" />
+    <link rel="prev" title="mpl_qt_viz.roiSelection.RegionalPaintCreator" href="mpl_qt_viz.roiSelection.RegionalPaintCreator.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mpl_qt_viz
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../mpl_qt_viz.roiSelection.html">mpl_qt_viz.roiSelection</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../mpl_qt_viz.roiSelection.html#roi-creators">ROI Creators</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="mpl_qt_viz.roiSelection.EllipseCreator.html">mpl_qt_viz.roiSelection.EllipseCreator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mpl_qt_viz.roiSelection.LassoCreator.html">mpl_qt_viz.roiSelection.LassoCreator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mpl_qt_viz.roiSelection.RegionalPaintCreator.html">mpl_qt_viz.roiSelection.RegionalPaintCreator</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">mpl_qt_viz.roiSelection.PointCreator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mpl_qt_viz.roiSelection.FullImPaintCreator.html">mpl_qt_viz.roiSelection.FullImPaintCreator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mpl_qt_viz.roiSelection.WaterShedPaintCreator.html">mpl_qt_viz.roiSelection.WaterShedPaintCreator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../mpl_qt_viz.roiSelection.html#utility">Utility</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../mpl_qt_viz.visualizers.html">mpl_qt_viz.visualizers</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mpl_qt_viz</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../mpl_qt_viz.roiSelection.html">mpl_qt_viz.roiSelection</a> &raquo;</li>
+        
+      <li>mpl_qt_viz.roiSelection.PointCreator</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/generated/generated/mpl_qt_viz.roiSelection.PointCreator.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="mpl-qt-viz-roiselection-pointcreator">
+<h1>mpl_qt_viz.roiSelection.PointCreator<a class="headerlink" href="#mpl-qt-viz-roiselection-pointcreator" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="mpl_qt_viz.roiSelection.PointCreator">
+<em class="property">class </em><code class="sig-prename descclassname">mpl_qt_viz.roiSelection.</code><code class="sig-name descname">PointCreator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">axMan</span></em>, <em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">onselect</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sideLength</span><span class="o">=</span><span class="default_value">3</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mpl_qt_viz/roiSelection/_creatorWidgets/point.html#PointCreator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">mpl_qt_viz.roiSelection._creatorWidgets._base.CreatorWidgetBase</span></code></p>
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.active">
+<em class="property">property </em><code class="sig-name descname">active</code><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.active" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the widget active?</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.addArtist">
+<code class="sig-name descname">addArtist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">artist</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.addArtist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a matplotlib artist to be managed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.connect_event">
+<code class="sig-name descname">connect_event</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em>, <em class="sig-param"><span class="n">callback</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.connect_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect callback with an event.</p>
+<p>This should be used in lieu of <code class="docutils literal notranslate"><span class="pre">figure.canvas.mpl_connect</span></code> since this
+function stores callback ids for later clean up.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.disconnect_events">
+<code class="sig-name descname">disconnect_events</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.disconnect_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnect all events created by this widget.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.getHelpText">
+<em class="property">static </em><code class="sig-name descname">getHelpText</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mpl_qt_viz/roiSelection/_creatorWidgets/point.html#PointCreator.getHelpText"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.getHelpText" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a description of the selector which can be used as a tooltip.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.get_active">
+<code class="sig-name descname">get_active</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.get_active" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get whether the widget is active.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.ignore">
+<code class="sig-name descname">ignore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.ignore" title="Permalink to this definition">¶</a></dt>
+<dd><p>return <em>True</em> if <em>event</em> should be ignored. No event callbacks will be called if this returns true.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.on_key_press">
+<code class="sig-name descname">on_key_press</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.on_key_press" title="Permalink to this definition">¶</a></dt>
+<dd><p>Key press event handler and validator for all selection widgets</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.on_key_release">
+<code class="sig-name descname">on_key_release</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.on_key_release" title="Permalink to this definition">¶</a></dt>
+<dd><p>Key release event handler and validator</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.on_scroll">
+<code class="sig-name descname">on_scroll</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.on_scroll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mouse scroll event handler and validator</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.onmove">
+<code class="sig-name descname">onmove</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.onmove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cursor move event handler and validator</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.onselect">
+<code class="sig-name descname">onselect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">verts</span></em>, <em class="sig-param"><span class="n">handles</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.onselect" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method should be called when the interaction is done to execute whatever finalization function was specified
+in the constructor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>verts</strong> (<em>PolygonCoords</em>) – A sequence of 2-tuple coordinates that fully define the polygon.</p></li>
+<li><p><strong>handles</strong> (<em>PolygonCoords</em>) – A reduced sequence of coordinates that define special points onthe shape to potentially be used as draggable handles for a modifier.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.press">
+<code class="sig-name descname">press</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.press" title="Permalink to this definition">¶</a></dt>
+<dd><p>Button press handler and validator</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.release">
+<code class="sig-name descname">release</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.release" title="Permalink to this definition">¶</a></dt>
+<dd><p>Button release event handler and validator</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.removeArtists">
+<code class="sig-name descname">removeArtists</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.removeArtists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all artist objects associated with this selector</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mpl_qt_viz/roiSelection/_creatorWidgets/point.html#PointCreator.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the state of the selector so it’s ready for a new selection.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.setArtistVisible">
+<code class="sig-name descname">setArtistVisible</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">artist</span></em>, <em class="sig-param"><span class="n">visible</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.setArtistVisible" title="Permalink to this definition">¶</a></dt>
+<dd><p>set visibility of a single artist, invisible artists will not be reenabled with <cite>set_visible</cite> True.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.set_active">
+<code class="sig-name descname">set_active</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">active</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.set_active" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set whether the widget is active.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PointCreator.set_visible">
+<code class="sig-name descname">set_visible</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">visible</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PointCreator.set_visible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the visibility of our artists</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mpl_qt_viz.roiSelection.FullImPaintCreator.html" class="btn btn-neutral float-right" title="mpl_qt_viz.roiSelection.FullImPaintCreator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mpl_qt_viz.roiSelection.RegionalPaintCreator.html" class="btn btn-neutral float-left" title="mpl_qt_viz.roiSelection.RegionalPaintCreator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Nick Anthony
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

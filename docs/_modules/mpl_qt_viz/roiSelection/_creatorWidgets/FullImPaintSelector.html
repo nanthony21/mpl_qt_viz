@@ -1,0 +1,429 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mpl_qt_viz.roiSelection._creatorWidgets.FullImPaintSelector &mdash; mpl_qt_viz 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> mpl_qt_viz
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../generated/mpl_qt_viz.roiSelection.html">mpl_qt_viz.roiSelection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../generated/mpl_qt_viz.visualizers.html">mpl_qt_viz.visualizers</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">mpl_qt_viz</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>mpl_qt_viz.roiSelection._creatorWidgets.FullImPaintSelector</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for mpl_qt_viz.roiSelection._creatorWidgets.FullImPaintSelector</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2018-2021 Nick Anthony, Backman Biophotonics Lab, Northwestern University</span>
+<span class="c1">#</span>
+<span class="c1"># This file is part of mpl_qt_viz.</span>
+<span class="c1">#</span>
+<span class="c1"># mpl_qt_viz is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># mpl_qt_viz is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with mpl_qt_viz.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtCore</span> <span class="kn">import</span> <span class="n">QPoint</span>
+<span class="kn">from</span> <span class="nn">PyQt5.QtWidgets</span> <span class="kn">import</span> <span class="n">QDialog</span><span class="p">,</span> <span class="n">QWidget</span><span class="p">,</span> <span class="n">QPushButton</span><span class="p">,</span> <span class="n">QFormLayout</span>
+<span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
+<span class="kn">from</span> <span class="nn">matplotlib.image</span> <span class="kn">import</span> <span class="n">AxesImage</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Polygon</span> <span class="k">as</span> <span class="n">shapelyPolygon</span><span class="p">,</span> <span class="n">LinearRing</span><span class="p">,</span> <span class="n">MultiPolygon</span>
+<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Polygon</span>
+<span class="kn">from</span> <span class="nn">mpl_qt_viz.roiSelection._creatorWidgets._sharedWidgets</span> <span class="kn">import</span> <span class="n">LabeledSlider</span>
+<span class="kn">from</span> <span class="nn">._segmentation</span> <span class="kn">import</span> <span class="n">segmentAdaptive</span>
+<span class="kn">from</span> <span class="nn">mpl_qt_viz.roiSelection._creatorWidgets._base</span> <span class="kn">import</span> <span class="n">CreatorWidgetBase</span>
+
+<span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">mpl_qt_viz.roiSelection</span> <span class="kn">import</span> <span class="n">AxManager</span>
+
+
+<div class="viewcode-block" id="FullImPaintCreator"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.FullImPaintCreator.html#mpl_qt_viz.roiSelection.FullImPaintCreator">[docs]</a><span class="k">class</span> <span class="nc">FullImPaintCreator</span><span class="p">(</span><span class="n">CreatorWidgetBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Uses adaptive thresholding in an attempt to highlight all bright selectable regions in a fluorescence image.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        axMan: The manager for a matplotlib `Axes` that you want to interact with.</span>
+<span class="sd">        im: A reference to a matplotlib `AxesImage`. The data from this object is used to detect bright regions.</span>
+<span class="sd">        onselect: A callback that will be called when the user hits &#39;enter&#39;. Should have signature (polygonCoords, sparseHandleCoords).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axMan</span><span class="p">:</span> <span class="n">AxManager</span><span class="p">,</span> <span class="n">im</span><span class="p">:</span> <span class="n">AxesImage</span><span class="p">,</span> <span class="n">onselect</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">axMan</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">onselect</span><span class="o">=</span><span class="n">onselect</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span> <span class="o">=</span> <span class="n">AdaptivePaintDialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cachedRegions</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># We cache the detected polygons. No need to redetect if nothing has changed between selections.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cachedImage</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># We cache a reference to the image data as a way of detecting when the image data has changed.</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_checkImageChangeTimer</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QTimer</span><span class="p">()</span>  <span class="c1"># This timer checks if the image data has been changed. If it has then redetect regions.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_checkImageChangeTimer</span><span class="o">.</span><span class="n">setInterval</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_checkImageChangeTimer</span><span class="o">.</span><span class="n">setSingleShot</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_checkImageChangeTimer</span><span class="o">.</span><span class="n">timeout</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">paint</span><span class="p">(</span><span class="n">forceRedraw</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_checkImageChangeTimer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_checkImageChangeTimer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+<div class="viewcode-block" id="FullImPaintCreator.getHelpText"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.FullImPaintCreator.html#mpl_qt_viz.roiSelection.FullImPaintCreator.getHelpText">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">getHelpText</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s2">&quot;Segment a full image using opencv thresholding techniques.&quot;</span></div>
+
+<div class="viewcode-block" id="FullImPaintCreator.reset"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.FullImPaintCreator.html#mpl_qt_viz.roiSelection.FullImPaintCreator.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reset the state of the selector so it&#39;s ready for a new selection.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">removeArtists</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="FullImPaintCreator.set_active"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.FullImPaintCreator.html#mpl_qt_viz.roiSelection.FullImPaintCreator.set_active">[docs]</a>    <span class="k">def</span> <span class="nf">set_active</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">active</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="n">active</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">active</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="c1"># Move dialog to the side</span>
+            <span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+            <span class="n">parentRect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+            <span class="n">rect</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">mapToGlobal</span><span class="p">(</span><span class="n">QPoint</span><span class="p">(</span><span class="n">parentRect</span><span class="o">.</span><span class="n">x</span><span class="p">()</span> <span class="o">-</span> <span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="p">(),</span> <span class="n">parentRect</span><span class="o">.</span><span class="n">y</span><span class="p">())))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">paint</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_drawRois</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">polys</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">shapelyPolygon</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;Convert a list of shapely `Polygon` objects into matplotlib `Polygon`s and display them.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cachedRegions</span> <span class="o">=</span> <span class="n">polys</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">polys</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.3</span>
+            <span class="n">colorCycler</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)])</span>
+            <span class="k">for</span> <span class="n">poly</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">polys</span><span class="p">,</span> <span class="n">colorCycler</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">MultiPolygon</span><span class="p">):</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;FullImPaintSelector.drawRois tried to draw a polygon of a shapely.MultiPolygon object.&quot;</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">coords</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">],</span> <span class="n">animated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">addArtist</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">axMan</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_press</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;If a displayed polygon is clicked on then execute the `onselect` callback.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">onselect</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Left Click</span>
+            <span class="n">coord</span> <span class="o">=</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">xdata</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">ydata</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">artist</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_artists</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">artist</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">artist</span><span class="o">.</span><span class="n">get_path</span><span class="p">()</span><span class="o">.</span><span class="n">contains_point</span><span class="p">(</span><span class="n">coord</span><span class="p">):</span>
+                    <span class="n">l</span> <span class="o">=</span> <span class="n">shapelyPolygon</span><span class="p">(</span><span class="n">LinearRing</span><span class="p">(</span><span class="n">artist</span><span class="o">.</span><span class="n">xy</span><span class="p">))</span>
+                    <span class="n">l</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">l</span><span class="o">.</span><span class="n">length</span> <span class="o">/</span> <span class="mf">2e2</span><span class="p">,</span> <span class="n">preserve_topology</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">MultiPolygon</span><span class="p">):</span>  <span class="c1"># There is a chance for this to convert a Polygon to a Multipolygon.</span>
+                        <span class="n">l</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">area</span><span class="p">)</span>  <span class="c1"># To fix this we extract the largest polygon from the multipolygon</span>
+                    <span class="n">handles</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">coords</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">onselect</span><span class="p">(</span><span class="n">artist</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span> <span class="n">handles</span><span class="p">)</span>
+                    <span class="k">break</span>
+
+<div class="viewcode-block" id="FullImPaintCreator.paint"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.FullImPaintCreator.html#mpl_qt_viz.roiSelection.FullImPaintCreator.paint">[docs]</a>    <span class="k">def</span> <span class="nf">paint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">forceRedraw</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Refresh the detected regions.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            forceRedraw: If `True` then polygons will be cleared and redrawn even if we don&#39;t detect that our status is `stale`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">stale</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_array</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cachedImage</span><span class="p">:</span>  <span class="c1"># The image has been changed.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cachedImage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_array</span><span class="p">()</span>
+            <span class="n">stale</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">isStale</span><span class="p">():</span>
+            <span class="n">stale</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">stale</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">polys</span> <span class="o">=</span> <span class="n">segmentAdaptive</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_array</span><span class="p">(),</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">dlg</span><span class="o">.</span><span class="n">getSettings</span><span class="p">())</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;adaptive segmentation failed with error:&quot;</span><span class="p">)</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="k">return</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">forceRedraw</span><span class="p">:</span>
+                <span class="n">polys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cachedRegions</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_drawRois</span><span class="p">(</span><span class="n">polys</span><span class="p">)</span></div></div>
+
+
+<span class="k">class</span> <span class="nc">AdaptivePaintDialog</span><span class="p">(</span><span class="n">QDialog</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The dialog used by the FullImPaintSelector. Can adjust detection parameters.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        parentSelector: A reference the the `FullImPaintSelector` that is being used with this dialog.</span>
+<span class="sd">        parent: A QWidget to serve as the Qt parent for this QWidget.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parentSelector</span><span class="p">:</span> <span class="n">FullImPaintCreator</span><span class="p">,</span> <span class="n">parent</span><span class="p">:</span> <span class="n">QWidget</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowFlags</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Window</span> <span class="o">|</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">WindowTitleHint</span> <span class="o">|</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">CustomizeWindowHint</span><span class="p">)</span> <span class="c1">#Get rid of the close button. this is handled by the selector widget active status</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parentSelector</span> <span class="o">=</span> <span class="n">parentSelector</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Adaptive Painter&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stale</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># Keeps track of if the settings have changed.</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paintDebounce</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QTimer</span><span class="p">()</span>  <span class="c1"># This timer prevents the selectionChanged signal from firing too rapidly.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paintDebounce</span><span class="o">.</span><span class="n">setInterval</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paintDebounce</span><span class="o">.</span><span class="n">setSingleShot</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paintDebounce</span><span class="o">.</span><span class="n">timeout</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parentSelector</span><span class="o">.</span><span class="n">paint</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">_valChanged</span><span class="p">():</span>
+            <span class="sd">&quot;&quot;&quot;When a setting is changed it should call this to schedule a repaint.&quot;&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stale</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_paintDebounce</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+        <span class="n">maxImSize</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">parentSelector</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_array</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">adptRangeSlider</span> <span class="o">=</span> <span class="n">LabeledSlider</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">maxImSize</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">551</span><span class="p">)</span> <span class="c1"># This must always have an odd value or opencv will have an error.</span>
+        <span class="c1">#TODO recommend value based on expected pixel size of a nucleus. need to access metadata.</span>
+
+        <span class="k">def</span> <span class="nf">adptRangeChanged</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+            <span class="n">_valChanged</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">adptRangeSlider</span><span class="o">.</span><span class="n">value</span><span class="p">()</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">adptRangeSlider</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">adptRangeSlider</span><span class="o">.</span><span class="n">value</span><span class="p">()</span><span class="o">//</span><span class="mi">2</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="c1">#This shouldn&#39;t ever happen. but it sometimes does anyway. make sure that adptRangeSlider is an odd number</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">adptRangeSlider</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">adptRangeChanged</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">subSlider</span> <span class="o">=</span> <span class="n">LabeledSlider</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subSlider</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_valChanged</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">erodeSlider</span> <span class="o">=</span> <span class="n">LabeledSlider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">erodeChanged</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+            <span class="n">_valChanged</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dilateSlider</span><span class="o">.</span><span class="n">setMaximum</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">erodeSlider</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">erodeChanged</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dilateSlider</span> <span class="o">=</span> <span class="n">LabeledSlider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">erodeSlider</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dilateSlider</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_valChanged</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">simplificationSlider</span> <span class="o">=</span> <span class="n">LabeledSlider</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simplificationSlider</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_valChanged</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">minAreaSlider</span> <span class="o">=</span> <span class="n">LabeledSlider</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minAreaSlider</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">_valChanged</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">refreshButton</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Refresh&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">refreshAction</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stale</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># Force a full refresh</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parentSelector</span><span class="o">.</span><span class="n">paint</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">refreshButton</span><span class="o">.</span><span class="n">released</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">refreshAction</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">adptRangeSlider</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;The image is adaptively thresholded by comparing each pixel value to the average pixel value of gaussian window around the pixel. This value determines how large the area that is averaged will be. Lower values cause the threshold to adapt more quickly.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">subSlider</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;This offset is passed to `cv2.adaptiveThreshold` and sets the threshold the segmentation process&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">erodeSlider</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;The number of pixels that the polygons should be eroded by. Combining this with dilation can help to close gaps.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dilateSlider</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;The number of pixels that the polygons should be dilated by.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">simplificationSlider</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;This parameter will simplify the edges of the detected polygons to remove overly complicated geometry.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">minAreaSlider</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="s2">&quot;Detected regions with a pixel area lower than this value will be discarded.&quot;</span><span class="p">)</span>
+
+        <span class="n">l</span> <span class="o">=</span> <span class="n">QFormLayout</span><span class="p">()</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="s2">&quot;Adaptive Range (px):&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">adptRangeSlider</span><span class="p">)</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="s2">&quot;Threshold Offset:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">subSlider</span><span class="p">)</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="s2">&quot;Erode (px):&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">erodeSlider</span><span class="p">)</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="s2">&quot;Dilate (px):&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dilateSlider</span><span class="p">)</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="s2">&quot;Simplification:&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">simplificationSlider</span><span class="p">)</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="s2">&quot;Minimum Area (px):&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">minAreaSlider</span><span class="p">)</span>
+        <span class="n">l</span><span class="o">.</span><span class="n">addRow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">refreshButton</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">isStale</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns if True if the settings have changed since the last time `getSettings` was called.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stale</span>
+
+    <span class="k">def</span> <span class="nf">getSettings</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stale</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">minArea</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">minAreaSlider</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="n">adaptiveRange</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">adptRangeSlider</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span>
+            <span class="n">thresholdOffset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">subSlider</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="n">polySimplification</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">simplificationSlider</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span>
+            <span class="n">erode</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">erodeSlider</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="n">dilate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dilateSlider</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
+        <span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)))</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="n">FullImPaintCreator</span><span class="p">(</span><span class="n">AxManager</span><span class="p">(</span><span class="n">ax</span><span class="p">),</span> <span class="n">im</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">sel</span><span class="o">.</span><span class="n">set_active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Nick Anthony
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

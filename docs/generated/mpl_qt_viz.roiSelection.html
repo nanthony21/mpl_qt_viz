@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mpl_qt_viz.roiSelection &mdash; mpl_qt_viz 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="mpl_qt_viz.roiSelection.EllipseCreator" href="generated/mpl_qt_viz.roiSelection.EllipseCreator.html" />
+    <link rel="prev" title="mpl_qt_viz" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> mpl_qt_viz
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">mpl_qt_viz.roiSelection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#roi-creators">ROI Creators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.EllipseCreator.html">mpl_qt_viz.roiSelection.EllipseCreator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.LassoCreator.html">mpl_qt_viz.roiSelection.LassoCreator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.RegionalPaintCreator.html">mpl_qt_viz.roiSelection.RegionalPaintCreator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.PointCreator.html">mpl_qt_viz.roiSelection.PointCreator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.FullImPaintCreator.html">mpl_qt_viz.roiSelection.FullImPaintCreator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.WaterShedPaintCreator.html">mpl_qt_viz.roiSelection.WaterShedPaintCreator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#utility">Utility</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.AdjustableSelector.html">mpl_qt_viz.roiSelection.AdjustableSelector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.PolygonModifier.html">mpl_qt_viz.roiSelection.PolygonModifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.AxManager.html">mpl_qt_viz.roiSelection.AxManager</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mpl_qt_viz.visualizers.html">mpl_qt_viz.visualizers</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">mpl_qt_viz</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>mpl_qt_viz.roiSelection</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/mpl_qt_viz.roiSelection.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-mpl_qt_viz.roiSelection">
+<span id="mpl-qt-viz-roiselection"></span><h1>mpl_qt_viz.roiSelection<a class="headerlink" href="#module-mpl_qt_viz.roiSelection" title="Permalink to this headline">¶</a></h1>
+<p>Useful classes for interacting with Matplotlib plots. Mostly for the purpose of drawing ROIs.</p>
+<div class="section" id="roi-creators">
+<h2>ROI Creators<a class="headerlink" href="#roi-creators" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.EllipseCreator.html#mpl_qt_viz.roiSelection.EllipseCreator" title="mpl_qt_viz.roiSelection.EllipseCreator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EllipseCreator</span></code></a>(axMan, image[, onselect])</p></td>
+<td><p>Allows the user to select an elliptical region.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.LassoCreator.html#mpl_qt_viz.roiSelection.LassoCreator" title="mpl_qt_viz.roiSelection.LassoCreator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LassoCreator</span></code></a>(axMan, image[, onselect])</p></td>
+<td><p>Allows the user to select a region with freehand drawing.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.RegionalPaintCreator.html#mpl_qt_viz.roiSelection.RegionalPaintCreator" title="mpl_qt_viz.roiSelection.RegionalPaintCreator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RegionalPaintCreator</span></code></a>(axMan, im[, onselect])</p></td>
+<td><p>A widget allowing the user to select a rectangular region with a bright region in it such as a fluorescent nucleus.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.PointCreator.html#mpl_qt_viz.roiSelection.PointCreator" title="mpl_qt_viz.roiSelection.PointCreator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PointCreator</span></code></a>(axMan, image[, onselect, …])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.FullImPaintCreator.html#mpl_qt_viz.roiSelection.FullImPaintCreator" title="mpl_qt_viz.roiSelection.FullImPaintCreator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FullImPaintCreator</span></code></a>(axMan, im[, onselect])</p></td>
+<td><p>Uses adaptive thresholding in an attempt to highlight all bright selectable regions in a fluorescence image.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.WaterShedPaintCreator.html#mpl_qt_viz.roiSelection.WaterShedPaintCreator" title="mpl_qt_viz.roiSelection.WaterShedPaintCreator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WaterShedPaintCreator</span></code></a>(axMan, im[, onselect])</p></td>
+<td><p>Uses Watershed technique in an attempt to highlight all bright selectable regions in a fluorescence image.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="utility">
+<h2>Utility<a class="headerlink" href="#utility" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.AdjustableSelector.html#mpl_qt_viz.roiSelection.AdjustableSelector" title="mpl_qt_viz.roiSelection.AdjustableSelector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AdjustableSelector</span></code></a>(axManager, image, …[, …])</p></td>
+<td><p>This class manages an roi selector.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.PolygonModifier.html#mpl_qt_viz.roiSelection.PolygonModifier" title="mpl_qt_viz.roiSelection.PolygonModifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PolygonModifier</span></code></a>(axMan[, onselect, onCancelled])</p></td>
+<td><p>A polygon editor. <a class="reference external" href="https://matplotlib.org/gallery/event_handling/poly_editor.html">https://matplotlib.org/gallery/event_handling/poly_editor.html</a> Key-bindings:     ‘d’ delete the vertex under point     ‘i’ insert a vertex at point. You must be within epsilon of the         line connecting two existing vertices.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/mpl_qt_viz.roiSelection.AxManager.html#mpl_qt_viz.roiSelection.AxManager" title="mpl_qt_viz.roiSelection.AxManager"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AxManager</span></code></a>(ax)</p></td>
+<td><p>An object to manage multiple selector tools on a single axes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="generated/mpl_qt_viz.roiSelection.EllipseCreator.html" class="btn btn-neutral float-right" title="mpl_qt_viz.roiSelection.EllipseCreator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../index.html" class="btn btn-neutral float-left" title="mpl_qt_viz" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Nick Anthony
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

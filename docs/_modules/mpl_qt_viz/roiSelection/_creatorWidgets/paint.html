@@ -1,0 +1,322 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mpl_qt_viz.roiSelection._creatorWidgets.paint &mdash; mpl_qt_viz 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> mpl_qt_viz
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../generated/mpl_qt_viz.roiSelection.html">mpl_qt_viz.roiSelection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../generated/mpl_qt_viz.visualizers.html">mpl_qt_viz.visualizers</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">mpl_qt_viz</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>mpl_qt_viz.roiSelection._creatorWidgets.paint</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for mpl_qt_viz.roiSelection._creatorWidgets.paint</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2018-2021 Nick Anthony, Backman Biophotonics Lab, Northwestern University</span>
+<span class="c1">#</span>
+<span class="c1"># This file is part of mpl_qt_viz.</span>
+<span class="c1">#</span>
+<span class="c1"># mpl_qt_viz is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># mpl_qt_viz is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with mpl_qt_viz.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span> <span class="nn">typing</span>
+<span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
+<span class="kn">from</span> <span class="nn">matplotlib.image</span> <span class="kn">import</span> <span class="n">AxesImage</span>
+<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Rectangle</span><span class="p">,</span> <span class="n">Polygon</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Polygon</span> <span class="k">as</span> <span class="n">shapelyPolygon</span><span class="p">,</span> <span class="n">LinearRing</span><span class="p">,</span> <span class="n">MultiPolygon</span>
+<span class="kn">import</span> <span class="nn">shapely</span>
+<span class="kn">from</span> <span class="nn">._segmentation</span> <span class="kn">import</span> <span class="n">segmentOtsu</span>
+<span class="kn">from</span> <span class="nn">._base</span> <span class="kn">import</span> <span class="n">CreatorWidgetBase</span>
+
+<span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">mpl_qt_viz.roiSelection</span> <span class="kn">import</span> <span class="n">AxManager</span>
+
+
+<div class="viewcode-block" id="RegionalPaintCreator"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.RegionalPaintCreator.html#mpl_qt_viz.roiSelection.RegionalPaintCreator">[docs]</a><span class="k">class</span> <span class="nc">RegionalPaintCreator</span><span class="p">(</span><span class="n">CreatorWidgetBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A widget allowing the user to select a rectangular region with a bright region in it such as a fluorescent</span>
+<span class="sd">    nucleus. Otsu thresholding will then be used to draw an ROI on the bright region.</span>
+
+<span class="sd">     Args:</span>
+<span class="sd">        axMan: A reference to the `AxManager` object used to manage drawing the matplotlib `Axes` that this selector widget is active on.</span>
+<span class="sd">        image: A reference to a matplotlib `AxesImage`. Selectors may use this reference to get information such as data values from the image</span>
+<span class="sd">            for computer vision related tasks.</span>
+<span class="sd">        onselect: A callback function that will be called when the selector finishes a selection.</span>
+
+<span class="sd">     &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axMan</span><span class="p">:</span> <span class="n">AxManager</span><span class="p">,</span> <span class="n">im</span><span class="p">:</span> <span class="n">AxesImage</span><span class="p">,</span> <span class="n">onselect</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">axMan</span><span class="p">,</span> <span class="n">im</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">onselect</span> <span class="o">=</span> <span class="n">onselect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">started</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selectionTime</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contours</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="n">Rectangle</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">),</span> <span class="n">edgecolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),</span> <span class="n">animated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">addArtist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">box</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RegionalPaintCreator.getHelpText"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.RegionalPaintCreator.html#mpl_qt_viz.roiSelection.RegionalPaintCreator.getHelpText">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">getHelpText</span><span class="p">():</span>
+        <span class="k">return</span> <span class="s2">&quot;Click and drag to select a rectangular region to search for objects. Then click the object you would like to select.&quot;</span></div>
+
+<div class="viewcode-block" id="RegionalPaintCreator.reset"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.RegionalPaintCreator.html#mpl_qt_viz.roiSelection.RegionalPaintCreator.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Reset the state of the selector so it&#39;s ready for a new selection.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">started</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">removeArtist</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">contours</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contours</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selectionTime</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="RegionalPaintCreator.findContours"><a class="viewcode-back" href="../../../../generated/generated/mpl_qt_viz.roiSelection.RegionalPaintCreator.html#mpl_qt_viz.roiSelection.RegionalPaintCreator.findContours">[docs]</a>    <span class="k">def</span> <span class="nf">findContours</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rect</span><span class="p">:</span> <span class="n">Rectangle</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Detect bright regions within the specified rectangle and draw them.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            rect: A matplotlib `Rectangle` used to specify the search region of the image for bright regions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">xy</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">rect</span><span class="o">.</span><span class="n">get_width</span><span class="p">())</span>
+        <span class="n">y2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">rect</span><span class="o">.</span><span class="n">get_height</span><span class="p">())</span>
+        <span class="n">xslice</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">x2</span> <span class="o">&gt;</span> <span class="n">x</span> <span class="k">else</span> <span class="nb">slice</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">yslice</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y2</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">y2</span> <span class="o">&gt;</span> <span class="n">y</span> <span class="k">else</span> <span class="nb">slice</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">get_array</span><span class="p">()[(</span><span class="n">yslice</span><span class="p">,</span> <span class="n">xslice</span><span class="p">)]</span>
+        <span class="n">polys</span> <span class="o">=</span> <span class="n">segmentOtsu</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">polys</span><span class="p">)):</span>
+            <span class="n">polys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">shapely</span><span class="o">.</span><span class="n">affinity</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">polys</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">xslice</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">yslice</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>  <span class="c1"># Apply offset so that coordinates are globally correct.</span>
+            <span class="n">polys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">polys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># Simplify the polygon a little bit for much faster saving.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_drawRois</span><span class="p">(</span><span class="n">polys</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_drawRois</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">polys</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">[</span><span class="n">shapelyPolygon</span><span class="p">]):</span>
+        <span class="sd">&quot;&quot;&quot;Draw ROIs detected by `findContours.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">polys</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.3</span>
+            <span class="n">colorCycler</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)])</span>
+            <span class="k">for</span> <span class="n">poly</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">polys</span><span class="p">,</span> <span class="n">colorCycler</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">MultiPolygon</span><span class="p">):</span>  <span class="c1"># There is a chance for this a Multipolygon rather than just a Polygon.</span>
+                    <span class="n">poly</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">poly</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">area</span><span class="p">)</span>  <span class="c1"># To fix this we extract the largest polygon from the multipolygon</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">Polygon</span><span class="p">(</span><span class="n">poly</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">coords</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">],</span> <span class="n">animated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">addArtist</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">contours</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">axMan</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_press</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># Left Click</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">started</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectionTime</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">started</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">box</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">box</span><span class="o">.</span><span class="n">set_xy</span><span class="p">((</span><span class="n">event</span><span class="o">.</span><span class="n">xdata</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">ydata</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectionTime</span><span class="p">:</span>
+                <span class="n">coord</span> <span class="o">=</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">xdata</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">ydata</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">artist</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">contours</span><span class="p">:</span>
+                    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">artist</span><span class="p">,</span> <span class="n">Polygon</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">artist</span><span class="o">.</span><span class="n">get_path</span><span class="p">()</span><span class="o">.</span><span class="n">contains_point</span><span class="p">(</span><span class="n">coord</span><span class="p">):</span>
+                        <span class="n">l</span> <span class="o">=</span> <span class="n">shapelyPolygon</span><span class="p">(</span><span class="n">LinearRing</span><span class="p">(</span><span class="n">artist</span><span class="o">.</span><span class="n">xy</span><span class="p">))</span>
+                        <span class="n">l</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">l</span><span class="o">.</span><span class="n">length</span> <span class="o">/</span> <span class="mi">100</span><span class="p">,</span> <span class="n">preserve_topology</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">MultiPolygon</span><span class="p">):</span><span class="c1"># There is a chance for this to convert a Polygon to a Multipolygon.</span>
+                            <span class="n">l</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">area</span><span class="p">)</span> <span class="c1">#To fix this we extract the largest polygon from the multipolygon</span>
+                        <span class="n">handles</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">exterior</span><span class="o">.</span><span class="n">coords</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">onselect</span><span class="p">(</span><span class="n">artist</span><span class="o">.</span><span class="n">xy</span><span class="p">,</span> <span class="n">handles</span><span class="p">)</span>
+                        <span class="k">break</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_ondrag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">started</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">box</span><span class="o">.</span><span class="n">xy</span>
+            <span class="n">dx</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">xdata</span> <span class="o">-</span> <span class="n">x</span>
+            <span class="n">dy</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">ydata</span> <span class="o">-</span> <span class="n">y</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">box</span><span class="o">.</span><span class="n">set_width</span><span class="p">(</span><span class="n">dx</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">box</span><span class="o">.</span><span class="n">set_height</span><span class="p">(</span><span class="n">dy</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">axMan</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_release</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">started</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">findContours</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">box</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selectionTime</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">started</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Nick Anthony
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

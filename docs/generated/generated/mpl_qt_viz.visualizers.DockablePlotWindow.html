@@ -1,0 +1,1897 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mpl_qt_viz.visualizers.DockablePlotWindow &mdash; mpl_qt_viz 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="mpl_qt_viz.visualizers.PlotNdCanvas" href="mpl_qt_viz.visualizers.PlotNdCanvas.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mpl_qt_viz
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../mpl_qt_viz.roiSelection.html">mpl_qt_viz.roiSelection</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../mpl_qt_viz.visualizers.html">mpl_qt_viz.visualizers</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../mpl_qt_viz.visualizers.html#classes">Classes</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="mpl_qt_viz.visualizers.MultiPlot.html">mpl_qt_viz.visualizers.MultiPlot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mpl_qt_viz.visualizers.PlotNd.html">mpl_qt_viz.visualizers.PlotNd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mpl_qt_viz.visualizers.PlotNdCanvas.html">mpl_qt_viz.visualizers.PlotNdCanvas</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">mpl_qt_viz.visualizers.DockablePlotWindow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mpl_qt_viz</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../mpl_qt_viz.visualizers.html">mpl_qt_viz.visualizers</a> &raquo;</li>
+        
+      <li>mpl_qt_viz.visualizers.DockablePlotWindow</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/generated/generated/mpl_qt_viz.visualizers.DockablePlotWindow.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="mpl-qt-viz-visualizers-dockableplotwindow">
+<h1>mpl_qt_viz.visualizers.DockablePlotWindow<a class="headerlink" href="#mpl-qt-viz-visualizers-dockableplotwindow" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow">
+<em class="property">class </em><code class="sig-prename descclassname">mpl_qt_viz.visualizers.</code><code class="sig-name descname">DockablePlotWindow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">'Dockable Plots'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mpl_qt_viz/visualizers/_dockPlot.html#DockablePlotWindow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QMainWindow</span></code></p>
+<dl class="py class">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.DockOption">
+<em class="property">class </em><code class="sig-name descname">DockOption</code><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.DockOption" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.DockOptions">
+<em class="property">class </em><code class="sig-name descname">DockOptions</code><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.DockOptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sip.simplewrapper</span></code></p>
+<p>QMainWindow.DockOptions(Union[QMainWindow.DockOptions, QMainWindow.DockOption])
+QMainWindow.DockOptions(QMainWindow.DockOptions)</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.PaintDeviceMetric">
+<em class="property">class </em><code class="sig-name descname">PaintDeviceMetric</code><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.PaintDeviceMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.RenderFlag">
+<em class="property">class </em><code class="sig-name descname">RenderFlag</code><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.RenderFlag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.RenderFlags">
+<em class="property">class </em><code class="sig-name descname">RenderFlags</code><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.RenderFlags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sip.simplewrapper</span></code></p>
+<p>QWidget.RenderFlags(Union[QWidget.RenderFlags, QWidget.RenderFlag])
+QWidget.RenderFlags(QWidget.RenderFlags)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.acceptDrops">
+<code class="sig-name descname">acceptDrops</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.acceptDrops" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.accessibleDescription">
+<code class="sig-name descname">accessibleDescription</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.accessibleDescription" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.accessibleName">
+<code class="sig-name descname">accessibleName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.accessibleName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.actions">
+<code class="sig-name descname">actions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>QAction<span class="p">]</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.actions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.activateWindow">
+<code class="sig-name descname">activateWindow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.activateWindow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.addAction">
+<code class="sig-name descname">addAction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QAction</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.addAction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.addActions">
+<code class="sig-name descname">addActions</code><span class="sig-paren">(</span><em class="sig-param">self, Iterable[QAction]</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.addActions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.addDockWidget">
+<code class="sig-name descname">addDockWidget</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Qt.DockWidgetArea</em>, <em class="sig-param">QDockWidget</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.addDockWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>addDockWidget(self, Qt.DockWidgetArea, QDockWidget, Qt.Orientation)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.addToolBar">
+<code class="sig-name descname">addToolBar</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Qt.ToolBarArea</em>, <em class="sig-param">QToolBar</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.addToolBar" title="Permalink to this definition">¶</a></dt>
+<dd><p>addToolBar(self, QToolBar)
+addToolBar(self, str) -&gt; QToolBar</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.addToolBarBreak">
+<code class="sig-name descname">addToolBarBreak</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">area</span><span class="p">:</span> <span class="n">Qt.ToolBarArea</span> <span class="o">=</span> <span class="default_value">Qt.TopToolBarArea</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.addToolBarBreak" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.adjustSize">
+<code class="sig-name descname">adjustSize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.adjustSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.autoFillBackground">
+<code class="sig-name descname">autoFillBackground</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.autoFillBackground" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.backgroundRole">
+<code class="sig-name descname">backgroundRole</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QPalette.ColorRole<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.backgroundRole" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.baseSize">
+<code class="sig-name descname">baseSize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.baseSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.blockSignals">
+<code class="sig-name descname">blockSignals</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bool</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.blockSignals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.centralWidget">
+<code class="sig-name descname">centralWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.centralWidget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.childAt">
+<code class="sig-name descname">childAt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QPoint</span></em><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.childAt" title="Permalink to this definition">¶</a></dt>
+<dd><p>childAt(self, int, int) -&gt; QWidget</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.children">
+<code class="sig-name descname">children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>QObject<span class="p">]</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.children" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.childrenRect">
+<code class="sig-name descname">childrenRect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QRect<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.childrenRect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.childrenRegion">
+<code class="sig-name descname">childrenRegion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QRegion<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.childrenRegion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.clearFocus">
+<code class="sig-name descname">clearFocus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.clearFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.clearMask">
+<code class="sig-name descname">clearMask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.clearMask" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.colorCount">
+<code class="sig-name descname">colorCount</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.colorCount" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.contentsMargins">
+<code class="sig-name descname">contentsMargins</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QMargins<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.contentsMargins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.contentsRect">
+<code class="sig-name descname">contentsRect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QRect<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.contentsRect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.contextMenuEvent">
+<code class="sig-name descname">contextMenuEvent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QContextMenuEvent</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.contextMenuEvent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.contextMenuPolicy">
+<code class="sig-name descname">contextMenuPolicy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; Qt.ContextMenuPolicy<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.contextMenuPolicy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.corner">
+<code class="sig-name descname">corner</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Qt.Corner</em><span class="sig-paren">)</span> &#x2192; Qt.DockWidgetArea<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.corner" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.createPopupMenu">
+<code class="sig-name descname">createPopupMenu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QMenu<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.createPopupMenu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.createWindowContainer">
+<code class="sig-name descname">createWindowContainer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">QWindow</span></em>, <em class="sig-param"><span class="n">parent</span><span class="p">:</span> <span class="n">QWidget</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">flags</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>Qt.WindowFlags<span class="p">, </span>Qt.WindowType<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.createWindowContainer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.cursor">
+<code class="sig-name descname">cursor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QCursor<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.cursor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.customContextMenuRequested">
+<code class="sig-name descname">customContextMenuRequested</code><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.customContextMenuRequested" title="Permalink to this definition">¶</a></dt>
+<dd><p>customContextMenuRequested(self, QPoint) [signal]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.deleteLater">
+<code class="sig-name descname">deleteLater</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.deleteLater" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.depth">
+<code class="sig-name descname">depth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.depth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.destroyed">
+<code class="sig-name descname">destroyed</code><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.destroyed" title="Permalink to this definition">¶</a></dt>
+<dd><p>QObject = None) [signal]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>destroyed(self, object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.devType">
+<code class="sig-name descname">devType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.devType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.devicePixelRatio">
+<code class="sig-name descname">devicePixelRatio</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.devicePixelRatio" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.devicePixelRatioF">
+<code class="sig-name descname">devicePixelRatioF</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.devicePixelRatioF" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.devicePixelRatioFScale">
+<code class="sig-name descname">devicePixelRatioFScale</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.devicePixelRatioFScale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.disconnect">
+<code class="sig-name descname">disconnect</code><span class="sig-paren">(</span><em class="sig-param">QMetaObject.Connection</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>disconnect(self)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.dockOptions">
+<code class="sig-name descname">dockOptions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QMainWindow.DockOptions<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.dockOptions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.dockWidgetArea">
+<code class="sig-name descname">dockWidgetArea</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QDockWidget</span></em><span class="sig-paren">)</span> &#x2192; Qt.DockWidgetArea<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.dockWidgetArea" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.documentMode">
+<code class="sig-name descname">documentMode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.documentMode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.dumpObjectInfo">
+<code class="sig-name descname">dumpObjectInfo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.dumpObjectInfo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.dumpObjectTree">
+<code class="sig-name descname">dumpObjectTree</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.dumpObjectTree" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.dynamicPropertyNames">
+<code class="sig-name descname">dynamicPropertyNames</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>QByteArray<span class="p">]</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.dynamicPropertyNames" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.effectiveWinId">
+<code class="sig-name descname">effectiveWinId</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; sip.voidptr<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.effectiveWinId" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.ensurePolished">
+<code class="sig-name descname">ensurePolished</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.ensurePolished" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.event">
+<code class="sig-name descname">event</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QEvent</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.event" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.eventFilter">
+<code class="sig-name descname">eventFilter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QObject</span></em>, <em class="sig-param"><span class="n">QEvent</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.eventFilter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.find">
+<code class="sig-name descname">find</code><span class="sig-paren">(</span><em class="sig-param">sip.voidptr</em><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.find" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.findChild">
+<code class="sig-name descname">findChild</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">type</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">options</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>Qt.FindChildOptions<span class="p">, </span>Qt.FindChildOption<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">Qt.FindChildrenRecursively</span></em><span class="sig-paren">)</span> &#x2192; QObject<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.findChild" title="Permalink to this definition">¶</a></dt>
+<dd><p>findChild(self, Tuple, name: str = ‘’, options: Union[Qt.FindChildOptions, Qt.FindChildOption] = Qt.FindChildrenRecursively) -&gt; QObject</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.findChildren">
+<code class="sig-name descname">findChildren</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">type</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">options</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>Qt.FindChildOptions<span class="p">, </span>Qt.FindChildOption<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">Qt.FindChildrenRecursively</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>QObject<span class="p">]</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.findChildren" title="Permalink to this definition">¶</a></dt>
+<dd><p>findChildren(self, Tuple, name: str = ‘’, options: Union[Qt.FindChildOptions, Qt.FindChildOption] = Qt.FindChildrenRecursively) -&gt; List[QObject]
+findChildren(self, type, QRegExp, options: Union[Qt.FindChildOptions, Qt.FindChildOption] = Qt.FindChildrenRecursively) -&gt; List[QObject]
+findChildren(self, Tuple, QRegExp, options: Union[Qt.FindChildOptions, Qt.FindChildOption] = Qt.FindChildrenRecursively) -&gt; List[QObject]
+findChildren(self, type, QRegularExpression, options: Union[Qt.FindChildOptions, Qt.FindChildOption] = Qt.FindChildrenRecursively) -&gt; List[QObject]
+findChildren(self, Tuple, QRegularExpression, options: Union[Qt.FindChildOptions, Qt.FindChildOption] = Qt.FindChildrenRecursively) -&gt; List[QObject]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.focusPolicy">
+<code class="sig-name descname">focusPolicy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; Qt.FocusPolicy<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.focusPolicy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.focusProxy">
+<code class="sig-name descname">focusProxy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.focusProxy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.focusWidget">
+<code class="sig-name descname">focusWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.focusWidget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.font">
+<code class="sig-name descname">font</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QFont<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.font" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.fontInfo">
+<code class="sig-name descname">fontInfo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QFontInfo<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.fontInfo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.fontMetrics">
+<code class="sig-name descname">fontMetrics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QFontMetrics<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.fontMetrics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.foregroundRole">
+<code class="sig-name descname">foregroundRole</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QPalette.ColorRole<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.foregroundRole" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.frameGeometry">
+<code class="sig-name descname">frameGeometry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QRect<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.frameGeometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.frameSize">
+<code class="sig-name descname">frameSize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.frameSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.geometry">
+<code class="sig-name descname">geometry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QRect<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.geometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.getContentsMargins">
+<code class="sig-name descname">getContentsMargins</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>int<span class="p">, </span>int<span class="p">, </span>int<span class="p">, </span>int<span class="p">]</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.getContentsMargins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.grab">
+<code class="sig-name descname">grab</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">rectangle</span><span class="p">:</span> <span class="n">QRect</span> <span class="o">=</span> <span class="default_value">QRect(QPoint(0, 0), QSize(- 1, - 1))</span></em><span class="sig-paren">)</span> &#x2192; QPixmap<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.grab" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.grabGesture">
+<code class="sig-name descname">grabGesture</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Qt.GestureType</em>, <em class="sig-param">flags: Union[Qt.GestureFlags</em>, <em class="sig-param">Qt.GestureFlag] = Qt.GestureFlags()</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.grabGesture" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.grabKeyboard">
+<code class="sig-name descname">grabKeyboard</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.grabKeyboard" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.grabMouse">
+<code class="sig-name descname">grabMouse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.grabMouse" title="Permalink to this definition">¶</a></dt>
+<dd><p>grabMouse(self, Union[QCursor, Qt.CursorShape])</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.grabShortcut">
+<code class="sig-name descname">grabShortcut</code><span class="sig-paren">(</span><em class="sig-param">self, Union[QKeySequence, QKeySequence.StandardKey, str, int], context: Qt.ShortcutContext = Qt.WindowShortcut</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.grabShortcut" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.graphicsEffect">
+<code class="sig-name descname">graphicsEffect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QGraphicsEffect<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.graphicsEffect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.graphicsProxyWidget">
+<code class="sig-name descname">graphicsProxyWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QGraphicsProxyWidget<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.graphicsProxyWidget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.hasFocus">
+<code class="sig-name descname">hasFocus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.hasFocus" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.hasHeightForWidth">
+<code class="sig-name descname">hasHeightForWidth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.hasHeightForWidth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.hasMouseTracking">
+<code class="sig-name descname">hasMouseTracking</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.hasMouseTracking" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.hasTabletTracking">
+<code class="sig-name descname">hasTabletTracking</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.hasTabletTracking" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.height">
+<code class="sig-name descname">height</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.heightForWidth">
+<code class="sig-name descname">heightForWidth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.heightForWidth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.heightMM">
+<code class="sig-name descname">heightMM</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.heightMM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.hide">
+<code class="sig-name descname">hide</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.hide" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.iconSize">
+<code class="sig-name descname">iconSize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.iconSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.iconSizeChanged">
+<code class="sig-name descname">iconSizeChanged</code><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.iconSizeChanged" title="Permalink to this definition">¶</a></dt>
+<dd><p>iconSizeChanged(self, QSize) [signal]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.inherits">
+<code class="sig-name descname">inherits</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.inherits" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.inputMethodHints">
+<code class="sig-name descname">inputMethodHints</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; Qt.InputMethodHints<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.inputMethodHints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.inputMethodQuery">
+<code class="sig-name descname">inputMethodQuery</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Qt.InputMethodQuery</em><span class="sig-paren">)</span> &#x2192; Any<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.inputMethodQuery" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">DockablePlotWindow.insertAction(self, QAction, QAction)</code></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.insertActions">
+<code class="sig-name descname">insertActions</code><span class="sig-paren">(</span><em class="sig-param">self, QAction, Iterable[QAction]</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.insertActions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">DockablePlotWindow.insertToolBar(self, QToolBar, QToolBar)</code></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.insertToolBarBreak">
+<code class="sig-name descname">insertToolBarBreak</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QToolBar</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.insertToolBarBreak" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.installEventFilter">
+<code class="sig-name descname">installEventFilter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QObject</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.installEventFilter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isActiveWindow">
+<code class="sig-name descname">isActiveWindow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isActiveWindow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isAncestorOf">
+<code class="sig-name descname">isAncestorOf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QWidget</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isAncestorOf" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isAnimated">
+<code class="sig-name descname">isAnimated</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isAnimated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isDockNestingEnabled">
+<code class="sig-name descname">isDockNestingEnabled</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isDockNestingEnabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isEnabled">
+<code class="sig-name descname">isEnabled</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isEnabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isEnabledTo">
+<code class="sig-name descname">isEnabledTo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QWidget</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isEnabledTo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isFullScreen">
+<code class="sig-name descname">isFullScreen</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isFullScreen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isHidden">
+<code class="sig-name descname">isHidden</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isHidden" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isLeftToRight">
+<code class="sig-name descname">isLeftToRight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isLeftToRight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isMaximized">
+<code class="sig-name descname">isMaximized</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isMaximized" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isMinimized">
+<code class="sig-name descname">isMinimized</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isMinimized" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isModal">
+<code class="sig-name descname">isModal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isModal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isRightToLeft">
+<code class="sig-name descname">isRightToLeft</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isRightToLeft" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isSeparator">
+<code class="sig-name descname">isSeparator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QPoint</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isSeparator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isVisible">
+<code class="sig-name descname">isVisible</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isVisible" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isVisibleTo">
+<code class="sig-name descname">isVisibleTo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QWidget</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isVisibleTo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isWidgetType">
+<code class="sig-name descname">isWidgetType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isWidgetType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isWindow">
+<code class="sig-name descname">isWindow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isWindow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isWindowModified">
+<code class="sig-name descname">isWindowModified</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isWindowModified" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.isWindowType">
+<code class="sig-name descname">isWindowType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.isWindowType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.keyboardGrabber">
+<code class="sig-name descname">keyboardGrabber</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.keyboardGrabber" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.killTimer">
+<code class="sig-name descname">killTimer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.killTimer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.layout">
+<code class="sig-name descname">layout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QLayout<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.layout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.layoutDirection">
+<code class="sig-name descname">layoutDirection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; Qt.LayoutDirection<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.layoutDirection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.locale">
+<code class="sig-name descname">locale</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QLocale<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.locale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.logicalDpiX">
+<code class="sig-name descname">logicalDpiX</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.logicalDpiX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.logicalDpiY">
+<code class="sig-name descname">logicalDpiY</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.logicalDpiY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.lower">
+<code class="sig-name descname">lower</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.lower" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.mapFrom">
+<code class="sig-name descname">mapFrom</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QWidget</span></em>, <em class="sig-param"><span class="n">QPoint</span></em><span class="sig-paren">)</span> &#x2192; QPoint<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.mapFrom" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.mapFromGlobal">
+<code class="sig-name descname">mapFromGlobal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QPoint</span></em><span class="sig-paren">)</span> &#x2192; QPoint<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.mapFromGlobal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.mapFromParent">
+<code class="sig-name descname">mapFromParent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QPoint</span></em><span class="sig-paren">)</span> &#x2192; QPoint<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.mapFromParent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.mapTo">
+<code class="sig-name descname">mapTo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QWidget</span></em>, <em class="sig-param"><span class="n">QPoint</span></em><span class="sig-paren">)</span> &#x2192; QPoint<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.mapTo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.mapToGlobal">
+<code class="sig-name descname">mapToGlobal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QPoint</span></em><span class="sig-paren">)</span> &#x2192; QPoint<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.mapToGlobal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.mapToParent">
+<code class="sig-name descname">mapToParent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QPoint</span></em><span class="sig-paren">)</span> &#x2192; QPoint<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.mapToParent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.mask">
+<code class="sig-name descname">mask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QRegion<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.mask" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.maximumHeight">
+<code class="sig-name descname">maximumHeight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.maximumHeight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.maximumSize">
+<code class="sig-name descname">maximumSize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.maximumSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.maximumWidth">
+<code class="sig-name descname">maximumWidth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.maximumWidth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.menuBar">
+<code class="sig-name descname">menuBar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QMenuBar<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.menuBar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.menuWidget">
+<code class="sig-name descname">menuWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.menuWidget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.metaObject">
+<code class="sig-name descname">metaObject</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QMetaObject<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.metaObject" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.minimumHeight">
+<code class="sig-name descname">minimumHeight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.minimumHeight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.minimumSize">
+<code class="sig-name descname">minimumSize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.minimumSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.minimumSizeHint">
+<code class="sig-name descname">minimumSizeHint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.minimumSizeHint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.minimumWidth">
+<code class="sig-name descname">minimumWidth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.minimumWidth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.mouseGrabber">
+<code class="sig-name descname">mouseGrabber</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.mouseGrabber" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.move">
+<code class="sig-name descname">move</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QPoint</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.move" title="Permalink to this definition">¶</a></dt>
+<dd><p>move(self, int, int)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.moveToThread">
+<code class="sig-name descname">moveToThread</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QThread</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.moveToThread" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.nativeParentWidget">
+<code class="sig-name descname">nativeParentWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.nativeParentWidget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.nextInFocusChain">
+<code class="sig-name descname">nextInFocusChain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.nextInFocusChain" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.normalGeometry">
+<code class="sig-name descname">normalGeometry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QRect<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.normalGeometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.objectName">
+<code class="sig-name descname">objectName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.objectName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.objectNameChanged">
+<code class="sig-name descname">objectNameChanged</code><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.objectNameChanged" title="Permalink to this definition">¶</a></dt>
+<dd><p>objectNameChanged(self, str) [signal]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.overrideWindowFlags">
+<code class="sig-name descname">overrideWindowFlags</code><span class="sig-paren">(</span><em class="sig-param">self, Union[Qt.WindowFlags, Qt.WindowType]</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.overrideWindowFlags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.overrideWindowState">
+<code class="sig-name descname">overrideWindowState</code><span class="sig-paren">(</span><em class="sig-param">self, Union[Qt.WindowStates, Qt.WindowState]</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.overrideWindowState" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.paintEngine">
+<code class="sig-name descname">paintEngine</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QPaintEngine<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.paintEngine" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.paintingActive">
+<code class="sig-name descname">paintingActive</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.paintingActive" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.palette">
+<code class="sig-name descname">palette</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QPalette<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.palette" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.parent">
+<code class="sig-name descname">parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QObject<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.parent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.parentWidget">
+<code class="sig-name descname">parentWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.parentWidget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.physicalDpiX">
+<code class="sig-name descname">physicalDpiX</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.physicalDpiX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.physicalDpiY">
+<code class="sig-name descname">physicalDpiY</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.physicalDpiY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.pos">
+<code class="sig-name descname">pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QPoint<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.pos" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.previousInFocusChain">
+<code class="sig-name descname">previousInFocusChain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.previousInFocusChain" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.property">
+<code class="sig-name descname">property</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.property" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.pyqtConfigure">
+<code class="sig-name descname">pyqtConfigure</code><span class="sig-paren">(</span><em class="sig-param">...</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.pyqtConfigure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Each keyword argument is either the name of a Qt property or a Qt signal.
+For properties the property is set to the given value which should be of an
+appropriate type.
+For signals the signal is connected to the given value which should be a
+callable.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.raise_">
+<code class="sig-name descname">raise_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.raise_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.rect">
+<code class="sig-name descname">rect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QRect<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.rect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.releaseKeyboard">
+<code class="sig-name descname">releaseKeyboard</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.releaseKeyboard" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.releaseMouse">
+<code class="sig-name descname">releaseMouse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.releaseMouse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.releaseShortcut">
+<code class="sig-name descname">releaseShortcut</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.releaseShortcut" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.removeAction">
+<code class="sig-name descname">removeAction</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QAction</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.removeAction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.removeDockWidget">
+<code class="sig-name descname">removeDockWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QDockWidget</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.removeDockWidget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.removeEventFilter">
+<code class="sig-name descname">removeEventFilter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QObject</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.removeEventFilter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.removeToolBar">
+<code class="sig-name descname">removeToolBar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QToolBar</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.removeToolBar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.removeToolBarBreak">
+<code class="sig-name descname">removeToolBarBreak</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QToolBar</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.removeToolBarBreak" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.render">
+<code class="sig-name descname">render</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QPaintDevice</span></em>, <em class="sig-param"><span class="n">targetOffset</span><span class="p">:</span> <span class="n">QPoint</span> <span class="o">=</span> <span class="default_value">QPoint()</span></em>, <em class="sig-param"><span class="n">sourceRegion</span><span class="p">:</span> <span class="n">QRegion</span> <span class="o">=</span> <span class="default_value">QRegion()</span></em>, <em class="sig-param"><span class="n">flags</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>QWidget.RenderFlags<span class="p">, </span>QWidget.RenderFlag<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">QWidget.RenderFlags(QWidget.RenderFlag.DrawWindowBackground | QWidget.RenderFlag.DrawChildren)</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>render(self, QPainter, targetOffset: QPoint = QPoint(), sourceRegion: QRegion = QRegion(), flags: Union[QWidget.RenderFlags, QWidget.RenderFlag] = QWidget.RenderFlags(QWidget.RenderFlag.DrawWindowBackground|QWidget.RenderFlag.DrawChildren))</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.repaint">
+<code class="sig-name descname">repaint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.repaint" title="Permalink to this definition">¶</a></dt>
+<dd><p>repaint(self, int, int, int, int)
+repaint(self, QRect)
+repaint(self, QRegion)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.resize">
+<code class="sig-name descname">resize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QSize</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.resize" title="Permalink to this definition">¶</a></dt>
+<dd><p>resize(self, int, int)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.resizeDocks">
+<code class="sig-name descname">resizeDocks</code><span class="sig-paren">(</span><em class="sig-param">self, Iterable[QDockWidget], Iterable[int], Qt.Orientation</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.resizeDocks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.restoreDockWidget">
+<code class="sig-name descname">restoreDockWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QDockWidget</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.restoreDockWidget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.restoreGeometry">
+<code class="sig-name descname">restoreGeometry</code><span class="sig-paren">(</span><em class="sig-param">self, Union[QByteArray, bytes, bytearray]</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.restoreGeometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.restoreState">
+<code class="sig-name descname">restoreState</code><span class="sig-paren">(</span><em class="sig-param">self, Union[QByteArray, bytes, bytearray], version: int = 0</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.restoreState" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.saveGeometry">
+<code class="sig-name descname">saveGeometry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QByteArray<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.saveGeometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.saveState">
+<code class="sig-name descname">saveState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">version</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; QByteArray<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.saveState" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.screen">
+<code class="sig-name descname">screen</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QScreen<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.screen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">DockablePlotWindow.scroll(self, int, int)</code></dt>
+<dd><p>scroll(self, int, int, QRect)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setAcceptDrops">
+<code class="sig-name descname">setAcceptDrops</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bool</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setAcceptDrops" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setAccessibleDescription">
+<code class="sig-name descname">setAccessibleDescription</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setAccessibleDescription" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setAccessibleName">
+<code class="sig-name descname">setAccessibleName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setAccessibleName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setAnimated">
+<code class="sig-name descname">setAnimated</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bool</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setAnimated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setAttribute">
+<code class="sig-name descname">setAttribute</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Qt.WidgetAttribute</em>, <em class="sig-param">on: bool = True</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setAttribute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setAutoFillBackground">
+<code class="sig-name descname">setAutoFillBackground</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bool</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setAutoFillBackground" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setBackgroundRole">
+<code class="sig-name descname">setBackgroundRole</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">QPalette.ColorRole</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setBackgroundRole" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">DockablePlotWindow.setBaseSize(self, int, int)</code></dt>
+<dd><p>setBaseSize(self, QSize)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setCentralWidget">
+<code class="sig-name descname">setCentralWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QWidget</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setCentralWidget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">DockablePlotWindow.setContentsMargins(self, int, int, int, int)</code></dt>
+<dd><p>setContentsMargins(self, QMargins)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setContextMenuPolicy">
+<code class="sig-name descname">setContextMenuPolicy</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Qt.ContextMenuPolicy</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setContextMenuPolicy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setCorner">
+<code class="sig-name descname">setCorner</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Qt.Corner</em>, <em class="sig-param">Qt.DockWidgetArea</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setCorner" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setCursor">
+<code class="sig-name descname">setCursor</code><span class="sig-paren">(</span><em class="sig-param">self, Union[QCursor, Qt.CursorShape]</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setCursor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setDisabled">
+<code class="sig-name descname">setDisabled</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bool</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setDisabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setDockNestingEnabled">
+<code class="sig-name descname">setDockNestingEnabled</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bool</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setDockNestingEnabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setDockOptions">
+<code class="sig-name descname">setDockOptions</code><span class="sig-paren">(</span><em class="sig-param">self, Union[QMainWindow.DockOptions, QMainWindow.DockOption]</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setDockOptions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setDocumentMode">
+<code class="sig-name descname">setDocumentMode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bool</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setDocumentMode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setEnabled">
+<code class="sig-name descname">setEnabled</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bool</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setEnabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setFixedHeight">
+<code class="sig-name descname">setFixedHeight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setFixedHeight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setFixedSize">
+<code class="sig-name descname">setFixedSize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QSize</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setFixedSize" title="Permalink to this definition">¶</a></dt>
+<dd><p>setFixedSize(self, int, int)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setFixedWidth">
+<code class="sig-name descname">setFixedWidth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setFixedWidth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setFocus">
+<code class="sig-name descname">setFocus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setFocus" title="Permalink to this definition">¶</a></dt>
+<dd><p>setFocus(self, Qt.FocusReason)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setFocusPolicy">
+<code class="sig-name descname">setFocusPolicy</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Qt.FocusPolicy</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setFocusPolicy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setFocusProxy">
+<code class="sig-name descname">setFocusProxy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QWidget</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setFocusProxy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setFont">
+<code class="sig-name descname">setFont</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QFont</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setFont" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setForegroundRole">
+<code class="sig-name descname">setForegroundRole</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">QPalette.ColorRole</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setForegroundRole" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setGeometry">
+<code class="sig-name descname">setGeometry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QRect</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setGeometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>setGeometry(self, int, int, int, int)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setGraphicsEffect">
+<code class="sig-name descname">setGraphicsEffect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QGraphicsEffect</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setGraphicsEffect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setHidden">
+<code class="sig-name descname">setHidden</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bool</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setHidden" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setIconSize">
+<code class="sig-name descname">setIconSize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QSize</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setIconSize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setInputMethodHints">
+<code class="sig-name descname">setInputMethodHints</code><span class="sig-paren">(</span><em class="sig-param">self, Union[Qt.InputMethodHints, Qt.InputMethodHint]</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setInputMethodHints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setLayout">
+<code class="sig-name descname">setLayout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QLayout</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setLayout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setLayoutDirection">
+<code class="sig-name descname">setLayoutDirection</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Qt.LayoutDirection</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setLayoutDirection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setLocale">
+<code class="sig-name descname">setLocale</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QLocale</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setLocale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setMask">
+<code class="sig-name descname">setMask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QBitmap</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setMask" title="Permalink to this definition">¶</a></dt>
+<dd><p>setMask(self, QRegion)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setMaximumHeight">
+<code class="sig-name descname">setMaximumHeight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setMaximumHeight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">DockablePlotWindow.setMaximumSize(self, int, int)</code></dt>
+<dd><p>setMaximumSize(self, QSize)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setMaximumWidth">
+<code class="sig-name descname">setMaximumWidth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setMaximumWidth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setMenuBar">
+<code class="sig-name descname">setMenuBar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QMenuBar</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setMenuBar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setMenuWidget">
+<code class="sig-name descname">setMenuWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QWidget</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setMenuWidget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setMinimumHeight">
+<code class="sig-name descname">setMinimumHeight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setMinimumHeight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">DockablePlotWindow.setMinimumSize(self, int, int)</code></dt>
+<dd><p>setMinimumSize(self, QSize)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setMinimumWidth">
+<code class="sig-name descname">setMinimumWidth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setMinimumWidth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setMouseTracking">
+<code class="sig-name descname">setMouseTracking</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bool</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setMouseTracking" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setObjectName">
+<code class="sig-name descname">setObjectName</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setObjectName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setPalette">
+<code class="sig-name descname">setPalette</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QPalette</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setPalette" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setParent">
+<code class="sig-name descname">setParent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QWidget</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setParent" title="Permalink to this definition">¶</a></dt>
+<dd><p>setParent(self, QWidget, Union[Qt.WindowFlags, Qt.WindowType])</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setProperty">
+<code class="sig-name descname">setProperty</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">str</span></em>, <em class="sig-param"><span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setProperty" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setShortcutAutoRepeat">
+<code class="sig-name descname">setShortcutAutoRepeat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">int</span></em>, <em class="sig-param"><span class="n">enabled</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setShortcutAutoRepeat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setShortcutEnabled">
+<code class="sig-name descname">setShortcutEnabled</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">int</span></em>, <em class="sig-param"><span class="n">enabled</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setShortcutEnabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">DockablePlotWindow.setSizeIncrement(self, int, int)</code></dt>
+<dd><p>setSizeIncrement(self, QSize)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setSizePolicy">
+<code class="sig-name descname">setSizePolicy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QSizePolicy</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setSizePolicy" title="Permalink to this definition">¶</a></dt>
+<dd><p>setSizePolicy(self, QSizePolicy.Policy, QSizePolicy.Policy)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setStatusBar">
+<code class="sig-name descname">setStatusBar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QStatusBar</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setStatusBar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setStatusTip">
+<code class="sig-name descname">setStatusTip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setStatusTip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setStyle">
+<code class="sig-name descname">setStyle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QStyle</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setStyle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setStyleSheet">
+<code class="sig-name descname">setStyleSheet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setStyleSheet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">DockablePlotWindow.setTabOrder(QWidget, QWidget)</code></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setTabPosition">
+<code class="sig-name descname">setTabPosition</code><span class="sig-paren">(</span><em class="sig-param">self, Union[Qt.DockWidgetAreas, Qt.DockWidgetArea], QTabWidget.TabPosition</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setTabPosition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setTabShape">
+<code class="sig-name descname">setTabShape</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">QTabWidget.TabShape</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setTabShape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setTabletTracking">
+<code class="sig-name descname">setTabletTracking</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bool</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setTabletTracking" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setToolButtonStyle">
+<code class="sig-name descname">setToolButtonStyle</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Qt.ToolButtonStyle</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setToolButtonStyle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setToolTip">
+<code class="sig-name descname">setToolTip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setToolTip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setToolTipDuration">
+<code class="sig-name descname">setToolTipDuration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setToolTipDuration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setUnifiedTitleAndToolBarOnMac">
+<code class="sig-name descname">setUnifiedTitleAndToolBarOnMac</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bool</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setUnifiedTitleAndToolBarOnMac" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setUpdatesEnabled">
+<code class="sig-name descname">setUpdatesEnabled</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bool</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setUpdatesEnabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setVisible">
+<code class="sig-name descname">setVisible</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bool</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setVisible" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setWhatsThis">
+<code class="sig-name descname">setWhatsThis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setWhatsThis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setWindowFilePath">
+<code class="sig-name descname">setWindowFilePath</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setWindowFilePath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setWindowFlag">
+<code class="sig-name descname">setWindowFlag</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Qt.WindowType</em>, <em class="sig-param">on: bool = True</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setWindowFlag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setWindowFlags">
+<code class="sig-name descname">setWindowFlags</code><span class="sig-paren">(</span><em class="sig-param">self, Union[Qt.WindowFlags, Qt.WindowType]</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setWindowFlags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setWindowIcon">
+<code class="sig-name descname">setWindowIcon</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QIcon</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setWindowIcon" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setWindowIconText">
+<code class="sig-name descname">setWindowIconText</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setWindowIconText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setWindowModality">
+<code class="sig-name descname">setWindowModality</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Qt.WindowModality</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setWindowModality" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setWindowModified">
+<code class="sig-name descname">setWindowModified</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bool</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setWindowModified" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setWindowOpacity">
+<code class="sig-name descname">setWindowOpacity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">float</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setWindowOpacity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setWindowRole">
+<code class="sig-name descname">setWindowRole</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setWindowRole" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setWindowState">
+<code class="sig-name descname">setWindowState</code><span class="sig-paren">(</span><em class="sig-param">self, Union[Qt.WindowStates, Qt.WindowState]</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setWindowState" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.setWindowTitle">
+<code class="sig-name descname">setWindowTitle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.setWindowTitle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.show">
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.showFullScreen">
+<code class="sig-name descname">showFullScreen</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.showFullScreen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.showMaximized">
+<code class="sig-name descname">showMaximized</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.showMaximized" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.showMinimized">
+<code class="sig-name descname">showMinimized</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.showMinimized" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.showNormal">
+<code class="sig-name descname">showNormal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.showNormal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.signalsBlocked">
+<code class="sig-name descname">signalsBlocked</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.signalsBlocked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.size">
+<code class="sig-name descname">size</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.sizeHint">
+<code class="sig-name descname">sizeHint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.sizeHint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.sizeIncrement">
+<code class="sig-name descname">sizeIncrement</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSize<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.sizeIncrement" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.sizePolicy">
+<code class="sig-name descname">sizePolicy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QSizePolicy<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.sizePolicy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.splitDockWidget">
+<code class="sig-name descname">splitDockWidget</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">QDockWidget</em>, <em class="sig-param">QDockWidget</em>, <em class="sig-param">Qt.Orientation</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.splitDockWidget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.stackUnder">
+<code class="sig-name descname">stackUnder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QWidget</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.stackUnder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.startTimer">
+<code class="sig-name descname">startTimer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">int</span></em>, <em class="sig-param"><span class="n">timerType</span><span class="p">:</span> <span class="n">Qt.TimerType</span> <span class="o">=</span> <span class="default_value">Qt.CoarseTimer</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.startTimer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.statusBar">
+<code class="sig-name descname">statusBar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QStatusBar<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.statusBar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.statusTip">
+<code class="sig-name descname">statusTip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.statusTip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.style">
+<code class="sig-name descname">style</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QStyle<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.style" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.styleSheet">
+<code class="sig-name descname">styleSheet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.styleSheet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.tabPosition">
+<code class="sig-name descname">tabPosition</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Qt.DockWidgetArea</em><span class="sig-paren">)</span> &#x2192; QTabWidget.TabPosition<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.tabPosition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.tabShape">
+<code class="sig-name descname">tabShape</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QTabWidget.TabShape<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.tabShape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.tabifiedDockWidgetActivated">
+<code class="sig-name descname">tabifiedDockWidgetActivated</code><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.tabifiedDockWidgetActivated" title="Permalink to this definition">¶</a></dt>
+<dd><p>tabifiedDockWidgetActivated(self, QDockWidget) [signal]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.tabifiedDockWidgets">
+<code class="sig-name descname">tabifiedDockWidgets</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QDockWidget</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>QDockWidget<span class="p">]</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.tabifiedDockWidgets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt>
+<code class="sig-name descname">DockablePlotWindow.tabifyDockWidget(self, QDockWidget, QDockWidget)</code></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.takeCentralWidget">
+<code class="sig-name descname">takeCentralWidget</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.takeCentralWidget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.testAttribute">
+<code class="sig-name descname">testAttribute</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Qt.WidgetAttribute</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.testAttribute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.thread">
+<code class="sig-name descname">thread</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QThread<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.thread" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.toolBarArea">
+<code class="sig-name descname">toolBarArea</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QToolBar</span></em><span class="sig-paren">)</span> &#x2192; Qt.ToolBarArea<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.toolBarArea" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.toolBarBreak">
+<code class="sig-name descname">toolBarBreak</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">QToolBar</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.toolBarBreak" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.toolButtonStyle">
+<code class="sig-name descname">toolButtonStyle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; Qt.ToolButtonStyle<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.toolButtonStyle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.toolButtonStyleChanged">
+<code class="sig-name descname">toolButtonStyleChanged</code><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.toolButtonStyleChanged" title="Permalink to this definition">¶</a></dt>
+<dd><p>toolButtonStyleChanged(self, Qt.ToolButtonStyle) [signal]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.toolTip">
+<code class="sig-name descname">toolTip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.toolTip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.toolTipDuration">
+<code class="sig-name descname">toolTipDuration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.toolTipDuration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.tr">
+<code class="sig-name descname">tr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">str</span></em>, <em class="sig-param"><span class="n">disambiguation</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.tr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.underMouse">
+<code class="sig-name descname">underMouse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.underMouse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.ungrabGesture">
+<code class="sig-name descname">ungrabGesture</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">Qt.GestureType</em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.ungrabGesture" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.unifiedTitleAndToolBarOnMac">
+<code class="sig-name descname">unifiedTitleAndToolBarOnMac</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.unifiedTitleAndToolBarOnMac" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.unsetCursor">
+<code class="sig-name descname">unsetCursor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.unsetCursor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.unsetLayoutDirection">
+<code class="sig-name descname">unsetLayoutDirection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.unsetLayoutDirection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.unsetLocale">
+<code class="sig-name descname">unsetLocale</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.unsetLocale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>update(self, QRect)
+update(self, QRegion)
+update(self, int, int, int, int)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.updateGeometry">
+<code class="sig-name descname">updateGeometry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.updateGeometry" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.updatesEnabled">
+<code class="sig-name descname">updatesEnabled</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.updatesEnabled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.visibleRegion">
+<code class="sig-name descname">visibleRegion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QRegion<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.visibleRegion" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.whatsThis">
+<code class="sig-name descname">whatsThis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.whatsThis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.width">
+<code class="sig-name descname">width</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.widthMM">
+<code class="sig-name descname">widthMM</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.widthMM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.winId">
+<code class="sig-name descname">winId</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; sip.voidptr<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.winId" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.window">
+<code class="sig-name descname">window</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QWidget<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.window" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.windowFilePath">
+<code class="sig-name descname">windowFilePath</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.windowFilePath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.windowFlags">
+<code class="sig-name descname">windowFlags</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; Qt.WindowFlags<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.windowFlags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.windowHandle">
+<code class="sig-name descname">windowHandle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QWindow<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.windowHandle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.windowIcon">
+<code class="sig-name descname">windowIcon</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; QIcon<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.windowIcon" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.windowIconChanged">
+<code class="sig-name descname">windowIconChanged</code><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.windowIconChanged" title="Permalink to this definition">¶</a></dt>
+<dd><p>windowIconChanged(self, QIcon) [signal]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.windowIconText">
+<code class="sig-name descname">windowIconText</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.windowIconText" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.windowIconTextChanged">
+<code class="sig-name descname">windowIconTextChanged</code><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.windowIconTextChanged" title="Permalink to this definition">¶</a></dt>
+<dd><p>windowIconTextChanged(self, str) [signal]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.windowModality">
+<code class="sig-name descname">windowModality</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; Qt.WindowModality<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.windowModality" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.windowOpacity">
+<code class="sig-name descname">windowOpacity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.windowOpacity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.windowRole">
+<code class="sig-name descname">windowRole</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.windowRole" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.windowState">
+<code class="sig-name descname">windowState</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; Qt.WindowStates<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.windowState" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.windowTitle">
+<code class="sig-name descname">windowTitle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.windowTitle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.windowTitleChanged">
+<code class="sig-name descname">windowTitleChanged</code><a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.windowTitleChanged" title="Permalink to this definition">¶</a></dt>
+<dd><p>windowTitleChanged(self, str) [signal]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.windowType">
+<code class="sig-name descname">windowType</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; Qt.WindowType<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.windowType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.x">
+<code class="sig-name descname">x</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.x" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.visualizers.DockablePlotWindow.y">
+<code class="sig-name descname">y</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#mpl_qt_viz.visualizers.DockablePlotWindow.y" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="mpl_qt_viz.visualizers.PlotNdCanvas.html" class="btn btn-neutral float-left" title="mpl_qt_viz.visualizers.PlotNdCanvas" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Nick Anthony
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

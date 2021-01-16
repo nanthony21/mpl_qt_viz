@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mpl_qt_viz.roiSelection.AdjustableSelector &mdash; mpl_qt_viz 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="mpl_qt_viz.roiSelection.PolygonModifier" href="mpl_qt_viz.roiSelection.PolygonModifier.html" />
+    <link rel="prev" title="mpl_qt_viz.roiSelection.WaterShedPaintCreator" href="mpl_qt_viz.roiSelection.WaterShedPaintCreator.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mpl_qt_viz
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../mpl_qt_viz.roiSelection.html">mpl_qt_viz.roiSelection</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../mpl_qt_viz.roiSelection.html#roi-creators">ROI Creators</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../mpl_qt_viz.roiSelection.html#utility">Utility</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">mpl_qt_viz.roiSelection.AdjustableSelector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mpl_qt_viz.roiSelection.PolygonModifier.html">mpl_qt_viz.roiSelection.PolygonModifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mpl_qt_viz.roiSelection.AxManager.html">mpl_qt_viz.roiSelection.AxManager</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../mpl_qt_viz.visualizers.html">mpl_qt_viz.visualizers</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mpl_qt_viz</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../mpl_qt_viz.roiSelection.html">mpl_qt_viz.roiSelection</a> &raquo;</li>
+        
+      <li>mpl_qt_viz.roiSelection.AdjustableSelector</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/generated/generated/mpl_qt_viz.roiSelection.AdjustableSelector.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="mpl-qt-viz-roiselection-adjustableselector">
+<h1>mpl_qt_viz.roiSelection.AdjustableSelector<a class="headerlink" href="#mpl-qt-viz-roiselection-adjustableselector" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="mpl_qt_viz.roiSelection.AdjustableSelector">
+<em class="property">class </em><code class="sig-prename descclassname">mpl_qt_viz.roiSelection.</code><code class="sig-name descname">AdjustableSelector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">axManager</span></em>, <em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">selectorClass</span></em>, <em class="sig-param"><span class="n">onfinished</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">onPolyTuningCancelled</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mpl_qt_viz/roiSelection/_utilityClasses/adjustableSelector.html#AdjustableSelector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpl_qt_viz.roiSelection.AdjustableSelector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class manages an roi selector. By setting <cite>adjustable</cite> true then when the selector calls its <cite>onselect</cite> function
+the results will be passed on to a PolygonInteractor for further tweaking. Tweaking can be confirmed by pressing enter.
+at the end the selector will pass a set of coordinates to the <cite>onfinished</cite> function if it has been set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> – A matplotlib <cite>Axes</cite> to interact with.</p></li>
+<li><p><strong>image</strong> (<em>AxesImage</em>) – A matplotlib <cite>AxesImage</cite>. Some selectors use the data in this image for their selection.</p></li>
+<li><p><strong>selectorClass</strong> (<em>typing.Type</em><em>[</em><em>CreatorWidgetBase</em><em>]</em>) – A class that implements <cite>SelectorWidgetBase</cite>. This will be the intial selector used.</p></li>
+<li><p><strong>onfinished</strong> (<em>typing.Optional</em><em>[</em><em>typing.Callable</em><em>]</em>) – a callback function when the selection finished. The function should accept a single input argument
+which is a list of the 2d coordinated outlining the selected polygon.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.AdjustableSelector.adjustable">
+<em class="property">property </em><code class="sig-name descname">adjustable</code><a class="headerlink" href="#mpl_qt_viz.roiSelection.AdjustableSelector.adjustable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines whether or not the polygon interactor will be used to adjust the selection at the end of the initial
+selection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.AdjustableSelector.finish">
+<code class="sig-name descname">finish</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">verts</span></em>, <em class="sig-param"><span class="n">handles</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mpl_qt_viz/roiSelection/_utilityClasses/adjustableSelector.html#AdjustableSelector.finish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpl_qt_viz.roiSelection.AdjustableSelector.finish" title="Permalink to this definition">¶</a></dt>
+<dd><p>This callback is registered with the selectorWidget when we are not in adjustable mode. In adjustable mode it
+is instead registered with the polygon adjuster. It deactivates the class and calls the <cite>onfinished</cite> callback.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.AdjustableSelector.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mpl_qt_viz/roiSelection/_utilityClasses/adjustableSelector.html#AdjustableSelector.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpl_qt_viz.roiSelection.AdjustableSelector.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all artists used by the selector. :todo: Shouldn’t this check if the <cite>adjuster</cite> is active and reset it as well?</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.AdjustableSelector.setActive">
+<code class="sig-name descname">setActive</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">active</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mpl_qt_viz/roiSelection/_utilityClasses/adjustableSelector.html#AdjustableSelector.setActive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpl_qt_viz.roiSelection.AdjustableSelector.setActive" title="Permalink to this definition">¶</a></dt>
+<dd><p>This activates the selector. for a looping selection you should call this method from the onfinished function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.AdjustableSelector.setSelector">
+<code class="sig-name descname">setSelector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">selectorClass</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mpl_qt_viz/roiSelection/_utilityClasses/adjustableSelector.html#AdjustableSelector.setSelector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpl_qt_viz.roiSelection.AdjustableSelector.setSelector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the current selector and replace it with a new type of selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>selectorClass</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>) – A class the implements <cite>SelectorWidgetBase</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mpl_qt_viz.roiSelection.PolygonModifier.html" class="btn btn-neutral float-right" title="mpl_qt_viz.roiSelection.PolygonModifier" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mpl_qt_viz.roiSelection.WaterShedPaintCreator.html" class="btn btn-neutral float-left" title="mpl_qt_viz.roiSelection.WaterShedPaintCreator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Nick Anthony
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

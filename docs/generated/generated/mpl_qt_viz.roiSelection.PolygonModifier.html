@@ -1,0 +1,383 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mpl_qt_viz.roiSelection.PolygonModifier &mdash; mpl_qt_viz 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="mpl_qt_viz.roiSelection.AxManager" href="mpl_qt_viz.roiSelection.AxManager.html" />
+    <link rel="prev" title="mpl_qt_viz.roiSelection.AdjustableSelector" href="mpl_qt_viz.roiSelection.AdjustableSelector.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mpl_qt_viz
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../mpl_qt_viz.roiSelection.html">mpl_qt_viz.roiSelection</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../mpl_qt_viz.roiSelection.html#roi-creators">ROI Creators</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../mpl_qt_viz.roiSelection.html#utility">Utility</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="mpl_qt_viz.roiSelection.AdjustableSelector.html">mpl_qt_viz.roiSelection.AdjustableSelector</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">mpl_qt_viz.roiSelection.PolygonModifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mpl_qt_viz.roiSelection.AxManager.html">mpl_qt_viz.roiSelection.AxManager</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../mpl_qt_viz.visualizers.html">mpl_qt_viz.visualizers</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mpl_qt_viz</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../mpl_qt_viz.roiSelection.html">mpl_qt_viz.roiSelection</a> &raquo;</li>
+        
+      <li>mpl_qt_viz.roiSelection.PolygonModifier</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/generated/generated/mpl_qt_viz.roiSelection.PolygonModifier.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="mpl-qt-viz-roiselection-polygonmodifier">
+<h1>mpl_qt_viz.roiSelection.PolygonModifier<a class="headerlink" href="#mpl-qt-viz-roiselection-polygonmodifier" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier">
+<em class="property">class </em><code class="sig-prename descclassname">mpl_qt_viz.roiSelection.</code><code class="sig-name descname">PolygonModifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">axMan</span></em>, <em class="sig-param"><span class="n">onselect</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">onCancelled</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mpl_qt_viz/roiSelection/_modifierWidgets/polygonModifier.html#PolygonModifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">mpl_qt_viz.roiSelection._modifierWidgets._base.ModifierWidgetBase</span></code></p>
+<p>A polygon editor.
+<a class="reference external" href="https://matplotlib.org/gallery/event_handling/poly_editor.html">https://matplotlib.org/gallery/event_handling/poly_editor.html</a>
+Key-bindings:</p>
+<blockquote>
+<div><p>‘d’ delete the vertex under point
+‘i’ insert a vertex at point.  You must be within epsilon of the</p>
+<blockquote>
+<div><p>line connecting two existing vertices</p>
+</div></blockquote>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axMan</strong> (<a class="reference internal" href="mpl_qt_viz.roiSelection.AxManager.html#mpl_qt_viz.roiSelection.AxManager" title="mpl_qt_viz.roiSelection.AxManager"><em>AxManager</em></a>) – The manager for a matplotlib <cite>Axes</cite> that you want to interact with.</p></li>
+<li><p><strong>onselect</strong> (<em>typing.Optional</em><em>[</em><em>ModifierWidgetBase.SelectionFunction</em><em>]</em>) – A callback that will be called when the user hits ‘enter’. Should have signature (polygonCoords, sparseHandleCoords).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.epsilon">
+<code class="sig-name descname">epsilon</code><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.epsilon" title="Permalink to this definition">¶</a></dt>
+<dd><p>The pixel distance required to detect a mouse-over event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.active">
+<em class="property">property </em><code class="sig-name descname">active</code><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.active" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the widget active?</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.addArtist">
+<code class="sig-name descname">addArtist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">artist</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.addArtist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a matplotlib artist to be managed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.connect_event">
+<code class="sig-name descname">connect_event</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em>, <em class="sig-param"><span class="n">callback</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.connect_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connect callback with an event.</p>
+<p>This should be used in lieu of <code class="docutils literal notranslate"><span class="pre">figure.canvas.mpl_connect</span></code> since this
+function stores callback ids for later clean up.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.disconnect_events">
+<code class="sig-name descname">disconnect_events</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.disconnect_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disconnect all events created by this widget.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.getHelpText">
+<em class="property">static </em><code class="sig-name descname">getHelpText</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mpl_qt_viz/roiSelection/_modifierWidgets/polygonModifier.html#PolygonModifier.getHelpText"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.getHelpText" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a description of the selector which can be used as a tooltip.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.get_active">
+<code class="sig-name descname">get_active</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.get_active" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get whether the widget is active.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.ignore">
+<code class="sig-name descname">ignore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.ignore" title="Permalink to this definition">¶</a></dt>
+<dd><p>return <em>True</em> if <em>event</em> should be ignored. No event callbacks will be called if this returns true.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.initialize">
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">handles</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mpl_qt_viz/roiSelection/_modifierWidgets/polygonModifier.html#PolygonModifier.initialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.initialize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a set of points this will initialize the artists to them to begin modification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>handles</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]]) – A sequence of 2d coordinates to intialize the polygon to. Each point will become a draggable handle</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.on_key_press">
+<code class="sig-name descname">on_key_press</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.on_key_press" title="Permalink to this definition">¶</a></dt>
+<dd><p>Key press event handler and validator for all selection widgets</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.on_key_release">
+<code class="sig-name descname">on_key_release</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.on_key_release" title="Permalink to this definition">¶</a></dt>
+<dd><p>Key release event handler and validator</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.on_scroll">
+<code class="sig-name descname">on_scroll</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.on_scroll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mouse scroll event handler and validator</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.onmove">
+<code class="sig-name descname">onmove</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.onmove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cursor move event handler and validator</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.onselect">
+<code class="sig-name descname">onselect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">verts</span></em>, <em class="sig-param"><span class="n">handles</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.onselect" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method should be called when the interaction is done to execute whatever finalization function was specified
+in the constructor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>verts</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]]) – A sequence of sequences of 2-tuple coordinates that each fully define the polygon.</p></li>
+<li><p><strong>handles</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]]) – A sequence of reduced sequences of coordinates that define special points on each shape to potentially be used as draggable handles for a modifier.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.press">
+<code class="sig-name descname">press</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.press" title="Permalink to this definition">¶</a></dt>
+<dd><p>Button press handler and validator</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.release">
+<code class="sig-name descname">release</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.release" title="Permalink to this definition">¶</a></dt>
+<dd><p>Button release event handler and validator</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.removeArtists">
+<code class="sig-name descname">removeArtists</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.removeArtists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove all artist objects associated with this selector</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.setArtistVisible">
+<code class="sig-name descname">setArtistVisible</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">artist</span></em>, <em class="sig-param"><span class="n">visible</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.setArtistVisible" title="Permalink to this definition">¶</a></dt>
+<dd><p>set visibility of a single artist, invisible artists will not be reenabled with <cite>set_visible</cite> True.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.set_active">
+<code class="sig-name descname">set_active</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">active</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.set_active" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set whether the widget is active.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="mpl_qt_viz.roiSelection.PolygonModifier.set_visible">
+<code class="sig-name descname">set_visible</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">visible</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mpl_qt_viz.roiSelection.PolygonModifier.set_visible" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the visibility of our artists</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="mpl_qt_viz.roiSelection.AxManager.html" class="btn btn-neutral float-right" title="mpl_qt_viz.roiSelection.AxManager" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mpl_qt_viz.roiSelection.AdjustableSelector.html" class="btn btn-neutral float-left" title="mpl_qt_viz.roiSelection.AdjustableSelector" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Nick Anthony
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

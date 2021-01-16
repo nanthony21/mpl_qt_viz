@@ -1,0 +1,279 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>matplotlib.backends.backend_qt5agg &mdash; mpl_qt_viz 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> mpl_qt_viz
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/mpl_qt_viz.roiSelection.html">mpl_qt_viz.roiSelection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/mpl_qt_viz.visualizers.html">mpl_qt_viz.visualizers</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">mpl_qt_viz</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>matplotlib.backends.backend_qt5agg</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for matplotlib.backends.backend_qt5agg</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Render to qt from agg.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">ctypes</span>
+
+<span class="kn">from</span> <span class="nn">matplotlib.transforms</span> <span class="kn">import</span> <span class="n">Bbox</span>
+
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">cbook</span>
+<span class="kn">from</span> <span class="nn">.backend_agg</span> <span class="kn">import</span> <span class="n">FigureCanvasAgg</span>
+<span class="kn">from</span> <span class="nn">.backend_qt5</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">_BackendQT5</span><span class="p">,</span> <span class="n">FigureCanvasQT</span><span class="p">,</span> <span class="n">FigureManagerQT</span><span class="p">,</span>
+    <span class="n">NavigationToolbar2QT</span><span class="p">,</span> <span class="n">backend_version</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.qt_compat</span> <span class="kn">import</span> <span class="n">QT_API</span><span class="p">,</span> <span class="n">_setDevicePixelRatioF</span>
+
+
+<span class="k">class</span> <span class="nc">FigureCanvasQTAgg</span><span class="p">(</span><span class="n">FigureCanvasAgg</span><span class="p">,</span> <span class="n">FigureCanvasQT</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">figure</span><span class="p">):</span>
+        <span class="c1"># Must pass &#39;figure&#39; as kwarg to Qt base class.</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">figure</span><span class="o">=</span><span class="n">figure</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">paintEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Copy the image from the Agg canvas to the qt.drawable.</span>
+
+<span class="sd">        In Qt, all drawing should be done inside of here when a widget is</span>
+<span class="sd">        shown onscreen.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_dpi</span><span class="p">():</span>
+            <span class="c1"># The dpi update triggered its own paintEvent.</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_draw_idle</span><span class="p">()</span>  <span class="c1"># Only does something if a draw is pending.</span>
+
+        <span class="c1"># If the canvas does not have a renderer, then give up and wait for</span>
+        <span class="c1"># FigureCanvasAgg.draw(self) to be called.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;renderer&#39;</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="n">painter</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPainter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># See documentation of QRect: bottom() and right() are off</span>
+            <span class="c1"># by 1, so use left() + width() and top() + height().</span>
+            <span class="n">rect</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">rect</span><span class="p">()</span>
+            <span class="c1"># scale rect dimensions using the screen dpi ratio to get</span>
+            <span class="c1"># correct values for the Figure coordinates (rather than</span>
+            <span class="c1"># QT5&#39;s coords)</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dpi_ratio</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dpi_ratio</span>
+            <span class="n">left</span><span class="p">,</span> <span class="n">top</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouseEventCoords</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">topLeft</span><span class="p">())</span>
+            <span class="c1"># shift the &quot;top&quot; by the height of the image to get the</span>
+            <span class="c1"># correct corner for our coordinate system</span>
+            <span class="n">bottom</span> <span class="o">=</span> <span class="n">top</span> <span class="o">-</span> <span class="n">height</span>
+            <span class="c1"># same with the right side of the image</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="n">width</span>
+            <span class="c1"># create a buffer using the image bounding box</span>
+            <span class="n">bbox</span> <span class="o">=</span> <span class="n">Bbox</span><span class="p">([[</span><span class="n">left</span><span class="p">,</span> <span class="n">bottom</span><span class="p">],</span> <span class="p">[</span><span class="n">right</span><span class="p">,</span> <span class="n">top</span><span class="p">]])</span>
+            <span class="n">reg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy_from_bbox</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
+            <span class="n">buf</span> <span class="o">=</span> <span class="n">cbook</span><span class="o">.</span><span class="n">_unmultiplied_rgba8888_to_premultiplied_argb32</span><span class="p">(</span>
+                <span class="nb">memoryview</span><span class="p">(</span><span class="n">reg</span><span class="p">))</span>
+
+            <span class="c1"># clear the widget canvas</span>
+            <span class="n">painter</span><span class="o">.</span><span class="n">eraseRect</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+
+            <span class="n">qimage</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QImage</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">buf</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">buf</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                                  <span class="n">QtGui</span><span class="o">.</span><span class="n">QImage</span><span class="o">.</span><span class="n">Format_ARGB32_Premultiplied</span><span class="p">)</span>
+            <span class="n">_setDevicePixelRatioF</span><span class="p">(</span><span class="n">qimage</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dpi_ratio</span><span class="p">)</span>
+            <span class="c1"># set origin using original QT coordinates</span>
+            <span class="n">origin</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QPoint</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">left</span><span class="p">(),</span> <span class="n">rect</span><span class="o">.</span><span class="n">top</span><span class="p">())</span>
+            <span class="n">painter</span><span class="o">.</span><span class="n">drawImage</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">qimage</span><span class="p">)</span>
+            <span class="c1"># Adjust the buf reference count to work around a memory</span>
+            <span class="c1"># leak bug in QImage under PySide on Python 3.</span>
+            <span class="k">if</span> <span class="n">QT_API</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;PySide&#39;</span><span class="p">,</span> <span class="s1">&#39;PySide2&#39;</span><span class="p">):</span>
+                <span class="n">ctypes</span><span class="o">.</span><span class="n">c_long</span><span class="o">.</span><span class="n">from_address</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">buf</span><span class="p">))</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">1</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_draw_rect_callback</span><span class="p">(</span><span class="n">painter</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">painter</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">print_figure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">print_figure</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+
+<span class="nd">@_BackendQT5</span><span class="o">.</span><span class="n">export</span>
+<span class="k">class</span> <span class="nc">_BackendQT5Agg</span><span class="p">(</span><span class="n">_BackendQT5</span><span class="p">):</span>
+    <span class="n">FigureCanvas</span> <span class="o">=</span> <span class="n">FigureCanvasQTAgg</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, Nick Anthony
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

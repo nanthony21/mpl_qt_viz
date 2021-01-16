@@ -17,7 +17,7 @@
 
 
 """
-Image Plotting
+Qt Widgets for interactive data visualization.
 
 Classes
 ----------

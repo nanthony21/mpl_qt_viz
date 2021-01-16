@@ -25,7 +25,12 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 
 
 class DockablePlotWindow(QMainWindow):
+    """
+    A window with that can create interactive Matplotlib figures docked within it.
 
+    Args:
+        title: The title for the window.
+    """
     def __init__(self, title: str = "Dockable Plots"):
         super().__init__(parent=None)
         self.setWindowTitle(title)
@@ -36,6 +41,19 @@ class DockablePlotWindow(QMainWindow):
         self.show()
 
     def subplots(self, title: str, dockArea: str = 'top', **kwargs):
+        """
+        Create a new docked figure within the main window.
+
+        Args:
+            title: The title for the new figure.
+            docArea: The side of the window that the new plot should be initially placed in. If a figure has already been
+                created on that side of the window then the new figure will be docked with the existing one. Accepted values
+                are: 'left', 'right', 'top', and 'bottom'.
+            kwargs: Any additional keyword arguments are passed to `pyplot.subplots`
+
+        Returns:
+             The return values are the same as the return values of `pyplot.subplots`. Usually taking the form of (figure, axes).
+        """
         dockMap = {'top': QtCore.Qt.TopDockWidgetArea, 'bottom': QtCore.Qt.BottomDockWidgetArea,
                     'left': QtCore.Qt.LeftDockWidgetArea, 'right': QtCore.Qt.RightDockWidgetArea}
         try:

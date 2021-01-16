@@ -1,10 +1,9 @@
-Contents
-=========
+:mod:`mpl_qt_viz`
+===================
 
-.. toctree::
-   :maxdepth: 3
+.. automodule:: mpl_qt_viz
 
-   mpl_qt_viz
+
 
 Indices and tables
 ==================

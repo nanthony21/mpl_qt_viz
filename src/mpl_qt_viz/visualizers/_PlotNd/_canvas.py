@@ -281,6 +281,12 @@ class PlotNdCanvas(FigureCanvasQTAgg):
             return
         self._processMouse(event.inaxes, event.xdata, event.ydata)
 
-    def setColorMap(self, cmap):
+    def setColorMap(self, cmap: typing.Union[str, mpl.colors.ColorMap]):
+        """
+        Set the colormap used to display data.
+
+        Args:
+             cmap: This value will be have the same effect as the argument of Matplotlib's `AxesImage.set_cmap()`
+        """
         self.image.im.set_cmap(cmap)
         #TODO update the colormap too.

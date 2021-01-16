@@ -14,10 +14,9 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with mpl_qt_viz.  If not, see <https://www.gnu.org/licenses/>.
-
-
+import typing
 from typing import Tuple, List, Optional
-
+import matplotlib as mpl
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QSizeF, QTimer
 from PyQt5.QtWidgets import QWidget, QGridLayout, QApplication, QPushButton, QGraphicsView, \
@@ -199,16 +198,21 @@ class PlotNd(QWidget): #TODO add function and GUI method to set coordinates of c
     def _selectorFinished(self, verts: np.ndarray):
         """When an ROI selector finishes selecting a region the vertex coordinates of the selection are passed to this
         function. The function then uses the vertices to plot the average of the data in the ROI"""
-        from pwspy.dataTypes import Roi
-
+        import cv2
         newVerts = []
-        for vert in verts: # Convert `verts` from being in terms of the values in self.canvas._indexes to being in terms of the element locations of the data array.
+        for vert in verts:  # Convert `verts` from being in terms of the values in self.canvas._indexes to being in terms of the element locations of the data array.
             v1 = self.canvas.image.verticalValueToCoord(vert[1])
             v0 = self.canvas.image.horizontalValueToCoord(vert[0])
             newVerts.append((v0, v1))
         verts = newVerts
-        roi = Roi.fromVerts('nomatter', 0, np.array(verts), self.canvas.data.shape[:2]) # A 2d ROI to select from the data
-        selected = self.canvas.data[roi.mask]  # For a 3d data array this will now be 2d . For a 4d array it will be 3d etc. The 0th axis is one element for each selected pixel.
+
+        # Convert from vertices to a boolean mask
+        iVerts = np.rint([verts]).astype(np.int32)  # The brackets here convert to a 3d array which is what cv2.fillpoly expects. We have to round to integers for cv2 to work.
+        mask = np.zeros(self.canvas.data.shape[:2], dtype=np.int32)
+        cv2.fillPoly(mask, iVerts, 1)
+        mask = mask.astype(bool)
+
+        selected = self.canvas.data[mask]  # For a 3d data array this will now be 2d . For a 4d array it will be 3d etc. The 0th axis is one element for each selected pixel.
         selected = selected.mean(axis=0)  # Get the average over all selected pixels. We are now down to 1d for a 3d data array, 2d for a 4d data array, et.
         if len(selected.shape) == 1:
             fig, ax = pyplot.subplots()
@@ -237,10 +241,25 @@ class PlotNd(QWidget): #TODO add function and GUI method to set coordinates of c
         self.canvas.data = data
 
     def setLimits(self, Min: float, Max: float):
+        """
+        Set the limits of the colormap.
+
+        Args:
+             Min: The data value that will correspond to the minimum of the colormap.
+             Max: The data value that will correspond to the maximum of the colormap.
+        """
         return self.canvas.updateLimits(Max, Min)
 
-    def setColorMap(self, cmap):
+    def setColorMap(self, cmap: typing.Union[str, mpl.colors.ColorMap]):
+        """
+         Set the colormap used to display data.
+
+         Args:
+              cmap: This value will be have the same effect as the argument of Matplotlib's `AxesImage.set_cmap()`
+         """
         self.canvas.setColorMap(cmap)
+
+
 if __name__ == '__main__':
     import sys
     print("Starting")

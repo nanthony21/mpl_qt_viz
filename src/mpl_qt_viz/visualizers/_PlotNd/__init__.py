@@ -250,7 +250,7 @@ class PlotNd(QWidget): #TODO add function and GUI method to set coordinates of c
         """
         return self.canvas.updateLimits(Max, Min)
 
-    def setColorMap(self, cmap: typing.Union[str, mpl.colors.ColorMap]):
+    def setColorMap(self, cmap: typing.Union[str, mpl.colors.Colormap]):
         """
          Set the colormap used to display data.
 

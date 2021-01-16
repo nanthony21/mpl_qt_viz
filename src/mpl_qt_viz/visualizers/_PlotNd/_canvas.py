@@ -281,7 +281,7 @@ class PlotNdCanvas(FigureCanvasQTAgg):
             return
         self._processMouse(event.inaxes, event.xdata, event.ydata)
 
-    def setColorMap(self, cmap: typing.Union[str, mpl.colors.ColorMap]):
+    def setColorMap(self, cmap: typing.Union[str, mpl.colors.Colormap]):
         """
         Set the colormap used to display data.
 

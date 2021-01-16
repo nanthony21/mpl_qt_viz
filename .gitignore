@@ -1,9 +1,6 @@
-
-
 *__pycache__*
 src/mpl_qt_viz.egg-info/
-docs/source/generated/
-
-docs/build/
+docSrc/source/generated/
+docSrc/build/
 build/
 dist/

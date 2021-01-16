@@ -1,0 +1,40 @@
+{% set name = "mpl_qt_viz" %}
+{% set version = "1.0.3" %}
+
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  path: .. #tells conda-build that the source code is in the parent directory.
+
+build:
+  number: 0
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
+
+requirements:
+  host:
+    - pip
+    - python >=3.7
+  run:
+    - matplotlib-base
+    - numpy
+    - py-opencv
+    - pyqt
+    - python >=3.7
+    - scikit-image
+    - scipy
+    - shapely
+
+about:
+  home: https://github.com/nanthony21/mpl_qt_viz
+  summary: A Python package providing enhanced data visualization and ROI selection built on top of Matplotlib and PyQt5.
+  license: GPL-3.0
+  license_family: GPL
+  license_file: COPYING
+
+extra:
+  recipe-maintainers:
+    - nanthony21

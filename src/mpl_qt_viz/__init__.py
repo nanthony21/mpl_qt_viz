@@ -10,7 +10,8 @@ Subpackages
    visualizers
 
 """
+import setuptools_scm
 
 __author__ = 'Nick Anthony'
 
-__version__ = '1.0.2'
+__version__ = setuptools_scm.get_version(root="..", relative_to=__file__)

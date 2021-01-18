@@ -14,6 +14,6 @@ jobs:
       - name: Install dependencies
         shell: bash
         run: |
-            bash -l {0}
+            bash -l
             conda install anaconda-client 
             anaconda upload condaDist/noarch/mpl_qt_viz*

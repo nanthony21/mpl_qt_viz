@@ -12,9 +12,6 @@ jobs:
          auto-activate-base: true
          activate-environment: ""
       - name: Install dependencies
-        run: |
-          conda install setuptools_scm conda-build anaconda-client
-      - name: Build
-        run: conda build . --output-folder ./condaDist   
+        run: conda install anaconda-client 
       - name: publish-to-conda
-        run: anaconda -t ${{ secrets.ANACONDA_TOKEN }} upload condaDist/noarch/mpl_qt_viz*
+        run: anaconda upload condaDist/noarch/mpl_qt_viz*

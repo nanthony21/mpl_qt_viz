@@ -1,9 +1,16 @@
+Module API
+===============
+
 :mod:`mpl_qt_viz`
-===================
+----------------------
 
 .. automodule:: mpl_qt_viz
 
 
+Examples
+===========
+.. toctree::
+    examples
 
 Indices and tables
 ==================

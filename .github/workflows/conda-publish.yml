@@ -11,4 +11,5 @@ jobs:
       - name: Install dependencies
         run: |
             conda install anaconda-client 
+            conda activate
             anaconda upload condaDist/noarch/mpl_qt_viz*

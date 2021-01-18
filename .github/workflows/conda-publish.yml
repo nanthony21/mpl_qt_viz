@@ -17,4 +17,5 @@ jobs:
       - name: Build
         run: conda build . --output-folder ./condaDist   
       - name: publish-to-conda
+        shell: bash -l {0}
         run: anaconda -t ${{ secrets.ANACONDA_TOKEN }} upload condaDist/noarch/mpl_qt_viz*

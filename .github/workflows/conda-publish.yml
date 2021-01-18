@@ -1,6 +1,8 @@
 name: Upload Anaconda Cloud
 
-on: workflow_dispatch
+on:
+  release:
+    types: [created]
     
 jobs:
   publish:
@@ -17,5 +19,5 @@ jobs:
       - name: Build
         run: conda build . --output-folder ./condaDist   
       - name: publish-to-conda
-        shell: bash -l {0}
+        shell: bash -l {0}  # This is needed in order to activate the bash environment created by conda. Otherwise the `anaconda` command won't be found
         run: anaconda -t ${{ secrets.ANACONDA_TOKEN }} upload condaDist/noarch/mpl_qt_viz*

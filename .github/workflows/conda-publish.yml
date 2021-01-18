@@ -1,25 +1,16 @@
-name: publish_conda
+name: Upload Anaconda Cloud
 
-on:
-  release:
-    types: [published]
+on: workflow_dispatch
     
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: continuumio/anaconda3
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install setuptools setuptools_scm
-    - name: publish-to-conda
-      uses: fcakyon/conda-publish-action@v1.3
-      with:
-        subdir: 'conda.recipe'
-        anacondatoken: ${{ secrets.ANACONDA_TOKEN }}
-        platforms: 'win osx linux'
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          conda install setuptools_scm conda-build
+      - name: Build
+        run: conda build . --output-folder ./condaDist   
+      - name: publish-to-conda
+        run: anaconda -t ${{ secrets.ANACONDA_TOKEN }} upload condaDist/noarch/mpl_qt_viz*

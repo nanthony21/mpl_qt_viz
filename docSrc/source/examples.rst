@@ -6,11 +6,15 @@ PlotNd visualization of a 3D array
    :language: python
    :linenos:
 
+.. image:: ../resources/plotNdExample.gif
+
 DockablePlotWindow providing organization for related plots
 -----------------------------------------------------------
 .. literalinclude:: ../../examples/dockablePlotWindowExample.py
    :language: python
    :linenos:
+
+.. image:: ../resources/dockablePlotsExample.gif
 
 MultiPlot containing various images and line plots
 ---------------------------------------------------

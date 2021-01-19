@@ -25,7 +25,7 @@ from matplotlib import pyplot
 
 from matplotlib.backends.backend_qt5 import NavigationToolbar2QT, FigureCanvasQT
 import numpy as np
-from mpl_qt_viz.roiSelection import LassoCreator, PointCreator, AdjustableSelector, AxManager
+from mpl_qt_viz.roiSelection import LassoCreator, PointCreator, AdjustableSelector
 from ._canvas import PlotNdCanvas
 from .._sharedWidgets import AnimationDlg, QRangeSlider
 
@@ -118,8 +118,7 @@ class PlotNd(QWidget): #TODO add function and GUI method to set coordinates of c
         self.slider.endValueChanged.connect(_)
 
         self._lastButton = None
-        self._axesManager = AxManager(self.canvas.image.ax)
-        self.selector = AdjustableSelector(self._axesManager, self.canvas.image.im, LassoCreator,
+        self.selector = AdjustableSelector(self.canvas.image.ax, self.canvas.image.im, LassoCreator,
                                            onfinished=self._selectorFinished)
 
         self.buttonWidget = QGroupBox("Control", self)

@@ -21,7 +21,7 @@ class CreatorWidgetBase(InteractiveWidgetBase, metaclass=ABCMeta):
     Attributes:
         state (set): A `set` that stores strings indicating the current state (Are we dragging the mouse, is the shift
             key pressed, etc.
-        artists (list): A `list` of matplotlib widgets managed by the selector.
+        artists (list): A `list` of matplotlib artists managed by the selector.
         image (AxesImage): A reference to the image being interacted with. Can be used to get the image data.
     """
 

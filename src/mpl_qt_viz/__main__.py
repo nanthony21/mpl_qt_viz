@@ -25,9 +25,8 @@ if __name__ == '__main__':
     ax2.imshow(data.mean(axis=2))
 
     fig, ax = plt.subplots()
-    axMan = roi.AxManager(ax)
     im = ax.imshow(data.mean(axis=2))
-    ellipse = roi.EllipseCreator(axMan, im)
+    ellipse = roi.EllipseCreator(ax, im)
     ellipse.set_active(True)
 
     sys.exit(app.exec())

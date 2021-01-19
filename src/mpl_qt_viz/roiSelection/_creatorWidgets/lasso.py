@@ -76,4 +76,4 @@ class LassoCreator(CreatorWidgetBase):
             return
         self.verts.append((event.xdata, event.ydata))
         self.polygon.set_xy(self.verts)
-        self.axMan.update()
+        self.updateAxes()

@@ -25,7 +25,7 @@ from scipy import interpolate
 from ._base import ModifierWidgetBase
 
 if typing.TYPE_CHECKING:
-    from mpl_qt_viz.roiSelection import AxManager
+    from matplotlib.axes import Axes
 
 
 Vector3 = typing.Tuple[float, float, float]
@@ -175,8 +175,8 @@ class PolygonModifier(ModifierWidgetBase):
     """
     epsilon: int = 10  # max pixel distance to count as a vertex hit
 
-    def __init__(self, axMan: AxManager, onselect: typing.Optional[ModifierWidgetBase.SelectionFunction] = None, onCancelled: typing.Optional[typing.Callable] = None):
-        super().__init__(axMan, None, onselect=onselect)
+    def __init__(self, ax: Axes, onselect: typing.Optional[ModifierWidgetBase.SelectionFunction] = None, onCancelled: typing.Optional[typing.Callable] = None):
+        super().__init__(ax, None, onselect=onselect)
         self._cancelFunc = onCancelled
         self.markers = Line2D([0], [0], ls="", marker='o', markerfacecolor='r', animated=True)
         self._ind = None  # the active vert
@@ -266,7 +266,7 @@ class PolygonModifier(ModifierWidgetBase):
             self.set_active(False)
             if self._cancelFunc is not None: self._cancelFunc() # Cancel
 
-        self.axMan.update()
+        self.updateAxes()
 
     def _onhover(self, event):
         """If the mouse hovers near the polygon then change the appearance to indicate that clicking will be registered.
@@ -279,7 +279,7 @@ class PolygonModifier(ModifierWidgetBase):
                 self.markers.set_markerfacecolor((0, .9, 1, 1))
             else:
                 self.markers.set_markerfacecolor('r')
-        self.axMan.update()
+        self.updateAxes()
 
     def _ondrag(self, event):
         """on mouse movement move the selected marker with the mouse and interpolate."""
@@ -295,4 +295,4 @@ class PolygonModifier(ModifierWidgetBase):
         self.markers.set_data(list(zip(*d)))
 
         self._interpolate()
-        self.axMan.update()
+        self.updateAxes()

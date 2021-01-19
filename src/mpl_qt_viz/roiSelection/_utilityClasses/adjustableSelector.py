@@ -19,8 +19,8 @@ from __future__ import annotations
 import typing
 from .._modifierWidgets import PolygonModifier
 if typing.TYPE_CHECKING:
+    from matplotlib.axes import Axes
     from matplotlib.image import AxesImage
-    from mpl_qt_viz.roiSelection import AxManager
     from .._creatorWidgets._base import CreatorWidgetBase
 
 
@@ -36,13 +36,13 @@ class AdjustableSelector:
         onfinished: a callback function when the selection finished. The function should accept a single input argument
             which is a list of the 2d coordinated outlining the selected polygon.
     """
-    def __init__(self, axManager: AxManager, image: AxesImage, selectorClass: typing.Type[CreatorWidgetBase],
+    def __init__(self, ax: Axes, image: AxesImage, selectorClass: typing.Type[CreatorWidgetBase],
                  onfinished: typing.Optional[typing.Callable] = None, onPolyTuningCancelled: typing.Optional[typing.Callable] = None):
-        self.axMan = axManager
+        self.ax = ax
         self.image = image
-        self.selector: CreatorWidgetBase = selectorClass(self.axMan, self.image, onselect=self._goPoly)
+        self.selector: CreatorWidgetBase = selectorClass(self.ax, self.image, onselect=self._goPoly)
         self.selector.active = False
-        self.adjuster = PolygonModifier(self.axMan, onselect=self.finish, onCancelled=onPolyTuningCancelled)
+        self.adjuster = PolygonModifier(self.ax, onselect=self.finish, onCancelled=onPolyTuningCancelled)
         self.adjuster.active = False
         self.adjustable = False
         self.onfinished = onfinished
@@ -84,7 +84,7 @@ class AdjustableSelector:
         """
         self.selector.removeArtists()
         self.selector.set_active(False)
-        self.selector = selectorClass(self.axMan, self.image)
+        self.selector = selectorClass(self.ax, self.image)
         self.adjustable = self.adjustable
 
     def _goPoly(self, verts: typing.Sequence[typing.Tuple[float, float]], handles: typing.Sequence[typing.Tuple[float, float]]):

@@ -91,7 +91,7 @@ class RegionalPaintCreator(CreatorWidgetBase):
                 p = Polygon(poly.exterior.coords, color=color['color'], animated=True)
                 self.addArtist(p)
                 self.contours.append(p)
-            self.axMan.update()
+            self.updateAxes()
 
     def _press(self, event):
         if event.button == 1:  # Left Click
@@ -120,7 +120,7 @@ class RegionalPaintCreator(CreatorWidgetBase):
             dy = event.ydata - y
             self.box.set_width(dx)
             self.box.set_height(dy)
-            self.axMan.update()
+            self.updateAxes()
 
     def _release(self, event):
         if event.button == 1 and self.started:

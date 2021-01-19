@@ -91,7 +91,7 @@ class WaterShedPaintCreator(CreatorWidgetBase):
                     continue
                 p = Polygon(poly.exterior.coords, color=color['color'], animated=True)
                 self.addArtist(p)
-                self.axMan.update()
+                self.updateAxes()
 
     def _press(self, event):
         """If a displayed polygon is clicked on then execute the `onselect` callback."""

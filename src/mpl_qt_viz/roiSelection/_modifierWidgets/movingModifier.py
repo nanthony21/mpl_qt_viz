@@ -39,7 +39,7 @@ class MovingModifier(ModifierWidgetBase):
         self.indicatorLine = Line2D([0, 0], [0, 0], color='k', linestyle='dashed', animated=True)
         self.angleRefLine = Line2D([0, 0], [0, 0], color='r', animated=True)
         self.angleIndicatorLine = Line2D([0, 0], [0, 0], color='b', animated=True)
-        self.transformText = Text(self.axMan.ax.get_xlim()[0], self.axMan.ax.get_ylim()[0], "", animated=True)
+        self.transformText = Text(self._axMan.ax.get_xlim()[0], self._axMan.ax.get_ylim()[0], "", animated=True)
         self.addArtist(self.indicatorLine)
         self.addArtist(self.angleRefLine)
         self.addArtist(self.angleIndicatorLine)
@@ -73,7 +73,7 @@ class MovingModifier(ModifierWidgetBase):
 
     def _ondrag(self, event: MouseEvent):
         mousePoint = np.array((event.xdata, event.ydata))
-        span = np.abs(self.axMan.ax.get_xlim()[0] - self.axMan.ax.get_xlim()[1])
+        span = np.abs(self._axMan.ax.get_xlim()[0] - self._axMan.ax.get_xlim()[1])
         self.lineMagnitude = span / 20  # draw over 1/20th of the view span
         if 'shift' in self.state:
             if self.initializeRotation:
@@ -122,7 +122,7 @@ class MovingModifier(ModifierWidgetBase):
             coords = (self.affineTransform @ coords.T).T
             coords = coords[:, :2] + (self.rotationPivotPoint - self.translation)  # Convert back
             poly.set_xy(coords)
-        self.axMan.update()
+        self.updateAxes()
 
     def _setRotationPoint(self, point: typing.Tuple[float, float]):
         self.rotationPivotPoint = point

@@ -37,7 +37,6 @@ Utility
 
    AdjustableSelector
    PolygonModifier
-   AxManager
 
 """
 from ._utilityClasses.adjustableSelector import AdjustableSelector
@@ -52,5 +51,5 @@ from ._creatorWidgets.WaterShedPaintSelector import WaterShedPaintCreator
 from ._coreClasses import AxManager
 
 __all__ = ['AdjustableSelector', 'EllipseCreator', 'LassoCreator', 'RegionalPaintCreator',
-           'PointCreator', 'AxManager', 'FullImPaintCreator', 'WaterShedPaintCreator', 'PolygonModifier',
+           'PointCreator', 'FullImPaintCreator', 'WaterShedPaintCreator', 'PolygonModifier',
            'MovingModifier']

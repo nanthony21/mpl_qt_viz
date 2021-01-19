@@ -58,7 +58,7 @@ class PointCreator(CreatorWidgetBase):
 
     def _onhover(self, event):
         self.ghostPatch.set_xy((event.xdata - self.sideLength / 2, event.ydata - self.sideLength / 2))
-        self.axMan.update()
+        self.updateAxes()
 
     def _press(self, event):
         if event.button != 1:
@@ -85,4 +85,4 @@ class PointCreator(CreatorWidgetBase):
             self.sideLength = 1
         self.ghostPatch.set_width(self.sideLength)
         self.ghostPatch.set_height(self.sideLength)
-        self.axMan.update()
+        self.updateAxes()

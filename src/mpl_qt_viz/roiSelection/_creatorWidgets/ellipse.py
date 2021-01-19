@@ -118,7 +118,7 @@ class EllipseCreator(CreatorWidgetBase):
             h = np.sqrt(dx**2 + dy**2)
             theta = np.arctan2(dy, dx) - np.radians(self.patch.angle)
             self.patch.width = 2*h*np.cos(theta)
-        self.axMan.update()
+        self.updateAxes()
 
     def _release(self, event):
         if time() - self._clickTime >= 0.3: # In order to make dragging and hovering both behave the same we need to only respond to a release if we think that the mouse has been dragged.

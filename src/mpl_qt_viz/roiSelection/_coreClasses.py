@@ -35,12 +35,22 @@ class AxManager:
         ax: The matplotlib Axes object to draw on.
 
     """
+    _AX_ATTR = '_mpl_qt_viz_axManager'
+
+    class ManagerAlreadyAssignedException(Exception):
+        def __init__(self, axMan: AxManager):
+            self._axMan = axMan
+
+        def getExistingManager(self):
+            return self._axMan
+
     def __init__(self, ax: Axes):
+        if hasattr(ax, AxManager._AX_ATTR):
+            raise AxManager.ManagerAlreadyAssignedException(getattr(ax, AxManager._AX_ATTR))
+
+        setattr(ax, AxManager._AX_ATTR, self)
         self.artists = []
         self.ax = ax
-        if hasattr(ax, 'pwspyAxisManager'):
-            raise Exception("Axes already has an AxManager assiged.")
-        ax.pwspyAxisManager = self
         self.canvas = self.ax.figure.canvas
         self.canvas.mpl_connect('draw_event', self._update_background)
         self.background = None
@@ -113,13 +123,16 @@ class InteractiveWidgetBase(AxesWidget):
         state (set): A `set` that stores strings indicating the current state (Are we dragging the mouse, is the shift
             key pressed, etc.
         artists (list): A `list` of matplotlib widgets managed by the selector.
-        axMan (AxManager): The manager for the Axes. Call its `update` method when something needs to be drawn.
+        _axMan (AxManager): The manager for the Axes. Call its `update` method when something needs to be drawn.
         image (AxesImage): A reference to the image being interacted with. Can be used to get the image data.
     """
 
-    def __init__(self, axMan: AxManager, image: typing.Optional[AxesImage] = None):
-        AxesWidget.__init__(self, axMan.ax)
-        self.axMan = axMan
+    def __init__(self, ax: Axes, image: typing.Optional[AxesImage] = None):
+        AxesWidget.__init__(self, ax)
+        try:  # Create a new AxManager, if it already exists for that axes then store a reference to the existing one.
+            self._axMan = AxManager(ax)
+        except AxManager.ManagerAlreadyAssignedException as e:
+            self._axMan = e.getExistingManager()
         self.image = image
         self._artists = {}
         self.connect_event('motion_notify_event', self.onmove)
@@ -147,11 +160,11 @@ class InteractiveWidgetBase(AxesWidget):
     def set_active(self, active: bool):
         AxesWidget.set_active(self, active)
         if active:
-            self.axMan._update_background(None)
+            self._axMan._update_background(None)
 
     def ignore(self, event):
         """return *True* if *event* should be ignored. No event callbacks will be called if this returns true."""
-        if not self.active or not self.axMan.ax.get_visible():
+        if not self.active or not self._axMan.ax.get_visible():
             return True
         if not self.canvas.widgetlock.available(self): # If canvas was locked
             return True
@@ -168,8 +181,8 @@ class InteractiveWidgetBase(AxesWidget):
         """Get the xdata and ydata for event, with limits"""
         if event.xdata is None:
             return None, None
-        x0, x1 = self.axMan.ax.get_xbound()
-        y0, y1 = self.axMan.ax.get_ybound()
+        x0, x1 = self._axMan.ax.get_xbound()
+        y0, y1 = self._axMan.ax.get_ybound()
         xdata = max(x0, event.xdata)
         xdata = min(x1, xdata)
         ydata = max(y0, event.ydata)
@@ -258,7 +271,7 @@ class InteractiveWidgetBase(AxesWidget):
         """ Set the visibility of our artists """
         for artist, shouldBeVisible in self._artists.items():
             artist.set_visible(shouldBeVisible and visible)
-        self.axMan.update()
+        self.updateAxes()
 
     def setArtistVisible(self, artist: Artist, visible: bool):
         "set visibility of a single artist, invisible artists will not be reenabled with `set_visible` True."
@@ -267,7 +280,7 @@ class InteractiveWidgetBase(AxesWidget):
 
     def addArtist(self, artist: Artist):
         """Add a matplotlib artist to be managed."""
-        self.axMan.addArtist(artist)
+        self._axMan.addArtist(artist)
         self._artists[artist] = True  # New artists are assumed that they should be visible.
 
     def removeArtists(self):
@@ -277,7 +290,11 @@ class InteractiveWidgetBase(AxesWidget):
 
     def removeArtist(self, artist: Artist):
         self._artists.pop(artist)
-        self.axMan.removeArtist(artist)
+        self._axMan.removeArtist(artist)
+
+    def updateAxes(self):
+        """Re-render the axes. Call this after you know that something has changed with the plot."""
+        self._axMan.update()
 
     # Overridable events
     def _on_key_release(self, event: KeyEvent):

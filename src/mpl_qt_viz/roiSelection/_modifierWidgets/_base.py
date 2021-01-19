@@ -62,4 +62,5 @@ class ModifierWidgetBase(InteractiveWidgetBase, metaclass=ABCMeta):
             verts: A sequence of sequences of 2-tuple coordinates that each fully define the polygon.
             handles: A sequence of reduced sequences of coordinates that define special points on each shape to potentially be used as draggable handles for a modifier.
         """
-        self._onselect(verts, handles)
+        if self._onselect is not None:
+            self._onselect(verts, handles)

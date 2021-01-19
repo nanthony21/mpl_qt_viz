@@ -19,5 +19,5 @@ Navigate to the root directory of this Git repository and run `pip install .`
 #### Using the `PlotNd` widget to visualize hyperspectral imagery of a cancer cell
 ![](docSrc/resources/plotNdCell.gif)
 
-#### Using the DockablePlotsWindow to help organize a large number of plots.
+#### Using the `DockablePlotsWindow` to help organize a large number of plots.
 ![](docSrc/resources/dockablePlotsExample.gif)

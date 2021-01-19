@@ -21,3 +21,5 @@ MultiPlot containing various images and line plots
 .. literalinclude:: ../../examples/multiPlotExample.py
    :language: python
    :linenos:
+
+:todo: Add example of AxManager and ROI drawing tools.

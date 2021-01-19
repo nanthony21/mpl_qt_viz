@@ -14,6 +14,8 @@ Navigate to the root directory of this Git repository and run `pip install .`
 ## Install with Conda
 `conda install -c conda-forge mpl_qt_viz`
 
+### Examples
+
 #### Using the `PlotNd` widget to visualize hyperspectral imagery of a cancer cell
 ![](docSrc/resources/plotNdCell.gif)
 

@@ -22,15 +22,15 @@ from matplotlib.patches import Rectangle
 from ._base import CreatorWidgetBase
 
 if typing.TYPE_CHECKING:
-    from mpl_qt_viz.roiSelection import AxManager
+    from matplotlib.axes import Axes
 
 
 class PointCreator(CreatorWidgetBase):
-    def __init__(self, axMan: AxManager, image: AxesImage, onselect=None, sideLength: int = 3):
+    def __init__(self, ax: Axes, image: AxesImage, onselect=None, sideLength: int = 3):
         """ A selector widget that facilitates the selection of a single point in an image. If `sideLength` is greater than 1 it will actually be a square region.
 
         Args:
-            axMan (AxManager): An object that manages the re-rendering of the image. A single matplotlib.Axes can have many selector widgets but should only have one AxManager
+            ax (Axes): A reference to the matplotlib `Axes` that this selector widget is active on.
             image (AxesImage): the matplotlib image object in use.
             onselect (callable): A function that will be executed after the user selects a point.
             sideLength (int): The initial length (in pixels) of the rectangle used to select a point. This can be changed on the fly with the mouse wheel.
@@ -38,7 +38,7 @@ class PointCreator(CreatorWidgetBase):
         Returns:
             np.ndarray: The 4 XY vertices of the selection square.
         """
-        super().__init__(axMan, image)
+        super().__init__(ax, image)
         self.onselect = onselect
         self.sideLength = sideLength
         self.patch = Rectangle((0, 0), 1, 1, facecolor=(1, 0, 0, 0.5), animated=True)

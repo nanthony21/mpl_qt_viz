@@ -167,7 +167,7 @@ class PolygonModifier(ModifierWidgetBase):
             line connecting two existing vertices
 
     Args:
-        axMan: The manager for a matplotlib `Axes` that you want to interact with.
+        ax: A matplotlib `Axes` that you want to interact with.
         onselect: A callback that will be called when the user hits 'enter'. Should have signature (polygonCoords, sparseHandleCoords).
 
     Attributes:

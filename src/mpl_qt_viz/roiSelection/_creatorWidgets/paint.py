@@ -26,7 +26,7 @@ from ._segmentation import segmentOtsu
 from ._base import CreatorWidgetBase
 
 if typing.TYPE_CHECKING:
-    from mpl_qt_viz.roiSelection import AxManager
+    from matplotlib.axes import Axes
 
 
 class RegionalPaintCreator(CreatorWidgetBase):
@@ -34,14 +34,14 @@ class RegionalPaintCreator(CreatorWidgetBase):
     nucleus. Otsu thresholding will then be used to draw an ROI on the bright region.
 
      Args:
-        axMan: A reference to the `AxManager` object used to manage drawing the matplotlib `Axes` that this selector widget is active on.
+        ax: A reference to the matplotlib `Axes` that this selector widget is active on.
         image: A reference to a matplotlib `AxesImage`. Selectors may use this reference to get information such as data values from the image
             for computer vision related tasks.
         onselect: A callback function that will be called when the selector finishes a selection.
 
      """
-    def __init__(self, axMan: AxManager, im: AxesImage, onselect=None):
-        super().__init__(axMan, im)
+    def __init__(self, ax: Axes, im: AxesImage, onselect=None):
+        super().__init__(ax, im)
         self.onselect = onselect
         self.started = False
         self.selectionTime = False

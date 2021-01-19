@@ -26,20 +26,20 @@ from matplotlib.text import Text
 from mpl_qt_viz.roiSelection._modifierWidgets._base import ModifierWidgetBase
 
 if typing.TYPE_CHECKING:
-    from mpl_qt_viz.roiSelection import AxManager
+    from matplotlib.axes import Axes
     from matplotlib.image import AxesImage
 
 
 class MovingModifier(ModifierWidgetBase):
     """This iteractive widget allows translating and rotating multiple polygons"""
-    def __init__(self, axMan: AxManager, image: AxesImage = None, onselect: typing.Optional[ModifierWidgetBase.SelectionFunction] = None, onCancelled: typing.Optional[typing.Callable] = None):
-        super().__init__(axMan, image=image, onselect=onselect)
+    def __init__(self, ax: Axes, image: AxesImage = None, onselect: typing.Optional[ModifierWidgetBase.SelectionFunction] = None, onCancelled: typing.Optional[typing.Callable] = None):
+        super().__init__(ax, image=image, onselect=onselect)
         self._cancelFunc = onCancelled
         self.initialClickPoint = None  # The coords where a drag was started
         self.indicatorLine = Line2D([0, 0], [0, 0], color='k', linestyle='dashed', animated=True)
         self.angleRefLine = Line2D([0, 0], [0, 0], color='r', animated=True)
         self.angleIndicatorLine = Line2D([0, 0], [0, 0], color='b', animated=True)
-        self.transformText = Text(self._axMan.ax.get_xlim()[0], self._axMan.ax.get_ylim()[0], "", animated=True)
+        self.transformText = Text(ax.get_xlim()[0], ax.get_ylim()[0], "", animated=True)
         self.addArtist(self.indicatorLine)
         self.addArtist(self.angleRefLine)
         self.addArtist(self.angleIndicatorLine)
@@ -73,7 +73,7 @@ class MovingModifier(ModifierWidgetBase):
 
     def _ondrag(self, event: MouseEvent):
         mousePoint = np.array((event.xdata, event.ydata))
-        span = np.abs(self._axMan.ax.get_xlim()[0] - self._axMan.ax.get_xlim()[1])
+        span = np.abs(self.ax.get_xlim()[0] - self.ax.get_xlim()[1])
         self.lineMagnitude = span / 20  # draw over 1/20th of the view span
         if 'shift' in self.state:
             if self.initializeRotation:
@@ -154,8 +154,7 @@ if __name__ == '__main__':
     ax.add_patch(poly2)
     ax.set_xlim(-1, 2)
     ax.set_ylim(-1, 2)
-    axMan = AxManager(ax)
-    mod = MovingModifier(axMan, None, None)
+    mod = MovingModifier(ax, None, None)
     mod.initialize([poly.get_xy(), poly2.get_xy()])
     mod.set_active(True)
     plt.show()

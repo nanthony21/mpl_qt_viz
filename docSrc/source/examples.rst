@@ -22,4 +22,4 @@ MultiPlot containing various images and line plots
    :language: python
    :linenos:
 
-:todo: Add example of AxManager and ROI drawing tools.
+:todo: Add example of ROI drawing tools.

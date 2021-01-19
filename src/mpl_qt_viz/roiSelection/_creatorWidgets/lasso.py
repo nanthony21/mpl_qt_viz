@@ -23,7 +23,7 @@ from shapely.geometry import Polygon as shapelyPolygon, LinearRing, MultiPolygon
 from ._base import CreatorWidgetBase
 
 if typing.TYPE_CHECKING:
-    from mpl_qt_viz.roiSelection import AxManager
+    from matplotlib.axes import Axes
 
 
 
@@ -31,13 +31,13 @@ class LassoCreator(CreatorWidgetBase):
     """Allows the user to select a region with freehand drawing.
 
     Args:
-        axMan: A reference to the `AxManager` object used to manage drawing the matplotlib `Axes` that this selector widget is active on.
+        ax: A reference to the matplotlib `Axes` that this selector widget is active on.
         image: A reference to a matplotlib `AxesImage`. Selectors may use this reference to get information such as data values from the image
             for computer vision related tasks.
         onselect: A callback function that will be called when the selector finishes a selection.
     """
-    def __init__(self, axMan: AxManager, image: AxesImage, onselect=None):
-        super().__init__(axMan, image)
+    def __init__(self, ax: Axes, image: AxesImage, onselect=None):
+        super().__init__(ax, image)
         self.onselect = onselect
         self.verts = None
         self.polygon = Polygon([[0, 0]], facecolor=(0, 0, 1, .1), animated=True, edgecolor=(0, 0, 1, .8))

@@ -48,7 +48,6 @@ from ._creatorWidgets.paint import RegionalPaintCreator
 from ._creatorWidgets.point import PointCreator
 from ._creatorWidgets.FullImPaintSelector import FullImPaintCreator
 from ._creatorWidgets.WaterShedPaintSelector import WaterShedPaintCreator
-from ._coreClasses import AxManager
 
 __all__ = ['AdjustableSelector', 'EllipseCreator', 'LassoCreator', 'RegionalPaintCreator',
            'PointCreator', 'FullImPaintCreator', 'WaterShedPaintCreator', 'PolygonModifier',

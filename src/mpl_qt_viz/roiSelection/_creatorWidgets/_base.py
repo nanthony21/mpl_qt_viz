@@ -4,15 +4,15 @@ from abc import ABCMeta, abstractmethod
 from matplotlib.image import AxesImage
 from mpl_qt_viz.roiSelection._coreClasses import InteractiveWidgetBase
 if typing.TYPE_CHECKING:
-    from mpl_qt_viz.roiSelection import AxManager
+    from matplotlib.axes import Axes
 
 
 class CreatorWidgetBase(InteractiveWidgetBase, metaclass=ABCMeta):
-    """Base class for other selection widgets in this package. These widgets are used to create a polygon region from scratch. Requires to be managed by an AxManager. Inherited classes
+    """Base class for other selection widgets in this package. These widgets are used to create a polygon region from scratch. Inherited classes
     can implement a number of action handlers like mouse actions and keyboard presses.
 
     Args:
-        axMan: A reference to the `AxManager` object used to manage drawing the matplotlib `Axes` that this selector widget is active on.
+        ax: A reference to the matplotlib `Axes` that this selector widget is active on.
         image: A reference to a matplotlib `AxesImage`. Selectors may use this reference to get information such as data values from the image
             for computer vision related tasks.
         onselect: A callback function that will be called when the selector finishes a selection. See the `onselect` method
@@ -22,7 +22,6 @@ class CreatorWidgetBase(InteractiveWidgetBase, metaclass=ABCMeta):
         state (set): A `set` that stores strings indicating the current state (Are we dragging the mouse, is the shift
             key pressed, etc.
         artists (list): A `list` of matplotlib widgets managed by the selector.
-        axMan (AxManager): The manager for the Axes. Call its `update` method when something needs to be drawn.
         image (AxesImage): A reference to the image being interacted with. Can be used to get the image data.
     """
 
@@ -30,9 +29,9 @@ class CreatorWidgetBase(InteractiveWidgetBase, metaclass=ABCMeta):
     PolygonCoords = typing.Sequence[typing.Tuple[float, float]]
     SelectionFunction = typing.Callable[[PolygonCoords, PolygonCoords], None]
 
-    def __init__(self, axMan: AxManager, image: typing.Optional[AxesImage] = None,
+    def __init__(self, ax: Axes, image: typing.Optional[AxesImage] = None,
                  onselect: typing.Optional[SelectionFunction] = None):
-        super().__init__(axMan, image)
+        super().__init__(ax, image)
         self._onselect = onselect
 
     @staticmethod

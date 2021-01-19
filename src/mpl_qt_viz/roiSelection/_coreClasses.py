@@ -123,7 +123,7 @@ class InteractiveWidgetBase(AxesWidget):
         state (set): A `set` that stores strings indicating the current state (Are we dragging the mouse, is the shift
             key pressed, etc.
         artists (list): A `list` of matplotlib widgets managed by the selector.
-        _axMan (AxManager): The manager for the Axes. Call its `update` method when something needs to be drawn.
+        ax: A reference to the matplotlib Axes that this selector is assigned to.
         image (AxesImage): A reference to the image being interacted with. Can be used to get the image data.
     """
 
@@ -133,6 +133,7 @@ class InteractiveWidgetBase(AxesWidget):
             self._axMan = AxManager(ax)
         except AxManager.ManagerAlreadyAssignedException as e:
             self._axMan = e.getExistingManager()
+        self.ax = ax
         self.image = image
         self._artists = {}
         self.connect_event('motion_notify_event', self.onmove)

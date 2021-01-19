@@ -31,19 +31,19 @@ from ._sharedWidgets import LabeledSlider
 from mpl_qt_viz.roiSelection._creatorWidgets._base import CreatorWidgetBase
 
 if typing.TYPE_CHECKING:
-    from mpl_qt_viz.roiSelection import AxManager
+    from matplotlib.axes import Axes
 
 
 class WaterShedPaintCreator(CreatorWidgetBase):
     """Uses Watershed technique in an attempt to highlight all bright selectable regions in a fluorescence image.
 
     Args:
-        axMan: The manager for a matplotlib `Axes` that you want to interact with.
+        ax: The matplotlib `Axes` that you want to interact with.
         im: A reference to a matplotlib `AxesImage`. The data from this object is used to detect bright regions.
         onselect: A callback that will be called when the user hits 'enter'. Should have signature (polygonCoords, sparseHandleCoords).
     """
-    def __init__(self, axMan: AxManager, im: AxesImage, onselect=None):
-        super().__init__(axMan, im, onselect=onselect)
+    def __init__(self, ax: Axes, im: AxesImage, onselect=None):
+        super().__init__(ax, im, onselect=onselect)
         self.dlg = WaterShedPaintDialog(self, self.ax.figure.canvas)
 
         self._cachedRegions = None # We cache the detected polygons. No need to redetect if nothing has changed between selections.
@@ -204,7 +204,7 @@ if __name__ == '__main__':
 
     fig, ax = plt.subplots()
     im = ax.imshow(np.random.random((100, 100)))
-    sel = WaterShedPaintCreator(AxManager(ax), im)
+    sel = WaterShedPaintCreator(ax, im)
     fig.show()
     plt.pause(.1)
     sel.set_active(True)

@@ -26,7 +26,8 @@ from matplotlib.patches import Ellipse, Circle
 from mpl_qt_viz.roiSelection._creatorWidgets._base import CreatorWidgetBase
 
 if typing.TYPE_CHECKING:
-    from mpl_qt_viz.roiSelection import AxManager
+    from matplotlib.axes import Axes
+
 
 class _SelectionStatus(enum.Enum):
     """Helps keep track of where we are in the selection process"""
@@ -39,13 +40,13 @@ class EllipseCreator(CreatorWidgetBase):
     """Allows the user to select an elliptical region.
 
     Args:
-        axMan: The manager for a matplotlib `Axes` that you want to interact with.
+        ax: The matplotlib `Axes` that you want to interact with.
         image: A reference to a matplotlib `AxesImage`. Selectors may use this reference to get information such as data values from the image
             for computer vision related tasks.
         onselect: A callback that will be called when the user hits 'enter'. Should have signature (polygonCoords, sparseHandleCoords).
     """
-    def __init__(self, axMan: AxManager, image: AxesImage, onselect: typing.Callable = None):
-        super().__init__(axMan, image, onselect=onselect)
+    def __init__(self, ax: Axes, image: AxesImage, onselect: typing.Callable = None):
+        super().__init__(ax, image, onselect=onselect)
         self._status = _SelectionStatus.NotStarted
         self._startPoint: typing.Tuple[float, float] = None
         self._clickTime = time()
@@ -127,5 +128,5 @@ class EllipseCreator(CreatorWidgetBase):
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
     fig, ax = plt.subplots()
-    sel = EllipseCreator(AxManager(ax), None, lambda verts, handles: print(handles))
+    sel = EllipseCreator(ax, None, lambda verts, handles: print(handles))
     plt.show()

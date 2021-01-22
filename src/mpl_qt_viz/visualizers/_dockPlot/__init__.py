@@ -95,7 +95,7 @@ class DockablePlotWindow(QMainWindow):
         if not filePath.endswith(".pdf"):
             filePath = f"{filePath}.pdf"
         with PdfPages(filePath) as pdf:
-            for k, fig in self.figures:
+            for k, fig in self.figures.items():
                 pdf.savefig(fig)  # saves the current figure into a pdf page
 
             # We can also set the file's metadata via the PdfPages object:
@@ -104,6 +104,7 @@ class DockablePlotWindow(QMainWindow):
             d['Author'] = 'mpl_qt_viz'
             d['CreationDate'] = datetime.datetime.today()
             d['ModDate'] = datetime.datetime.today()
+
 
 class DockablePlot(QDockWidget):
     def __init__(self, figure: plt.Figure, title: str, parent: QWidget = None):

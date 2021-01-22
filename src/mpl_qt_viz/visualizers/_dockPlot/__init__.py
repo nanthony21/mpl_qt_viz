@@ -84,6 +84,26 @@ class DockablePlotWindow(QMainWindow):
         self._plots.append(plot)
         return fig, ax
 
+    @property
+    def figures(self) -> dict:
+        """A dictionary of all the dockable figures in this window keyed by their titles."""
+        return {i.title: i.figure for i in self._plots}
+
+    def saveToPDF(self, filePath: str):  # TODO make this callable from a Qt menubar
+        import datetime
+        from matplotlib.backends.backend_pdf import PdfPages
+        if not filePath.endswith(".pdf"):
+            filePath = f"{filePath}.pdf"
+        with PdfPages(filePath) as pdf:
+            for k, fig in self.figures:
+                pdf.savefig(fig)  # saves the current figure into a pdf page
+
+            # We can also set the file's metadata via the PdfPages object:
+            d = pdf.infodict()
+            d['Title'] = 'DockablePlotWindow Multipage PDF'
+            d['Author'] = 'mpl_qt_viz'
+            d['CreationDate'] = datetime.datetime.today()
+            d['ModDate'] = datetime.datetime.today()
 
 class DockablePlot(QDockWidget):
     def __init__(self, figure: plt.Figure, title: str, parent: QWidget = None):
@@ -103,6 +123,9 @@ class DockablePlot(QDockWidget):
     def title(self) -> str:
         return self.windowTitle()
 
+    @property
+    def figure(self) -> plt.Figure:
+        return self._canv.figure
 
 if __name__ == '__main__':
     import numpy as np

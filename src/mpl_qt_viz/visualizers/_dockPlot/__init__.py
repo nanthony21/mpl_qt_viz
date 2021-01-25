@@ -15,16 +15,17 @@
 # You should have received a copy of the GNU General Public License
 # along with mpl_qt_viz.  If not, see <https://www.gnu.org/licenses/>.
 
-import typing
-
+import typing as t_
+import os
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QMainWindow, QApplication, QDockWidget, QWidget, QGridLayout
+from PyQt5.QtWidgets import QMainWindow, QApplication, QDockWidget, QWidget, QGridLayout, QMenuBar, QFileDialog
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5 import NavigationToolbar2QT
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 
 
 class DockablePlotWindow(QMainWindow):
+    DEFAULT_FIG_SIZE = (6.4, 4.8)  # Got this from https://matplotlib.org/api/_as_gen/matplotlib.figure.Figure.html#matplotlib-figure-figure
     """
     A window with that can create interactive Matplotlib figures docked within it.
 
@@ -34,9 +35,15 @@ class DockablePlotWindow(QMainWindow):
     def __init__(self, title: str = "Dockable Plots"):
         super().__init__(parent=None)
         self.setWindowTitle(title)
-        self._plots: typing.List[DockablePlot] = []
+        self._plots: t_.List[DockablePlot] = []
         self.setDockOptions(QMainWindow.AnimatedDocks | QMainWindow.AllowNestedDocks | QMainWindow.AllowTabbedDocks | QMainWindow.GroupedDragging)
         self.resize(1024, 768)
+        # Set up menu
+        self._menu = QMenuBar(self)
+        exportMenu = self._menu.addMenu("Export")
+        pdfAction = exportMenu.addAction("Save to PDF")
+        pdfAction.triggered.connect(self._pdfSaveAction)
+        self.setMenuBar(self._menu)
 
         self.show()
 
@@ -85,9 +92,16 @@ class DockablePlotWindow(QMainWindow):
         return fig, ax
 
     @property
-    def figures(self) -> dict:
+    def figures(self) -> t_.Dict[str, plt.Figure]:
         """A dictionary of all the dockable figures in this window keyed by their titles."""
         return {i.title: i.figure for i in self._plots}
+
+    def _pdfSaveAction(self):
+        """Triggered when the user clicks the save to pdf menu"""
+        fName, filterUsed = QFileDialog.getSaveFileName(self, "Save PDF", os.path.expanduser('~'), "PDF (*.pdf)")
+        if fName == '':  # Save dialog was cancelled
+            return
+        self.saveToPDF(fName)
 
     def saveToPDF(self, filePath: str):  # TODO make this callable from a Qt menubar
         import datetime

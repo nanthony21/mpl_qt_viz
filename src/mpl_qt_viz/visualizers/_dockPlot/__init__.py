@@ -96,7 +96,10 @@ class DockablePlotWindow(QMainWindow):
             filePath = f"{filePath}.pdf"
         with PdfPages(filePath) as pdf:
             for k, fig in self.figures.items():
+                origSize = fig.get_size_inches()
+                fig.set_size_inches(self.DEFAULT_FIG_SIZE) # Set to the original figure size for saving.
                 pdf.savefig(fig)  # saves the current figure into a pdf page
+                fig.set_size_inches(*origSize)  # Go back to the original size.
 
             # We can also set the file's metadata via the PdfPages object:
             d = pdf.infodict()

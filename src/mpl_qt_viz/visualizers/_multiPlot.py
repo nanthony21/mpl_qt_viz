@@ -70,6 +70,7 @@ class MultiPlot(QWidget):
         self._index = 0  # Keeps track of which frame we are currently viewing.
         self._updateDisplayedImage()
         plt.close(self.figure)  # A separate figure window will have been opened during the creation of our artists. This is extra and should be closed.
+        self.show()
 
     def showPreviousIm(self):
         """Display the previous set of display elements."""

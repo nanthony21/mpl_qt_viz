@@ -25,7 +25,9 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 
 
 class DockablePlotWindow(QMainWindow):
-    DEFAULT_FIG_SIZE = (6.4, 4.8)  # Got this from https://matplotlib.org/api/_as_gen/matplotlib.figure.Figure.html#matplotlib-figure-figure
+    _DEFAULT_FIG_SIZE = (6.4, 4.8)  # Got this from https://matplotlib.org/api/_as_gen/matplotlib.figure.Figure.html#matplotlib-figure-figure
+    _DOCKAREAMAP = {'top': QtCore.Qt.TopDockWidgetArea, 'bottom': QtCore.Qt.BottomDockWidgetArea,
+               'left': QtCore.Qt.LeftDockWidgetArea, 'right': QtCore.Qt.RightDockWidgetArea}
     """
     A window with that can create interactive Matplotlib figures docked within it.
 
@@ -35,7 +37,8 @@ class DockablePlotWindow(QMainWindow):
     def __init__(self, title: str = "Dockable Plots"):
         super().__init__(parent=None)
         self.setWindowTitle(title)
-        self._plots: t_.List[DockablePlot] = []
+        self._plots: t_.List[DockablePlot] = []  # A list of all added DockablePlots
+        self._dockedWidgets: t_.List[GenericDockableWidget] = []  # List of all add dock widgets that are not plots.
         self.setDockOptions(QMainWindow.AnimatedDocks | QMainWindow.AllowNestedDocks | QMainWindow.AllowTabbedDocks | QMainWindow.GroupedDragging)
         self.resize(1024, 768)
         # Set up menu
@@ -46,6 +49,20 @@ class DockablePlotWindow(QMainWindow):
         self.setMenuBar(self._menu)
 
         self.show()
+
+    @property
+    def _docked(self) -> t_.List[QDockWidget]:
+        """Provides quick access to a list of all dock widgets that have been added regardless of type."""
+        return self._plots + self._dockedWidgets
+
+    def addWidget(self, widget: QWidget, title: str, dockArea: str = 'top'):
+        try:
+            dockArea = self._DOCKAREAMAP[dockArea]
+        except KeyError:
+            raise ValueError(f"Dock are `{dockArea}` is not supported. must be: {list(self._DOCKAREAMAP.keys())}")
+        dockWidg = GenericDockableWidget(widget, title, parent=self)
+        self._addDockToArea(dockWidg, dockArea)
+        self._dockedWidgets.append(dockWidg)
 
     def subplots(self, title: str, dockArea: str = 'top', **kwargs):
         """
@@ -61,12 +78,11 @@ class DockablePlotWindow(QMainWindow):
         Returns:
              The return values are the same as the return values of `pyplot.subplots`. Usually taking the form of (figure, axes).
         """
-        dockMap = {'top': QtCore.Qt.TopDockWidgetArea, 'bottom': QtCore.Qt.BottomDockWidgetArea,
-                    'left': QtCore.Qt.LeftDockWidgetArea, 'right': QtCore.Qt.RightDockWidgetArea}
+
         try:
-            dockArea = dockMap[dockArea]
+            dockArea = self._DOCKAREAMAP[dockArea]
         except KeyError:
-            raise ValueError(f"Dock are `{dockArea}` is not supported. must be: {list(dockMap.keys())}")
+            raise ValueError(f"Dock are `{dockArea}` is not supported. must be: {list(self._DOCKAREAMAP.keys())}")
         interactive = False
         if plt.isinteractive():
             interactive = True
@@ -82,14 +98,17 @@ class DockablePlotWindow(QMainWindow):
             suffix += 1
             finalTitle = f"{title}_{suffix}"
         plot = DockablePlot(fig, finalTitle, self)
-        dockAreas = [self.dockWidgetArea(i) for i in self._plots]
-        if dockArea not in dockAreas:
-            self.addDockWidget(dockArea, plot)
-        else:
-            existing = self._plots[dockAreas.index(dockArea)]
-            self.tabifyDockWidget(existing, plot)
+        self._addDockToArea(plot, dockArea)
         self._plots.append(plot)
         return fig, ax
+
+    def _addDockToArea(self, dock: QDockWidget, dockArea):
+        dockAreas = [self.dockWidgetArea(i) for i in self._docked]
+        if dockArea not in dockAreas:
+            self.addDockWidget(dockArea, dock)
+        else:
+            existing = self._docked[dockAreas.index(dockArea)]
+            self.tabifyDockWidget(existing, dock)
 
     @property
     def figures(self) -> t_.Dict[str, plt.Figure]:
@@ -111,7 +130,7 @@ class DockablePlotWindow(QMainWindow):
         with PdfPages(filePath) as pdf:
             for k, fig in self.figures.items():
                 origSize = fig.get_size_inches()
-                fig.set_size_inches(self.DEFAULT_FIG_SIZE) # Set to the original figure size for saving.
+                fig.set_size_inches(self._DEFAULT_FIG_SIZE) # Set to the original figure size for saving.
                 pdf.savefig(fig)  # saves the current figure into a pdf page
                 fig.set_size_inches(*origSize)  # Go back to the original size.
 
@@ -144,6 +163,13 @@ class DockablePlot(QDockWidget):
     @property
     def figure(self) -> plt.Figure:
         return self._canv.figure
+
+
+class GenericDockableWidget(QDockWidget):
+    def __init__(self, widget: QWidget, title: str, parent: QWidget = None):
+        super().__init__(title, parent=parent)
+        self.setWidget(widget)
+
 
 if __name__ == '__main__':
     import numpy as np

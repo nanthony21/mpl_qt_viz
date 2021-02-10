@@ -5,3 +5,4 @@ docSrc/build/
 build/
 dist/
 src/mpl_qt_viz/version.py
+.idea/

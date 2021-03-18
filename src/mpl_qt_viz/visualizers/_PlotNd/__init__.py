@@ -84,6 +84,7 @@ class PlotNd(QWidget): #TODO add function and GUI method to set coordinates of c
         parent: The Qt Widget that serves as the parent for this widget.
         indices: An optional tuple of 1d arrays of values to set as the indexes for each dimension of the data. Elements of the list can be set to `None` to skip
             setting a custom index for that dimension.
+        flags: See the `flags` constructor argument for a QWidget. Default value is `Window`
 
     Attributes:
         data: A reference the the 3D or greater numpy array. This can be safely modified.
@@ -92,8 +93,8 @@ class PlotNd(QWidget): #TODO add function and GUI method to set coordinates of c
 
     def __init__(self, data: np.ndarray, names: Tuple[str, ...] = None,
                  initialCoords: Optional[Tuple[int, ...]] = None, title: Optional[str] = '',
-                 parent: Optional[QWidget] = None, indices: List[np.ndarray] = None):
-        super().__init__(parent=parent)
+                 parent: Optional[QWidget] = None, indices: List[np.ndarray] = None, flags=QtCore.Qt.Window):
+        super().__init__(parent=parent, flags=flags)
 
 
         self.setWindowTitle(str(title))  # Convert to string just in case

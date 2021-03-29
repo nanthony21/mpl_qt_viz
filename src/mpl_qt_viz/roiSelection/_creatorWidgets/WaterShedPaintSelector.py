@@ -20,14 +20,14 @@ import logging
 import typing
 from PyQt5 import QtCore
 from PyQt5.QtCore import QPoint
-from PyQt5.QtWidgets import QDialog, QWidget, QSlider, QLabel, QPushButton, QGridLayout, QHBoxLayout, QFormLayout
+from PyQt5.QtWidgets import QDialog, QWidget, QPushButton, QFormLayout
 from cycler import cycler
 from matplotlib.image import AxesImage
 from shapely.geometry import Polygon as shapelyPolygon, LinearRing, MultiPolygon
 from matplotlib.patches import Polygon
 
-from ._segmentation import segmentAdaptive, segmentWatershed
-from ._sharedWidgets import LabeledSlider
+from mpl_qt_viz.roiSelection._creatorWidgets._segmentation import segmentWatershed
+from mpl_qt_viz.roiSelection._creatorWidgets._sharedWidgets import LabeledSlider
 from mpl_qt_viz.roiSelection._creatorWidgets._base import CreatorWidgetBase
 
 if typing.TYPE_CHECKING:
@@ -46,8 +46,8 @@ class WaterShedPaintCreator(CreatorWidgetBase):
         super().__init__(ax, im, onselect=onselect)
         self.dlg = WaterShedPaintDialog(self, self.ax.figure.canvas)
 
-        self._cachedRegions = None # We cache the detected polygons. No need to redetect if nothing has changed between selections.
-        self._cachedImage = None # We cache a reference to the image data as a way of detecting when the image data has changed.
+        self._cachedRegions = None  # We cache the detected polygons. No need to redetect if nothing has changed between selections.
+        self._cachedImage = None  # We cache a reference to the image data as a way of detecting when the image data has changed.
 
         self._checkImageChangeTimer = QtCore.QTimer()  # This timer checks if the image data has been changed. If it has then redetect regions.
         self._checkImageChangeTimer.setInterval(1000)
@@ -65,6 +65,7 @@ class WaterShedPaintCreator(CreatorWidgetBase):
     def reset(self):
         """Reset the state of the selector so it's ready for a new selection."""
         self.removeArtists()
+        self.updateAxes()
 
     def set_active(self, active: bool):
         super().set_active(active)
@@ -79,7 +80,7 @@ class WaterShedPaintCreator(CreatorWidgetBase):
         else:
             self.dlg.close()
 
-    def _drawRois(self, polys: List[shapelyPolygon]):
+    def _drawRois(self, polys: typing.List[shapelyPolygon]):
         """Convert a list of shapely `Polygon` objects into matplotlib `Polygon`s and display them."""
         self._cachedRegions = polys
         if len(polys) > 0:
@@ -91,7 +92,6 @@ class WaterShedPaintCreator(CreatorWidgetBase):
                     continue
                 p = Polygon(poly.exterior.coords, color=color['color'], animated=True)
                 self.addArtist(p)
-                self.updateAxes()
 
     def _press(self, event):
         """If a displayed polygon is clicked on then execute the `onselect` callback."""
@@ -132,8 +132,9 @@ class WaterShedPaintCreator(CreatorWidgetBase):
                 polys = self._cachedRegions
             else:
                 return
-        self.reset()
+        self.removeArtists()
         self._drawRois(polys)
+        self.updateAxes()
 
 
 class WaterShedPaintDialog(QDialog):
@@ -198,14 +199,29 @@ class WaterShedPaintDialog(QDialog):
             minimumArea=self.minAreaSlider.value()
         )
 
+
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
     import numpy as np
+    from PyQt5.QtWidgets import QApplication
+
+    app = QApplication([])
+
+    size = 1000
+
+    im = np.ones((size, size))
+    x = y = np.linspace(0, 1, num=size)
+    X, Y = np.meshgrid(x, y)
+    im = im * np.sin(20*X) * np.sin(20*Y)
 
     fig, ax = plt.subplots()
-    im = ax.imshow(np.random.random((100, 100)))
-    sel = WaterShedPaintCreator(ax, im)
+    im = ax.imshow(im, cmap='gray')
+    sel = WaterShedPaintCreator(ax, im, onselect=lambda verts, handles: print("excellent choice!"))
     fig.show()
     plt.pause(.1)
     sel.set_active(True)
     plt.show()
+
+    app.exec()
+
+    a = 1

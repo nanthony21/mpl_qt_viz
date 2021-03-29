@@ -26,7 +26,7 @@ from matplotlib.image import AxesImage
 from shapely.geometry import Polygon as shapelyPolygon, LinearRing, MultiPolygon
 from matplotlib.patches import Polygon
 from mpl_qt_viz.roiSelection._creatorWidgets._sharedWidgets import LabeledSlider
-from ._segmentation import segmentAdaptive
+from mpl_qt_viz.roiSelection._creatorWidgets._segmentation import segmentAdaptive
 from mpl_qt_viz.roiSelection._creatorWidgets._base import CreatorWidgetBase
 
 if typing.TYPE_CHECKING:
@@ -64,6 +64,7 @@ class FullImPaintCreator(CreatorWidgetBase):
     def reset(self):
         """Reset the state of the selector so it's ready for a new selection."""
         self.removeArtists()
+        self.updateAxes()
 
     def set_active(self, active: bool):
         super().set_active(active)
@@ -78,7 +79,7 @@ class FullImPaintCreator(CreatorWidgetBase):
         else:
             self.dlg.close()
 
-    def _drawRois(self, polys: typing.List[shapelyPolygon]):
+    def _addRois(self, polys: typing.List[shapelyPolygon]):
         """Convert a list of shapely `Polygon` objects into matplotlib `Polygon`s and display them."""
         self._cachedRegions = polys
         if len(polys) > 0:
@@ -90,7 +91,6 @@ class FullImPaintCreator(CreatorWidgetBase):
                     continue
                 p = Polygon(poly.exterior.coords, color=color['color'], animated=True)
                 self.addArtist(p)
-                self.updateAxes()
 
     def _press(self, event):
         """If a displayed polygon is clicked on then execute the `onselect` callback."""
@@ -119,20 +119,21 @@ class FullImPaintCreator(CreatorWidgetBase):
             stale = True
         if self.dlg.isStale():
             stale = True
-        if stale:
+        if stale:  # We need to re-run the segmentation.
             try:
                 polys = segmentAdaptive(self.image.get_array(), **self.dlg.getSettings())
             except Exception as e:
                 logging.getLogger(__name__).warning(f"adaptive segmentation failed with error:")
                 logging.getLogger(__name__).exception(e)
                 return
-        else:
+        else:  # Nothing needs to be done unless `forceRedraw` was passed.
             if forceRedraw:
                 polys = self._cachedRegions
             else:
                 return
-        self.reset()
-        self._drawRois(polys)
+        self.removeArtists()
+        self._addRois(polys)
+        self.updateAxes()
 
 
 class AdaptivePaintDialog(QDialog):
@@ -224,14 +225,24 @@ class AdaptivePaintDialog(QDialog):
             erode=self.erodeSlider.value(), dilate=self.dilateSlider.value()
         )
 
+
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
     import numpy as np
 
+    size = 1000
+
+    im = np.ones((size, size))
+    x = y = np.linspace(0, 1, num=size)
+    X, Y = np.meshgrid(x, y)
+    im = im * np.sin(20*X) * np.sin(20*Y)
+
     fig, ax = plt.subplots()
-    im = ax.imshow(np.random.random((100, 100)))
-    sel = FullImPaintCreator(ax, im)
+    im = ax.imshow(im, cmap='gray')
+    sel = FullImPaintCreator(ax, im, onselect=lambda verts, handles: print("excellent choice!"))
     fig.show()
     plt.pause(.1)
     sel.set_active(True)
     plt.show()
+
+    a = 1

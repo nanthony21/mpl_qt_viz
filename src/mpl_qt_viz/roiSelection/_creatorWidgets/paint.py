@@ -59,6 +59,7 @@ class RegionalPaintCreator(CreatorWidgetBase):
         [self.removeArtist(i) for i in self.contours]
         self.contours = []
         self.selectionTime = False
+        self.updateAxes()
 
     def findContours(self, rect: Rectangle):
         """Detect bright regions within the specified rectangle and draw them.

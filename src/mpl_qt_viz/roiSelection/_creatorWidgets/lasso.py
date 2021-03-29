@@ -20,11 +20,10 @@ import typing
 from matplotlib.image import AxesImage
 from matplotlib.patches import Polygon
 from shapely.geometry import Polygon as shapelyPolygon, LinearRing, MultiPolygon
-from ._base import CreatorWidgetBase
+from mpl_qt_viz.roiSelection._creatorWidgets._base import CreatorWidgetBase
 
 if typing.TYPE_CHECKING:
     from matplotlib.axes import Axes
-
 
 
 class LassoCreator(CreatorWidgetBase):
@@ -77,3 +76,29 @@ class LassoCreator(CreatorWidgetBase):
         self.verts.append((event.xdata, event.ydata))
         self.polygon.set_xy(self.verts)
         self.updateAxes()
+
+if __name__ == '__main__':
+    import matplotlib.pyplot as plt
+    import numpy as np
+    from PyQt5.QtWidgets import QApplication
+
+    app = QApplication([])
+
+    size = 1000
+
+    im = np.ones((size, size))
+    x = y = np.linspace(0, 1, num=size)
+    X, Y = np.meshgrid(x, y)
+    im = im * np.sin(20*X) * np.sin(20*Y)
+
+    fig, ax = plt.subplots()
+    im = ax.imshow(im, cmap='gray')
+    sel = LassoCreator(ax, im, onselect=lambda verts, handles: print("excellent choice!"))
+    fig.show()
+    plt.pause(.1)
+    sel.set_active(True)
+    plt.show()
+
+    app.exec()
+
+    a = 1

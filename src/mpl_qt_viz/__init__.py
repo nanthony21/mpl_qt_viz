@@ -26,3 +26,4 @@ except ImportError:  # When running from source the version.py file won't have b
 __author__ = 'Nick Anthony'
 __version__ = _versionStr
 
+__all__ = ['roiSelection', 'visualizers']

@@ -64,21 +64,25 @@ class DockablePlotWindow(QMainWindow):
         self._addDockToArea(dockWidg, dockArea)
         self._dockedWidgets.append(dockWidg)
 
-    def subplots(self, title: str, dockArea: str = 'top', **kwargs):
+    def subplots(self, title: str, dockArea: str = 'top', subplots_kwargs: dict = None, subplot_kw: dict = None):
         """
         Create a new docked figure within the main window.
 
         Args:
             title: The title for the new figure.
-            docArea: The side of the window that the new plot should be initially placed in. If a figure has already been
+            dockArea: The side of the window that the new plot should be initially placed in. If a figure has already been
                 created on that side of the window then the new figure will be docked with the existing one. Accepted values
                 are: 'left', 'right', 'top', and 'bottom'.
-            kwargs: Any additional keyword arguments are passed to `pyplot.subplots`
+            subplots_kwargs: This dictionary will be passed as the kwargs for `pyplot.subplots`
+            subplot_kw: This dictionary will be passed to the `subplot_kw` arg of `pyplot.subplots`
 
         Returns:
              The return values are the same as the return values of `pyplot.subplots`. Usually taking the form of (figure, axes).
         """
-
+        if subplot_kw is None:
+            subplot_kw = {}
+        if subplots_kwargs is None:
+            subplots_kwargs = {}
         try:
             dockArea = self._DOCKAREAMAP[dockArea]
         except KeyError:
@@ -87,7 +91,7 @@ class DockablePlotWindow(QMainWindow):
         if plt.isinteractive():
             interactive = True
             plt.ioff()
-        fig, ax = plt.subplots(**kwargs)
+        fig, ax = plt.subplots(subplot_kw=subplot_kw, **subplots_kwargs)
         if interactive:
             plt.ion()  # Set back to interactive if it originally was.
         fig.suptitle(title)

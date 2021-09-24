@@ -17,11 +17,33 @@
 
 import typing as t_
 import os
-from PyQt5 import QtCore
+from PyQt5 import QtCore, QtGui
+from PyQt5.QtCore import QTimer
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDockWidget, QWidget, QGridLayout, QMenuBar, QFileDialog
 import matplotlib.pyplot as plt
+from matplotlib.backend_bases import ResizeEvent
 from matplotlib.backends.backend_qt5 import NavigationToolbar2QT
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
+
+
+class MyFigureCanvas(FigureCanvasQTAgg):
+    """ Subclass canvas to catch the resize event. Resizes are debounced out to a default of 50 ms. """
+    def __init__(self, figure: plt.Figure, resizeDelayMs: int = 100):
+        super().__init__(figure)
+        self._debounce = QTimer(self)
+        self._debounce.setInterval(resizeDelayMs)
+        self._debounce.setSingleShot(True)
+        self._debounce.timeout.connect(self._resize)
+        self._ev = None
+
+    def resizeEvent(self, event):
+        # store the event size for later use
+        self._ev = event.size()
+        self._debounce.start()
+
+    def _resize(self):
+        event = QtGui.QResizeEvent(self._ev, QtCore.QSize(1, 1))
+        super().resizeEvent(event)
 
 
 class DockablePlotWindow(QMainWindow):
@@ -56,6 +78,15 @@ class DockablePlotWindow(QMainWindow):
         return self._plots + self._dockedWidgets
 
     def addWidget(self, widget: QWidget, title: str, dockArea: str = 'top'):
+        """
+        Add any Qt widget to a dockable widget in our window.
+        
+        Args:
+            widget: Any Qt Widget
+            title: The title of the new dockable widget.
+            dockArea: The dock area of the window to add the dockable widget to.
+
+        """
         try:
             dockArea = self._DOCKAREAMAP[dockArea]
         except KeyError:
@@ -63,6 +94,31 @@ class DockablePlotWindow(QMainWindow):
         dockWidg = GenericDockableWidget(widget, title, parent=self)
         self._addDockToArea(dockWidg, dockArea)
         self._dockedWidgets.append(dockWidg)
+        
+    def addFigure(self, fig: plt.Figure, title: str, dockArea: str = 'top'):
+        """
+        Add a pre-existing Matplotlib Figure to a new dockable widget in the window.
+        
+        Args:
+             fig: A pre-existing Matplotlib Figure
+             title: The title for the new dockable widget
+             dockArea: The side of the window that the new plot should be initially placed in. If a figure has already been
+                created on that side of the window then the new figure will be docked with the existing one. Accepted values
+                are: 'left', 'right', 'top', and 'bottom'.
+        """
+        try:
+            dockArea = self._DOCKAREAMAP[dockArea]
+        except KeyError:
+            raise ValueError(f"Dock are `{dockArea}` is not supported. must be: {list(self._DOCKAREAMAP.keys())}")
+        suffix = 0
+        finalTitle = title
+        titles = [i.title for i in self._plots]
+        while finalTitle in titles:
+            suffix += 1
+            finalTitle = f"{title}_{suffix}"
+        plot = DockablePlot(fig, finalTitle, self)
+        self._addDockToArea(plot, dockArea)
+        self._plots.append(plot)
 
     def subplots(self, title: str, dockArea: str = 'top', subplots_kwargs: dict = None, subplot_kw: dict = None):
         """
@@ -83,27 +139,24 @@ class DockablePlotWindow(QMainWindow):
             subplot_kw = {}
         if subplots_kwargs is None:
             subplots_kwargs = {}
-        try:
-            dockArea = self._DOCKAREAMAP[dockArea]
-        except KeyError:
-            raise ValueError(f"Dock are `{dockArea}` is not supported. must be: {list(self._DOCKAREAMAP.keys())}")
         interactive = False
-        if plt.isinteractive():
+        if plt.isinteractive():  # Turn of interactive mode so our new figure doesn't automatically appear in it's own window.
             interactive = True
             plt.ioff()
         fig, ax = plt.subplots(subplot_kw=subplot_kw, **subplots_kwargs)
         if interactive:
             plt.ion()  # Set back to interactive if it originally was.
         fig.suptitle(title)
-        suffix = 0
-        finalTitle = title
-        titles = [i.title for i in self._plots]
-        while finalTitle in titles:
-            suffix += 1
-            finalTitle = f"{title}_{suffix}"
-        plot = DockablePlot(fig, finalTitle, self)
-        self._addDockToArea(plot, dockArea)
-        self._plots.append(plot)
+        self.addFigure(fig, title, dockArea=dockArea)
+        # suffix = 0
+        # finalTitle = title
+        # titles = [i.title for i in self._plots]
+        # while finalTitle in titles:
+        #     suffix += 1
+        #     finalTitle = f"{title}_{suffix}"
+        # plot = DockablePlot(fig, finalTitle, self)
+        # self._addDockToArea(plot, dockArea)
+        # self._plots.append(plot)
         return fig, ax
 
     def _addDockToArea(self, dock: QDockWidget, dockArea):
@@ -149,7 +202,7 @@ class DockablePlotWindow(QMainWindow):
 class DockablePlot(QDockWidget):
     def __init__(self, figure: plt.Figure, title: str, parent: QWidget = None):
         super().__init__(title, parent=parent)
-        self._canv = FigureCanvasQTAgg(figure=figure)
+        self._canv = MyFigureCanvas(figure=figure)
         self._canv.setFocusPolicy(QtCore.Qt.ClickFocus)
         self._canv.setFocus()
         self._bar = NavigationToolbar2QT(self._canv, self)

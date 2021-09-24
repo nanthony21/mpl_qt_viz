@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with mpl_qt_viz.  If not, see <https://www.gnu.org/licenses/>.
+import abc
 import typing
 from typing import Tuple, List, Optional
 import matplotlib as mpl
@@ -71,7 +72,7 @@ class _MyView(QGraphicsView):
         super().resizeEvent(event)
 
 
-class PlotNd(QWidget): #TODO add function and GUI method to set coordinates of cursor.
+class PlotNd(QWidget):  # TODO add function and GUI method to set coordinates of cursor.
     """A convenient widget for visualizing data that is 3D or greater. This is a standalone widget which extends the
     functionality of `PlotNdCanvas`.
 

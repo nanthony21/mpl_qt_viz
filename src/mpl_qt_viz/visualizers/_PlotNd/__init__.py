@@ -14,21 +14,20 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with mpl_qt_viz.  If not, see <https://www.gnu.org/licenses/>.
-import abc
-import typing
-from typing import Tuple, List, Optional
+
+import typing as t_
 import matplotlib as mpl
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QSizeF, QTimer
 from PyQt5.QtWidgets import QWidget, QGridLayout, QApplication, QPushButton, QGraphicsView, \
-    QGraphicsScene, QGroupBox, QVBoxLayout, QCheckBox, QButtonGroup, QMessageBox
+    QGraphicsScene, QGroupBox, QVBoxLayout, QCheckBox, QButtonGroup
 from matplotlib import pyplot
 
 from matplotlib.backends.backend_qt5 import NavigationToolbar2QT, FigureCanvasQT
 import numpy as np
 from mpl_qt_viz.roiSelection import LassoCreator, PointCreator, AdjustableSelector
-from ._canvas import PlotNdCanvas
-from .._sharedWidgets import AnimationDlg, QRangeSlider
+from mpl_qt_viz.visualizers._PlotNd._canvas import PlotNdCanvas
+from mpl_qt_viz.visualizers._sharedWidgets import AnimationDlg, QRangeSlider
 
 
 class _MyView(QGraphicsView):
@@ -92,9 +91,9 @@ class PlotNd(QWidget):  # TODO add function and GUI method to set coordinates of
     """
     _defaultNames = ('y', 'x', 'z', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th')
 
-    def __init__(self, data: np.ndarray, names: Tuple[str, ...] = None,
-                 initialCoords: Optional[Tuple[int, ...]] = None, title: Optional[str] = '',
-                 parent: Optional[QWidget] = None, indices: List[np.ndarray] = None, flags=QtCore.Qt.Window):
+    def __init__(self, data: np.ndarray, names: t_.Tuple[str, ...] = None,
+                 initialCoords: t_.Optional[t_.Tuple[int, ...]] = None, title: t_.Optional[str] = '',
+                 parent: t_.Optional[QWidget] = None, indices: t_.Sequence[np.ndarray] = None, flags=QtCore.Qt.Window):
         super().__init__(parent=parent, flags=flags)
 
 
@@ -251,7 +250,7 @@ class PlotNd(QWidget):  # TODO add function and GUI method to set coordinates of
         """
         return self.canvas.updateLimits(Max, Min)
 
-    def setColorMap(self, cmap: typing.Union[str, mpl.colors.Colormap]):
+    def setColorMap(self, cmap: t_.Union[str, mpl.colors.Colormap]):
         """
          Set the colormap used to display data.
 

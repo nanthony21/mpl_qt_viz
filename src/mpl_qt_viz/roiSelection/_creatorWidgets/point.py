@@ -42,7 +42,7 @@ class PointCreator(CreatorWidgetBase):
         self.onselect = onselect
         self.sideLength = sideLength
         self.patch = Rectangle((0, 0), 1, 1, facecolor=(1, 0, 0, 0.5), animated=True)
-        self.patch.set_visible(False)
+        self.setArtistVisible(self.patch, False)
         self.ghostPatch = Rectangle((0, 0), 1, 1, facecolor=(1, 0, 0, 0.2), animated=True)
         self.ghostPatch.set_width(self.sideLength)
         self.ghostPatch.set_height(self.sideLength)
@@ -50,7 +50,8 @@ class PointCreator(CreatorWidgetBase):
         self.addArtist(self.ghostPatch)
 
     def reset(self):
-        self.patch.set_visible(False)
+        self.setArtistVisible(self.patch, False)
+        self.updateAxes()
 
     @staticmethod
     def getHelpText():
@@ -67,7 +68,7 @@ class PointCreator(CreatorWidgetBase):
         self.patch.set_xy(self.point)
         self.patch.set_width(self.sideLength)
         self.patch.set_height(self.sideLength)
-        self.patch.set_visible(True)
+        self.setArtistVisible(self.patch, True)
         if self.onselect:
             x, y = self.patch.get_xy()
             x = [x, x, x + self.sideLength, x + self.sideLength]

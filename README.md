@@ -1,7 +1,7 @@
 # Matplotlib-Qt-Visualization
 A Python package providing enhanced data visualization and ROI selection built on top of Matplotlib and PyQt5
 
-[Documentation](https://nanthony21.github.io/mpl_qt_viz)
+[Documentation](https://mpl-qt-viz.readthedocs.io/en/latest/)
 
 # Installing
 ## Installing from the source code

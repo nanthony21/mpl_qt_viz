@@ -42,14 +42,15 @@ class PointCreator(CreatorWidgetBase):
 
         self._radius = self.__scale_axis_to_data(.01)  # This scaling is done so that no matter how zoomed in/out the data is we still have a reasonable on-screen size.
         self._patch = Circle((0, 0), radius=self._radius, facecolor=(1, 0, 0, 0.9), animated=True)
-        self._patch.set_visible(False)
+        self.setArtistVisible(self._patch, False)
         self._ghostPatch = Circle((0, 0), radius=self._radius, facecolor=(0, 0, 1, 0.5), animated=True)
         self.addArtist(self._patch)
         self.addArtist(self._ghostPatch)
         self.setArtistVisible(self._patch, False)
 
     def reset(self):
-        self._patch.set_visible(False)
+        self.setArtistVisible(self._patch, False)
+        self.updateAxes()
 
     @staticmethod
     def getHelpText():

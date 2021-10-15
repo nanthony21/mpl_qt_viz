@@ -109,7 +109,7 @@ class AxManager:
             self.background = self.canvas.copy_from_bbox(self.ax.bbox)
 
 
-class InteractiveWidgetBase(AxesWidget):
+class InteractiveWidgetBase(AxesWidget):  # TODO should we just get rid of the AxesWidget Inheritance?
     """Base class for other selection widgets in this package. Requires to be managed by an AxManager. Inherited classes
     can implement a number of action handlers like mouse actions and keyboard presses.
 
@@ -166,7 +166,7 @@ class InteractiveWidgetBase(AxesWidget):
         """return *True* if *event* should be ignored. No event callbacks will be called if this returns true."""
         if not self.active or not self._axMan.ax.get_visible():
             return True
-        if not self.canvas.widgetlock.available(self): # If canvas was locked
+        if not self.canvas.widgetlock.available(self):  # If canvas was locked
             return True
         if not hasattr(event, 'button'):
             event.button = None
@@ -267,7 +267,7 @@ class InteractiveWidgetBase(AxesWidget):
                     self.state.discard(state)
             self._on_key_release(event)
 
-    def set_visible(self, visible: bool):
+    def set_visible(self, visible: bool):  # TODO should this just be automatically lumped in with set_active?
         """ Set the visibility of our artists """
         for artist, shouldBeVisible in self._artists.items():
             artist.set_visible(shouldBeVisible and visible)

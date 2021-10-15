@@ -25,7 +25,7 @@ from matplotlib import pyplot
 
 from matplotlib.backends.backend_qt5 import NavigationToolbar2QT, FigureCanvasQT
 import numpy as np
-from mpl_qt_viz.roiSelection import LassoCreator, PointCreator, AdjustableSelector
+from mpl_qt_viz.roiSelection import LassoCreator, SquareCreator, AdjustableSelector
 from mpl_qt_viz.visualizers._PlotNd._canvas import PlotNdCanvas
 from mpl_qt_viz.visualizers._sharedWidgets import AnimationDlg, QRangeSlider
 
@@ -185,7 +185,7 @@ class PlotNd(QWidget):  # TODO add function and GUI method to set coordinates of
             button: The button that was just pressed.
         """
         if button is self.pointButton and button is not self._lastButton:
-            self.selector.setSelector(PointCreator)
+            self.selector.setSelector(SquareCreator)
             self.selector.setActive(True)
         if button is self.lassoButton and button is not self._lastButton:
             self.selector.setSelector(LassoCreator)

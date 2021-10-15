@@ -184,7 +184,6 @@ class PolygonModifier(ModifierWidgetBase):
         self.poly = Polygon([[0, 0]], animated=True, facecolor=(0, 1, 0, .1), edgecolor=(0, 0, 1, .9))
         self.addArtist(self.poly)
         self.addArtist(self.markers)
-        self.set_visible(False)
 
     @staticmethod
     def getHelpText():
@@ -197,11 +196,10 @@ class PolygonModifier(ModifierWidgetBase):
         Args:
             handles: A sequence of 2d coordinates to intialize the polygon to. Each point will become a draggable handle
         """
-        handles = handles[0] # We don't support multiple polygons in this widget, just select out the first if multiple are passed.
+        handles = handles[0]  # We don't support multiple polygons in this widget, just select out the first if multiple are passed.
         x, y = zip(*handles)
         self.markers.set_data(x, y)
         self._interpolate()
-        self.set_visible(True)
 
     def _interpolate(self):
         """update the polygon to match the marker vertices with smooth interpolation in between."""
@@ -262,7 +260,6 @@ class PolygonModifier(ModifierWidgetBase):
             self.onselect([self.poly.xy], [self.markers.get_data()])
             return
         elif event.key == 'escape':
-            self.set_visible(False)
             self.set_active(False)
             if self._cancelFunc is not None: self._cancelFunc() # Cancel
 

@@ -18,17 +18,16 @@
 from __future__ import annotations
 import typing
 from matplotlib.image import AxesImage
-from matplotlib.patches import Rectangle
+from matplotlib.patches import Circle
 from ._base import CreatorWidgetBase
-
+import typing as t_
 if typing.TYPE_CHECKING:
     from matplotlib.axes import Axes
 
 
 class PointCreator(CreatorWidgetBase):
-    def __init__(self, ax: Axes, image: AxesImage, onselect=None, sideLength: int = 3):
-        """ A selector widget that facilitates the selection of a single point in an image. If `sideLength` is greater than 1 it will actually be a square region.
-
+    def __init__(self, ax: Axes, image: AxesImage, onselect=None, markerKwargs: t_.Dict = None):
+        """ A selector widget that facilitates the selection of a single point in an image. Displayed by a marker
         Args:
             ax (Axes): A reference to the matplotlib `Axes` that this selector widget is active on.
             image (AxesImage): the matplotlib image object in use.
@@ -38,52 +37,54 @@ class PointCreator(CreatorWidgetBase):
         Returns:
             np.ndarray: The 4 XY vertices of the selection square.
         """
-        super().__init__(ax, image)
+        super().__init__(ax, image, onselect=onselect)
         self.onselect = onselect
-        self.sideLength = sideLength
-        self.patch = Rectangle((0, 0), 1, 1, facecolor=(1, 0, 0, 0.5), animated=True)
-        self.setArtistVisible(self.patch, False)
-        self.ghostPatch = Rectangle((0, 0), 1, 1, facecolor=(1, 0, 0, 0.2), animated=True)
-        self.ghostPatch.set_width(self.sideLength)
-        self.ghostPatch.set_height(self.sideLength)
-        self.addArtist(self.patch)
-        self.addArtist(self.ghostPatch)
+
+        self._radius = self.__scale_axis_to_data(.01)  # This scaling is done so that no matter how zoomed in/out the data is we still have a reasonable on-screen size.
+        self._patch = Circle((0, 0), radius=self._radius, facecolor=(1, 0, 0, 0.9), animated=True)
+        self._patch.set_visible(False)
+        self._ghostPatch = Circle((0, 0), radius=self._radius, facecolor=(0, 0, 1, 0.5), animated=True)
+        self.addArtist(self._patch)
+        self.addArtist(self._ghostPatch)
+        self.setArtistVisible(self._patch, False)
 
     def reset(self):
-        self.setArtistVisible(self.patch, False)
-        self.updateAxes()
+        self._patch.set_visible(False)
 
     @staticmethod
     def getHelpText():
-        return "For selecting a single point with radius of `side`."
+        return "For selecting a single point. Scroll to change the marker size`."
 
     def _onhover(self, event):
-        self.ghostPatch.set_xy((event.xdata - self.sideLength / 2, event.ydata - self.sideLength / 2))
+        self._ghostPatch.set_center((event.xdata, event.ydata))
         self.updateAxes()
 
     def _press(self, event):
         if event.button != 1:
             return
-        self.point = [event.xdata - self.sideLength / 2, event.ydata - self.sideLength / 2]
-        self.patch.set_xy(self.point)
-        self.patch.set_width(self.sideLength)
-        self.patch.set_height(self.sideLength)
-        self.setArtistVisible(self.patch, True)
+        _point = (event.xdata, event.ydata)
+        self._patch.set_center(_point)
+        self._patch.set_radius(self._radius)
+        self.setArtistVisible(self._patch, True)
         if self.onselect:
-            x, y = self.patch.get_xy()
-            x = [x, x, x + self.sideLength, x + self.sideLength]
-            y = [y, y + self.sideLength, y + self.sideLength, y]
-            verts = list(zip(x, y))
+            verts = (_point, )
             handles = verts
             self.onselect(verts, handles)
 
     def _on_scroll(self, event):
         delta = event.step
-        # if event.button == 'down':
-        #     delta = -delta
-        self.sideLength += delta
-        if self.sideLength < 1:
-            self.sideLength = 1
-        self.ghostPatch.set_width(self.sideLength)
-        self.ghostPatch.set_height(self.sideLength)
+        self._radius *= 1 + delta / 10
+        minR = self.__scale_axis_to_data(.005)
+        maxR = self.__scale_axis_to_data(0.05)
+        print(minR, self._radius)
+        if self._radius < minR:
+            self._radius = minR
+        elif self._radius > maxR:
+            self._radius = maxR
+        self._ghostPatch.set_radius(self._radius)
         self.updateAxes()
+
+    def __scale_axis_to_data(self, val: float):
+        """Convert from axis coords to data coords. Scaling only Assuming even scaling."""
+        scale = (self.ax.transAxes + self.ax.transData.inverted()).get_matrix()[0, 0]
+        return scale * val

@@ -26,7 +26,7 @@ ROI Creators
    EllipseCreator
    LassoCreator
    RegionalPaintCreator
-   PointCreator
+   SquareCreator
    FullImPaintCreator
    WaterShedPaintCreator
 
@@ -45,10 +45,14 @@ from ._modifierWidgets.movingModifier import MovingModifier
 from ._creatorWidgets.ellipse import EllipseCreator
 from ._creatorWidgets.lasso import LassoCreator
 from ._creatorWidgets.paint import RegionalPaintCreator
+from ._creatorWidgets.square import SquareCreator
 from ._creatorWidgets.point import PointCreator
 from ._creatorWidgets.FullImPaintSelector import FullImPaintCreator
 from ._creatorWidgets.WaterShedPaintSelector import WaterShedPaintCreator
+from ._creatorWidgets._base import CreatorWidgetBase
+from ._coreClasses import InteractiveWidgetBase
+from ._modifierWidgets._base import ModifierWidgetBase
 
 __all__ = ['AdjustableSelector', 'EllipseCreator', 'LassoCreator', 'RegionalPaintCreator',
-           'PointCreator', 'FullImPaintCreator', 'WaterShedPaintCreator', 'PolygonModifier',
-           'MovingModifier']
+           'SquareCreator', 'FullImPaintCreator', 'WaterShedPaintCreator', 'PolygonModifier',
+           'MovingModifier', 'PointCreator', 'CreatorWidgetBase', 'InteractiveWidgetBase', 'ModifierWidgetBase']

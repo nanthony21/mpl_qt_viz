@@ -65,7 +65,6 @@ class MovingModifier(ModifierWidgetBase):
             poly = Polygon(verts, facecolor=(.7, .3, 0, 0.1), linewidth=2, linestyle='dotted', edgecolor=(1, 0, 0, 0.9), animated=True)  # Having animated true here helps with rendering.
             self.addArtist(poly)
             self.polygonArtists.append(poly)
-        self.set_visible(True)
 
     def _press(self, event: MouseEvent):
         self.initialClickPoint = np.array((event.xdata, event.ydata))
@@ -92,7 +91,6 @@ class MovingModifier(ModifierWidgetBase):
 
     def _on_key_press(self, event: KeyEvent):
         if event.key == 'escape':
-            self.set_visible(False)
             self.set_active(False)
             if self._cancelFunc is not None: self._cancelFunc()  # Cancel
         elif event.key == 'enter':

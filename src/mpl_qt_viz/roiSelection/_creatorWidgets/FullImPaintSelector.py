@@ -113,6 +113,8 @@ class FullImPaintCreator(CreatorWidgetBase):
         Args:
             forceRedraw: If `True` then polygons will be cleared and redrawn even if we don't detect that our status is `stale`
         """
+        if not self.get_active():
+            return  # Sometimes we instantiate the class but don't have it active. avoid drawing stuff.
         stale = False
         if self.image.get_array() is not self._cachedImage:  # The image has been changed.
             self._cachedImage = self.image.get_array()

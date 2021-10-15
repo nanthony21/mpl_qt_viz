@@ -69,11 +69,8 @@ class AdjustableSelector:
         """This activates the selector. for a looping selection you should call this method from the onfinished function."""
         if active:
             self.selector.set_active(True)
-            self.selector.set_visible(True)
         else:
             self.adjuster.set_active(False)
-            self.adjuster.set_visible(False)
-            self.selector.set_visible(False)
             self.selector.set_active(False)
 
     def setSelector(self, selectorClass: typing.Type):
@@ -91,9 +88,8 @@ class AdjustableSelector:
         """This callback is registered with the selectorWidget when we are in adjustable mode. Upon completion of the
         initial selection this callback passes the handles to the polygon adjuster."""
         self.selector.set_active(False)
-        self.selector.set_visible(False)
         self.adjuster.set_active(True)
-        self.adjuster.initialize([handles]) # It's important that this happens after `set_active` otherwise we get weird drawing issues
+        self.adjuster.initialize([handles])  # It's important that this happens after `set_active` otherwise we get weird drawing issues
 
     def finish(self, verts, handles):
         """This callback is registered with the selectorWidget when we are not in adjustable mode. In adjustable mode it

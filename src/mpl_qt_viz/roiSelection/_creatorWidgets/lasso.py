@@ -54,7 +54,6 @@ class LassoCreator(CreatorWidgetBase):
 
     def _press(self, event):
         self.verts = [(event.xdata, event.ydata)]
-        self.set_visible(True)
 
     def _release(self, event):
         if event.button == 1: #Left click

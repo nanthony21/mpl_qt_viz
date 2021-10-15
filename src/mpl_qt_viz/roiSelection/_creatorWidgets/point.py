@@ -39,12 +39,14 @@ class PointCreator(CreatorWidgetBase):
         """
         super().__init__(ax, image, onselect=onselect)
         self.onselect = onselect
-        self._radius = 5
+
+        self._radius = self.__scale_axis_to_data(.01)  # This scaling is done so that no matter how zoomed in/out the data is we still have a reasonable on-screen size.
         self._patch = Circle((0, 0), radius=self._radius, facecolor=(1, 0, 0, 0.9), animated=True)
         self._patch.set_visible(False)
         self._ghostPatch = Circle((0, 0), radius=self._radius, facecolor=(0, 0, 1, 0.5), animated=True)
         self.addArtist(self._patch)
         self.addArtist(self._ghostPatch)
+        self.setArtistVisible(self._patch, False)
 
     def reset(self):
         self._patch.set_visible(False)
@@ -63,16 +65,26 @@ class PointCreator(CreatorWidgetBase):
         _point = (event.xdata, event.ydata)
         self._patch.set_center(_point)
         self._patch.set_radius(self._radius)
-        self._patch.set_visible(True)
+        self.setArtistVisible(self._patch, True)
         if self.onselect:
-            verts = _point
+            verts = (_point, )
             handles = verts
             self.onselect(verts, handles)
 
     def _on_scroll(self, event):
         delta = event.step
-        self._radius += delta
-        if self._radius < 1:
-            self._radius = 1
+        self._radius *= 1 + delta / 10
+        minR = self.__scale_axis_to_data(.005)
+        maxR = self.__scale_axis_to_data(0.05)
+        print(minR, self._radius)
+        if self._radius < minR:
+            self._radius = minR
+        elif self._radius > maxR:
+            self._radius = maxR
         self._ghostPatch.set_radius(self._radius)
         self.updateAxes()
+
+    def __scale_axis_to_data(self, val: float):
+        """Convert from axis coords to data coords. Scaling only Assuming even scaling."""
+        scale = (self.ax.transAxes + self.ax.transData.inverted()).get_matrix()[0, 0]
+        return scale * val

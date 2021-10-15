@@ -31,7 +31,6 @@ class TestWidg(QWidget):
         buttonGrp = QButtonGroup(self)
         for creator in creators:
             creator.set_active(False)
-            creator.set_visible(False)
             button = QPushButton(creator.__class__.__name__)
             button.setCheckable(True)
             buttonGrp.addButton(button)
@@ -53,10 +52,8 @@ class TestWidg(QWidget):
     def _changeActive(self, creator: CreatorWidgetBase):
         if self._activeSelector is not None:
             self._activeSelector.set_active(False)
-            self._activeSelector.set_visible(False)
         self._activeSelector = creator
         self._activeSelector.set_active(True)
-        self._activeSelector.set_visible(True)
 
 if __name__ == '__main__':
     app = QApplication([])

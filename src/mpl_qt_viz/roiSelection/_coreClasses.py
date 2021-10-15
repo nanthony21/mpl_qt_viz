@@ -23,6 +23,7 @@ from matplotlib.axes import Axes
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 from matplotlib.widgets import AxesWidget
+import typing as t_
 if typing.TYPE_CHECKING:
     from matplotlib.backend_bases import LocationEvent, KeyEvent, MouseEvent
     from matplotlib.image import AxesImage
@@ -35,7 +36,7 @@ class AxManager:
         ax: The matplotlib Axes object to draw on.
 
     """
-    _AX_ATTR = '_mpl_qt_viz_axManager'
+    _AX_ATTR = '_mpl_qt_viz_axManager'  # When a manager is attached to a Matplotlib Axes this attribute will be added to the axis. Allows making sure we only add one manager per axis.
 
     class ManagerAlreadyAssignedException(Exception):
         def __init__(self, axMan: AxManager):
@@ -48,7 +49,7 @@ class AxManager:
         if hasattr(ax, AxManager._AX_ATTR):
             raise AxManager.ManagerAlreadyAssignedException(getattr(ax, AxManager._AX_ATTR))
 
-        setattr(ax, AxManager._AX_ATTR, self)
+        setattr(ax, AxManager._AX_ATTR, self)  # Store reference to self in Axes so we don't assign multiple managers.
         self.artists = []
         self.ax = ax
         self.canvas = self.ax.figure.canvas
@@ -109,19 +110,18 @@ class AxManager:
             self.background = self.canvas.copy_from_bbox(self.ax.bbox)
 
 
-class InteractiveWidgetBase(AxesWidget):  # TODO should we just get rid of the AxesWidget Inheritance?
+class InteractiveWidgetBase(AxesWidget):
     """Base class for other selection widgets in this package. Requires to be managed by an AxManager. Inherited classes
     can implement a number of action handlers like mouse actions and keyboard presses.
 
     Args:
-        axMan: A reference to the `AxManager` object used to manage drawing the matplotlib `Axes` that this selector widget is active on.
+        ax: A reference to the Matplotlib `Axes` that this selector widget is active on.
         image: A reference to a matplotlib `AxesImage`. Selectors may use this reference to get information such as data values from the image
             for computer vision related tasks.
 
     Attributes:
         state (set): A `set` that stores strings indicating the current state (Are we dragging the mouse, is the shift
             key pressed, etc.
-        artists (list): A `list` of matplotlib artists managed by the selector.
         ax: A reference to the matplotlib Axes that this selector is assigned to.
         image (AxesImage): A reference to the image being interacted with. Can be used to get the image data.
     """
@@ -134,7 +134,7 @@ class InteractiveWidgetBase(AxesWidget):  # TODO should we just get rid of the A
             self._axMan = e.getExistingManager()
         self.ax = ax
         self.image = image
-        self._artists = {}
+        self._artists: t_.Dict[Artist, bool] = {}  # Keeps track of active artists and whether or not they should be visible.
         self.connect_event('motion_notify_event', self.onmove)
         self.connect_event('button_press_event', self.press)
         self.connect_event('button_release_event', self.release)
@@ -142,7 +142,7 @@ class InteractiveWidgetBase(AxesWidget):  # TODO should we just get rid of the A
         self.connect_event('key_release_event', self.on_key_release)
         self.connect_event('scroll_event', self.on_scroll)
 
-        self.state_modifier_keys = dict(space=' ', clear='escape', shift='shift', control='control')
+        self._state_modifier_keys = dict(space=' ', clear='escape', shift='shift', control='control')
 
         # will save the data (position at mouseclick)
         self.eventpress = None
@@ -211,7 +211,7 @@ class InteractiveWidgetBase(AxesWidget):  # TODO should we just get rid of the A
             key = event.key or ''
             key = key.replace('ctrl', 'control')
             # space state is locked in on a button press
-            if key == self.state_modifier_keys['space']:
+            if key == self._state_modifier_keys['space']:
                 self.state.add('space')
             self._press(event)
             return True
@@ -250,10 +250,10 @@ class InteractiveWidgetBase(AxesWidget):  # TODO should we just get rid of the A
         if self.active:
             key = event.key or ''
             key = key.replace('ctrl', 'control')
-            # if key == self.state_modifier_keys['clear']: # This kind of thing can be handled individually by subclasses
+            # if key == self._state_modifier_keys['clear']: # This kind of thing can be handled individually by subclasses
             #     self.set_visible(False)
             #     return
-            for (state, modifier) in self.state_modifier_keys.items():
+            for (state, modifier) in self._state_modifier_keys.items():
                 if modifier in key:
                     self.state.add(state)
             self._on_key_press(event)
@@ -262,20 +262,27 @@ class InteractiveWidgetBase(AxesWidget):  # TODO should we just get rid of the A
         """Key release event handler and validator"""
         if self.active:
             key = event.key or ''
-            for (state, modifier) in self.state_modifier_keys.items():
+            for (state, modifier) in self._state_modifier_keys.items():
                 if modifier in key:
                     self.state.discard(state)
             self._on_key_release(event)
 
     def set_visible(self, visible: bool):  # TODO should this just be automatically lumped in with set_active?
-        """ Set the visibility of our artists """
+        """Set the visibility of our artists """
         for artist, shouldBeVisible in self._artists.items():
             artist.set_visible(shouldBeVisible and visible)
         self.updateAxes()
 
     def setArtistVisible(self, artist: Artist, visible: bool):
-        "set visibility of a single artist, invisible artists will not be reenabled with `set_visible` True."
-        self._artists[artist] = visible
+        """
+        Set visibility of a single artist, invisible artists will not be reenabled with `set_visible`
+        True.
+
+        Args:
+            artist: The artist to have its visibility set.
+            visible: Whether or not the artist should be visible
+        """
+        self._artists[artist] = visible  # Keep track if the artist should be visible. Used when toggling visibility of entire Interactor.
         artist.set_visible(visible)
 
     def addArtist(self, artist: Artist):

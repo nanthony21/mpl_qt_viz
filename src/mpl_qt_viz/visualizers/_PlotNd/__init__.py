@@ -25,7 +25,7 @@ from matplotlib import pyplot
 
 from matplotlib.backends.backend_qt5 import NavigationToolbar2QT, FigureCanvasQT
 import numpy as np
-from mpl_qt_viz.roiSelection import LassoCreator, SquareCreator, AdjustableSelector
+from mpl_qt_viz.roiSelection import LassoCreator, SquareCreator, AdjustableSelector, PointCreator
 from mpl_qt_viz.visualizers._PlotNd._canvas import PlotNdCanvas
 from mpl_qt_viz.visualizers._sharedWidgets import AnimationDlg, QRangeSlider
 
@@ -185,7 +185,7 @@ class PlotNd(QWidget):  # TODO add function and GUI method to set coordinates of
             button: The button that was just pressed.
         """
         if button is self.pointButton and button is not self._lastButton:
-            self.selector.setSelector(SquareCreator)
+            self.selector.setSelector(PointCreator)
             self.selector.setActive(True)
         if button is self.lassoButton and button is not self._lastButton:
             self.selector.setSelector(LassoCreator)
@@ -271,7 +271,7 @@ if __name__ == '__main__':
     X, Y, Z = np.meshgrid(x, y, z)
     arr = np.sin(2 * np.pi * 1 * Z) + .5 * X + np.cos(2*np.pi*4*Y)# * T**1.5 * C*.1
     app = QApplication(sys.argv)
-    p = PlotNd(arr[:,:,:], names=('y', 'x', 'z'), indices=[y, x, z]) # 3d
+    p = PlotNd(arr[:,:,:], names=('y', 'x', 'z'), indices=[y, x, z])  # 3d
     # p = PlotNd(arr[:,:,:,:,0], names=('y', 'x', 'z', 't'), indices=[y, x, z, t]) #4d
     # p = PlotNd(arr, names=('y', 'x', 'z', 't', 'c'), indices=[y, x, z, t, c]) #5d
     sys.exit(app.exec_())

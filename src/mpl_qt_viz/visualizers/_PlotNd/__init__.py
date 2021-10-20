@@ -114,9 +114,15 @@ class PlotNd(QWidget):  # TODO add function and GUI method to set coordinates of
         self.slider.setEnd(np.nanmax(data))
         self.slider.setStart(np.nanmin(data))
 
-        _ = lambda: self.canvas.updateLimits(self.slider.end(), self.slider.start())
-        self.slider.startValueChanged.connect(_)
-        self.slider.endValueChanged.connect(_)
+        self._sliderDebounceTimer = QTimer()
+        self._sliderDebounceTimer.setSingleShot(True)
+        self._sliderDebounceTimer.setInterval(40)
+        def debounce():
+            self.canvas.updateLimits(self.slider.end(), self.slider.start())
+        self._sliderDebounceTimer.timeout.connect(debounce)
+
+        self.slider.startValueChanged.connect(lambda val: self._sliderDebounceTimer.start())
+        self.slider.endValueChanged.connect(lambda val: self._sliderDebounceTimer.start())
 
         self._lastButton = None
         self.selector = AdjustableSelector(self.canvas.image.ax, self.canvas.image.im, LassoCreator,

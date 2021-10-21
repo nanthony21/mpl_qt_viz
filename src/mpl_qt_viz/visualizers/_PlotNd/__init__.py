@@ -87,7 +87,7 @@ class PlotNd(QWidget):  # TODO add function and GUI method to set coordinates of
         flags: See the `flags` constructor argument for a QWidget. Default value is `Window`
 
     Attributes:
-        data: A reference the the 3D or greater numpy array. This can be safely modified.
+        data: A reference to the 3D or greater numpy array. This can be safely modified.
     """
     _defaultNames = ('y', 'x', 'z', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th')
 

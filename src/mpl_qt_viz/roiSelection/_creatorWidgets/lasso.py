@@ -79,7 +79,7 @@ class LassoCreator(CreatorWidgetBase):
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
     import numpy as np
-    from PyQt5.QtWidgets import QApplication
+    from PyQt6.QtWidgets import QApplication
 
     app = QApplication([])
 

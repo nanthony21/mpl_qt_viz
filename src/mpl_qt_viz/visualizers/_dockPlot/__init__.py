@@ -17,11 +17,10 @@
 
 import typing as t_
 import os
-from PyQt5 import QtCore, QtGui
-from PyQt5.QtCore import QTimer
-from PyQt5.QtWidgets import QMainWindow, QApplication, QDockWidget, QWidget, QGridLayout, QMenuBar, QFileDialog
+from PyQt6 import QtCore, QtGui
+from PyQt6.QtCore import QTimer
+from PyQt6.QtWidgets import QMainWindow, QApplication, QDockWidget, QWidget, QGridLayout, QMenuBar, QFileDialog
 import matplotlib.pyplot as plt
-from matplotlib.backend_bases import ResizeEvent
 from matplotlib.backends.backend_qt5 import NavigationToolbar2QT
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 
@@ -48,8 +47,8 @@ class MyFigureCanvas(FigureCanvasQTAgg):
 
 class DockablePlotWindow(QMainWindow):
     _DEFAULT_FIG_SIZE = (6.4, 4.8)  # Got this from https://matplotlib.org/api/_as_gen/matplotlib.figure.Figure.html#matplotlib-figure-figure
-    _DOCKAREAMAP = {'top': QtCore.Qt.TopDockWidgetArea, 'bottom': QtCore.Qt.BottomDockWidgetArea,
-               'left': QtCore.Qt.LeftDockWidgetArea, 'right': QtCore.Qt.RightDockWidgetArea}
+    _DOCKAREAMAP = {'top': QtCore.Qt.DockWidgetArea.TopDockWidgetArea, 'bottom': QtCore.Qt.DockWidgetArea.BottomDockWidgetArea,
+               'left': QtCore.Qt.DockWidgetArea.LeftDockWidgetArea, 'right': QtCore.Qt.DockWidgetArea.RightDockWidgetArea}
     """
     A window with that can create interactive Matplotlib figures docked within it.
 
@@ -61,7 +60,7 @@ class DockablePlotWindow(QMainWindow):
         self.setWindowTitle(title)
         self._plots: t_.List[DockablePlot] = []  # A list of all added DockablePlots
         self._dockedWidgets: t_.List[GenericDockableWidget] = []  # List of all add dock widgets that are not plots.
-        self.setDockOptions(QMainWindow.AnimatedDocks | QMainWindow.AllowNestedDocks | QMainWindow.AllowTabbedDocks | QMainWindow.GroupedDragging)
+        self.setDockOptions(QMainWindow.DockOption.AnimatedDocks | QMainWindow.DockOption.AllowNestedDocks | QMainWindow.DockOption.AllowTabbedDocks | QMainWindow.DockOption.GroupedDragging)
         self.resize(1024, 768)
         # Set up menu
         self._menu = QMenuBar(self)
@@ -203,7 +202,7 @@ class DockablePlot(QDockWidget):
     def __init__(self, figure: plt.Figure, title: str, parent: QWidget = None):
         super().__init__(title, parent=parent)
         self._canv = MyFigureCanvas(figure=figure)
-        self._canv.setFocusPolicy(QtCore.Qt.ClickFocus)
+        self._canv.setFocusPolicy(QtCore.Qt.FocusPolicy.ClickFocus)
         self._canv.setFocus()
         self._bar = NavigationToolbar2QT(self._canv, self)
         l = QGridLayout()

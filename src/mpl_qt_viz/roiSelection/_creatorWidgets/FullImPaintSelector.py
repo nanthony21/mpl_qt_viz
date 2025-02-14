@@ -18,9 +18,9 @@
 from __future__ import annotations
 import logging
 import typing
-from PyQt5 import QtCore
-from PyQt5.QtCore import QPoint
-from PyQt5.QtWidgets import QDialog, QWidget, QPushButton, QFormLayout
+from PyQt6 import QtCore
+from PyQt6.QtCore import QPoint
+from PyQt6.QtWidgets import QDialog, QWidget, QPushButton, QFormLayout
 from cycler import cycler
 from matplotlib.image import AxesImage
 from shapely.geometry import Polygon as shapelyPolygon, LinearRing, MultiPolygon

@@ -19,7 +19,8 @@
 Useful classes for interacting with Matplotlib plots. Mostly for the purpose of drawing ROIs.
 
 ROI Creators
-----------
+-------------
+
 .. autosummary::
    :toctree: generated/
 

@@ -33,7 +33,7 @@ class RegionalPaintCreator(CreatorWidgetBase):
     """A widget allowing the user to select a rectangular region with a bright region in it such as a fluorescent
     nucleus. Otsu thresholding will then be used to draw an ROI on the bright region.
 
-     Args:
+    Args:
         ax: A reference to the matplotlib `Axes` that this selector widget is active on.
         image: A reference to a matplotlib `AxesImage`. Selectors may use this reference to get information such as data values from the image
             for computer vision related tasks.

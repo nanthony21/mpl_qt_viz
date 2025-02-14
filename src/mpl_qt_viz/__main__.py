@@ -3,7 +3,7 @@ if __name__ == '__main__':
     # Just run a quick test
     import numpy as np
     import sys
-    from PyQt5.QtWidgets import QApplication
+    from PyQt6.QtWidgets import QApplication
 
     from mpl_qt_viz.visualizers import PlotNd, DockablePlotWindow
     import mpl_qt_viz.roiSelection as roi

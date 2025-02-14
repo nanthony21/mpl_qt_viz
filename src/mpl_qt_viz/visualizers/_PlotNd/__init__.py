@@ -17,15 +17,15 @@
 
 import typing as t_
 import matplotlib as mpl
-from PyQt5 import QtCore, QtGui
-from PyQt5.QtCore import QSizeF, QTimer
-from PyQt5.QtWidgets import QWidget, QGridLayout, QApplication, QPushButton, QGraphicsView, \
+from PyQt6 import QtCore, QtGui
+from PyQt6.QtCore import QSizeF, QTimer
+from PyQt6.QtWidgets import QWidget, QGridLayout, QApplication, QPushButton, QGraphicsView, \
     QGraphicsScene, QGroupBox, QVBoxLayout, QCheckBox, QButtonGroup
 from matplotlib import pyplot
 
 from matplotlib.backends.backend_qt5 import NavigationToolbar2QT, FigureCanvasQT
 import numpy as np
-from mpl_qt_viz.roiSelection import LassoCreator, SquareCreator, AdjustableSelector, PointCreator
+from mpl_qt_viz.roiSelection import LassoCreator, AdjustableSelector, PointCreator
 from mpl_qt_viz.visualizers._PlotNd._canvas import PlotNdCanvas
 from mpl_qt_viz.visualizers._sharedWidgets import AnimationDlg, QRangeSlider
 
@@ -34,7 +34,7 @@ class _MyView(QGraphicsView):
     """This is a version of QGraphicsView that takes a Qt FigureCanvas from matplotlib and automatically resized the
     canvas to fill as much of the view as possible. A debounce timer is used to prevent lag due to attempting the resize
     the canvas too quickly. This allows for relatively smooth operation. This is essential for us to include a matplotlib
-    plot that can maintain it's aspect ratio within a Qt layout.
+    plot that can maintain its aspect ratio within a Qt layout.
 
     Args:
         plot: A matplotlib FigureCanvas that is compatible with Qt (FigureCanvasQT or FigureCanvasQTAgg)
@@ -42,8 +42,8 @@ class _MyView(QGraphicsView):
     """
     def __init__(self, plot: FigureCanvasQT):
         super().__init__()
-        self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
 
         scene = QGraphicsScene(self)
         scene.addWidget(plot)
@@ -93,7 +93,7 @@ class PlotNd(QWidget):  # TODO add function and GUI method to set coordinates of
 
     def __init__(self, data: np.ndarray, names: t_.Tuple[str, ...] = None,
                  initialCoords: t_.Optional[t_.Tuple[int, ...]] = None, title: t_.Optional[str] = '',
-                 parent: t_.Optional[QWidget] = None, indices: t_.Sequence[np.ndarray] = None, flags=QtCore.Qt.Window):
+                 parent: t_.Optional[QWidget] = None, indices: t_.Sequence[np.ndarray] = None, flags=QtCore.Qt.WindowType.Window):
         super().__init__(parent=parent, flags=flags)
 
 
@@ -280,5 +280,5 @@ if __name__ == '__main__':
     p = PlotNd(arr[:,:,:], names=('y', 'x', 'z'), indices=[y, x, z])  # 3d
     # p = PlotNd(arr[:,:,:,:,0], names=('y', 'x', 'z', 't'), indices=[y, x, z, t]) #4d
     # p = PlotNd(arr, names=('y', 'x', 'z', 't', 'c'), indices=[y, x, z, t, c]) #5d
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 

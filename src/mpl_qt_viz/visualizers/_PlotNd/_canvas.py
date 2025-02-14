@@ -19,7 +19,7 @@
 from __future__ import annotations
 import typing
 import numpy as np
-from PyQt5 import QtCore
+from PyQt6 import QtCore
 import matplotlib as mpl
 from matplotlib import pyplot as plt, gridspec
 from matplotlib.axes import Axes
@@ -99,7 +99,7 @@ class PlotNdCanvas(FigureCanvasQTAgg):
         self.names = None
         self.setAxesNames(names)
 
-        self.setFocusPolicy(QtCore.Qt.ClickFocus)
+        self.setFocusPolicy(QtCore.Qt.FocusPolicy.ClickFocus)
         self.setFocus()
 
         self._data = data

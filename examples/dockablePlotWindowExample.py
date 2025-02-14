@@ -1,6 +1,6 @@
 import numpy as np
 import random
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication
 from mpl_qt_viz.visualizers import DockablePlotWindow
 import sys
 

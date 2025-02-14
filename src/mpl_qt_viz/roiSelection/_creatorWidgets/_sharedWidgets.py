@@ -1,5 +1,5 @@
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QWidget, QLabel, QSlider, QHBoxLayout
+from PyQt6 import QtCore
+from PyQt6.QtWidgets import QWidget, QLabel, QSlider, QHBoxLayout
 
 
 class LabeledSlider(QWidget):

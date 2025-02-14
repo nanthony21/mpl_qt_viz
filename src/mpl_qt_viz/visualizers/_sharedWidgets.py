@@ -19,7 +19,7 @@
 import traceback
 from enum import Enum
 import typing as t_
-from PyQt5.QtWidgets import QDialog, QSpinBox, QLineEdit, QPushButton, QComboBox, QVBoxLayout, \
+from PyQt6.QtWidgets import QDialog, QSpinBox, QLineEdit, QPushButton, QComboBox, QVBoxLayout, \
     QLabel, QMessageBox, QFileDialog, QFileIconProvider, QHBoxLayout, QWidget
 from matplotlib import animation
 from matplotlib.artist import Artist
@@ -27,7 +27,7 @@ import sys
 import os
 from numbers import Number
 import numpy as np
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtGui, QtWidgets
 
 __all__ = ['AnimationDlg', 'QRangeSlider']
 
@@ -63,7 +63,7 @@ class AnimationDlg(QDialog):
 
         self.fPath = QLineEdit(self)
 
-        self.browseButton = QPushButton(QFileIconProvider().icon(QFileIconProvider.Folder), '')
+        self.browseButton = QPushButton(QFileIconProvider().icon(QFileIconProvider.IconType.Folder), '')
         self.browseButton.released.connect(self.browseFile)
 
         self.methodCombo = QComboBox(self)
@@ -158,7 +158,7 @@ def scale(val: Number, src: t_.Tuple[Number, Number], dst: t_.Tuple[Number, Numb
     elif dst[0] == dst[1]:
         return dst[0]
     else:
-        return float(((val - src[0]) / float(src[1]-src[0])) * (dst[1]-dst[0]) + dst[0])
+        return float(((val - src[0]) / float(src[1] - src[0])) * (dst[1] - dst[0]) + dst[0])
 
 
 class Element(QtWidgets.QWidget):
@@ -204,7 +204,7 @@ class Head(Element):
     def drawText(self, event, qp):
         qp.setPen(self.textColor())
         qp.setFont(QtGui.QFont('Arial', 10))
-        qp.drawText(event.rect(), QtCore.Qt.AlignLeft, numFormat(self.main.min()))
+        qp.drawText(event.rect(), QtCore.Qt.AlignmentFlag.AlignLeft, numFormat(self.main.min()))
 
 
 class Tail(Element):
@@ -214,7 +214,7 @@ class Tail(Element):
     def drawText(self, event, qp):
         qp.setPen(self.textColor())
         qp.setFont(QtGui.QFont('Arial', 10))
-        qp.drawText(event.rect(), QtCore.Qt.AlignRight, numFormat(self.main.max()))
+        qp.drawText(event.rect(), QtCore.Qt.AlignmentFlag.AlignRight, numFormat(self.main.max()))
 
 
 class Handle(Element):
@@ -224,8 +224,8 @@ class Handle(Element):
     def drawText(self, event, qp):
         qp.setPen(self.textColor())
         qp.setFont(QtGui.QFont('Arial', 10))
-        qp.drawText(event.rect(), QtCore.Qt.AlignLeft, numFormat(self.main.start()))
-        qp.drawText(event.rect(), QtCore.Qt.AlignRight, numFormat(self.main.end()))
+        qp.drawText(event.rect(), QtCore.Qt.AlignmentFlag.AlignLeft, numFormat(self.main.start()))
+        qp.drawText(event.rect(), QtCore.Qt.AlignmentFlag.AlignRight, numFormat(self.main.end()))
 
     def mouseMoveEvent(self, event):
         event.accept()
@@ -269,7 +269,7 @@ class QRangeSlider(QtWidgets.QWidget):
         self._splitter = QtWidgets.QSplitter(self)
         self._splitter.setMinimumSize(QtCore.QSize(0, 0))
         self._splitter.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self._splitter.setOrientation(QtCore.Qt.Horizontal)
+        self._splitter.setOrientation(QtCore.Qt.Orientation.Horizontal)
         self.gridLayout.addWidget(self._splitter, 0, 0, 1, 1)
         self.head = Head(main=self)  #The order that these are added matters.
         self.head.setObjectName("Head") # These names are used by the stylesheet
@@ -367,10 +367,10 @@ class QRangeSlider(QtWidgets.QWidget):
 
     def keyPressEvent(self, event):
         key = event.key()
-        if key == QtCore.Qt.Key_Left:
+        if key == QtCore.Qt.Key.Key_Left:
             s = self.start()-1
             e = self.end()-1
-        elif key == QtCore.Qt.Key_Right:
+        elif key == QtCore.Qt.Key.Key_Right:
             s = self.start()+1
             e = self.end()+1
         else:
@@ -430,4 +430,4 @@ if __name__ == '__main__':
     rs.setRange(.017, .50)
     rs.setBackgroundStyle('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #222, stop:1 #333);')
     rs.handle.setStyleSheet('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282, stop:1 #393);')
-    app.exec_()
+    app.exec()

@@ -18,16 +18,16 @@
 
 from typing import List
 
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QWidget, QGridLayout, QPushButton, QApplication
+from PyQt6 import QtCore
+from PyQt6.QtWidgets import QWidget, QGridLayout, QPushButton, QApplication
 import numpy as np
 from matplotlib.artist import Artist
 from matplotlib.axes import Axes
 from matplotlib.backends.backend_qt5 import NavigationToolbar2QT
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
-import matplotlib.pyplot as plt
 from ._sharedWidgets import AnimationDlg
+import matplotlib.pyplot as plt
 
 
 class MultiPlot(QWidget):
@@ -39,7 +39,7 @@ class MultiPlot(QWidget):
         title (str): The name for the title of the window
     """
     def __init__(self, artists: List[List[Artist]], title: str, parent=None):
-        QWidget.__init__(self, parent=parent, flags=QtCore.Qt.Window)
+        QWidget.__init__(self, parent=parent, flags=QtCore.Qt.WindowType.Window)
         self.setWindowTitle(title)
         layout = QGridLayout()
         self._artists = artists
@@ -47,7 +47,7 @@ class MultiPlot(QWidget):
         self.ax: Axes = self._artists[0][0].axes
 
         self._canvas = FigureCanvasQTAgg(self.figure)
-        self._canvas.setFocusPolicy(QtCore.Qt.ClickFocus) #Not sure what this is for
+        self._canvas.setFocusPolicy(QtCore.Qt.FocusPolicy.ClickFocus) #Not sure what this is for
         self._canvas.setFocus()
 
         self.previousButton = QPushButton('←')

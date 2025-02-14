@@ -1,6 +1,6 @@
 from mpl_qt_viz.visualizers import PlotNd
 import numpy as np
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication
 import sys
 
 # Generate a 3-dimensional dimension array with numpy.meshgrid.

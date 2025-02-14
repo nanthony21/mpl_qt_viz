@@ -1,6 +1,6 @@
 import sys
 import matplotlib.pyplot as plt
-from PyQt5.QtWidgets import QApplication
+from PyQt6.QtWidgets import QApplication
 import numpy as np
 from mpl_qt_viz.visualizers import MultiPlot
 

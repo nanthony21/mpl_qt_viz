@@ -6,13 +6,13 @@ build-backend = "setuptools.build_meta"
 name = "mpl_qt_viz"
 description = "A Python package providing enhanced data visualization and ROI selection built on top of Matplotlib and PyQt6."
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.10"
 license = { text = "GPL-3.0-or-later" }
 authors = [
     { name = "Nick Anthony", email = "nickmanthony@hotmail.com" },
 ]
 dependencies = [
-    "numpy",
+    "numpy>=2",
     "scipy",
     "matplotlib",
     "shapely",

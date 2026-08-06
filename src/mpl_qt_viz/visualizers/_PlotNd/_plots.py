@@ -201,14 +201,14 @@ class ImPlot(PlotBase):
         coord = np.where(
             np.abs(self._indices[0] - value) == np.min(np.abs(self._indices[0] - value))
         )[0]
-        return int(coord)
+        return int(coord[0])
 
     def horizontalValueToCoord(self, value: float):
         """Given a value of this plot's index return the nearest corresponding coordinate [0, 1, 2, ...]"""
         coord = np.where(
             np.abs(self._indices[1] - value) == np.min(np.abs(self._indices[1] - value))
         )[0]
-        return int(coord)
+        return int(coord[0])
 
 
 class SidePlot(PlotBase):

@@ -1,5 +1,33 @@
 [build-system]
-requires = ["setuptools>=42", "wheel", "setuptools_scm[toml]>=3.4"]
+requires = ["setuptools>=61", "wheel", "setuptools_scm[toml]>=3.4"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mpl_qt_viz"
+description = "A Python package providing enhanced data visualization and ROI selection built on top of Matplotlib and PyQt6."
+readme = "README.md"
+requires-python = ">=3.7"
+license = { text = "GPL-3.0-or-later" }
+authors = [
+    { name = "Nick Anthony", email = "nickmanthony@hotmail.com" },
+]
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "shapely",
+    "PyQt6",
+    "scikit-image",
+    "opencv-python",
+    "cycler",
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/nanthony21/mpl_qt_viz"
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.setuptools_scm]
 write_to = "src/mpl_qt_viz/version.py"

@@ -5,19 +5,19 @@ from mpl_qt_viz.visualizers import DockablePlotWindow
 import sys
 
 # Plot names that will be randomly selected from in this example
-names = ['plot', 'data', 'other']
+names = ["plot", "data", "other"]
 # Valid plot location specifiers that will be randomly selected from in this example
-areas = ['left', 'right', 'bottom', 'top']
+areas = ["left", "right", "bottom", "top"]
 
 
 def makePlot(ax):
     """Generate a random line plot on ax."""
     x = np.linspace(0, 10)
     # y = np.random.random(x.size)
-    freq1 = .5 + np.random.rand()
-    freq2 = .5 + np.random.rand()
+    freq1 = 0.5 + np.random.rand()
+    freq2 = 0.5 + np.random.rand()
     ax.plot(x, np.sin(freq1 * x))
-    ax.plot(x, np.cos(freq2 * x), ls='--')
+    ax.plot(x, np.cos(freq2 * x), ls="--")
 
 
 def makeImage(ax):
@@ -26,9 +26,10 @@ def makeImage(ax):
     X, Y = np.meshgrid(np.linspace(-1, 1), np.linspace(-1, 1))
     R = X**2 + Y**2
     arr = np.sin(freq * R)
-    ax.imshow(arr, cmap='jet')
+    ax.imshow(arr, cmap="jet")
 
-plotTypes = [('plot', makePlot), ('image', makeImage)]
+
+plotTypes = [("plot", makePlot), ("image", makeImage)]
 
 
 app = QApplication([])  # Make an application for the widgets to run in.

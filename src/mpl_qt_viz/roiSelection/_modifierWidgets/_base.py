@@ -30,10 +30,16 @@ class ModifierWidgetBase(InteractiveWidgetBase, metaclass=ABCMeta):
 
     # Typing aliases
     PolygonCoords = typing.Sequence[typing.Tuple[float, float]]
-    SelectionFunction = typing.Callable[[typing.Sequence[PolygonCoords], typing.Sequence[PolygonCoords]], None]
+    SelectionFunction = typing.Callable[
+        [typing.Sequence[PolygonCoords], typing.Sequence[PolygonCoords]], None
+    ]
 
-    def __init__(self, ax: Axes, image: typing.Optional[AxesImage] = None,
-                 onselect: typing.Optional[SelectionFunction] = None):
+    def __init__(
+        self,
+        ax: Axes,
+        image: typing.Optional[AxesImage] = None,
+        onselect: typing.Optional[SelectionFunction] = None,
+    ):
         super().__init__(ax, image)
         self._onselect = onselect
 
@@ -53,7 +59,11 @@ class ModifierWidgetBase(InteractiveWidgetBase, metaclass=ABCMeta):
         """Return a description of the selector which can be used as a tooltip."""
         return "This Selector has no help text."
 
-    def onselect(self, verts: typing.Sequence[ModifierWidgetBase.PolygonCoords], handles: typing.Sequence[ModifierWidgetBase.PolygonCoords]):  # This method only exists to make the signature of onselect more obvious
+    def onselect(
+        self,
+        verts: typing.Sequence[ModifierWidgetBase.PolygonCoords],
+        handles: typing.Sequence[ModifierWidgetBase.PolygonCoords],
+    ):  # This method only exists to make the signature of onselect more obvious
         """This method should be called when the interaction is done to execute whatever finalization function was specified
         in the constructor.
 

@@ -38,25 +38,32 @@ class MultiPlot(QWidget):
         artists: A list of lists of matplotlib 'Artists`. each list will comprise a single frame, just like the matplotlib `ArtistAnimation` works.
         title (str): The name for the title of the window
     """
+
     def __init__(self, artists: List[List[Artist]], title: str, parent=None):
         QWidget.__init__(self, parent=parent, flags=QtCore.Qt.WindowType.Window)
         self.setWindowTitle(title)
         layout = QGridLayout()
         self._artists = artists
-        self.figure: Figure = artists[0][0].figure  # We are assuming that all artists use the same figure.
+        self.figure: Figure = artists[0][
+            0
+        ].figure  # We are assuming that all artists use the same figure.
         self.ax: Axes = self._artists[0][0].axes
 
         self._canvas = FigureCanvasQTAgg(self.figure)
-        self._canvas.setFocusPolicy(QtCore.Qt.FocusPolicy.ClickFocus) #Not sure what this is for
+        self._canvas.setFocusPolicy(
+            QtCore.Qt.FocusPolicy.ClickFocus
+        )  # Not sure what this is for
         self._canvas.setFocus()
 
-        self.previousButton = QPushButton('←')
-        self.nextButton = QPushButton('→')
+        self.previousButton = QPushButton("←")
+        self.nextButton = QPushButton("→")
         self.previousButton.released.connect(self.showPreviousIm)
         self.nextButton.released.connect(self.showNextIm)
 
         self.saveButton = QPushButton("Save Animation")
-        self.saveButton.released.connect(lambda: AnimationDlg(self.figure, self._artists, self).exec())
+        self.saveButton.released.connect(
+            lambda: AnimationDlg(self.figure, self._artists, self).exec()
+        )
 
         layout.addWidget(self._canvas, 0, 0, 8, 8)
         layout.addWidget(self.previousButton, 9, 1, 1, 1)
@@ -64,12 +71,16 @@ class MultiPlot(QWidget):
         layout.addWidget(self.saveButton, 9, 7, 1, 1)
         layout.addWidget(NavigationToolbar2QT(self._canvas, self), 10, 0, 1, 4)
 
-        layout.setRowStretch(0, 1)  # This causes the plot to take up all the space that isn't needed by the other widgets.
+        layout.setRowStretch(
+            0, 1
+        )  # This causes the plot to take up all the space that isn't needed by the other widgets.
         self.setLayout(layout)
 
         self._index = 0  # Keeps track of which frame we are currently viewing.
         self._updateDisplayedImage()
-        plt.close(self.figure)  # A separate figure window will have been opened during the creation of our artists. This is extra and should be closed.
+        plt.close(
+            self.figure
+        )  # A separate figure window will have been opened during the creation of our artists. This is extra and should be closed.
         self.show()
 
     def showPreviousIm(self):
@@ -99,12 +110,15 @@ class MultiPlot(QWidget):
         self._canvas.draw_idle()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import sys
     import matplotlib.pyplot as plt
+
     app = QApplication(sys.argv)
     sh = (1024, 1024)
-    ims = [[plt.imshow(np.random.random(sh)), plt.text(100, 100, str(i))] for i in range(3)]
+    ims = [
+        [plt.imshow(np.random.random(sh)), plt.text(100, 100, str(i))] for i in range(3)
+    ]
     mp = MultiPlot(ims, "Hey")
     plt.gcf().subplots_adjust(left=0, bottom=0, right=1, top=1, wspace=0, hspace=0)
     mp.ax.get_xaxis().set_visible(False)
@@ -114,7 +128,7 @@ if __name__ == '__main__':
 
     fig, ax = plt.subplots()
     lines = [ax.plot(np.random.random((50,))) for i in range(3)]
-    mp2 = MultiPlot(lines, 'Lines')
+    mp2 = MultiPlot(lines, "Lines")
     mp2.show()
 
     sys.exit(app.exec())

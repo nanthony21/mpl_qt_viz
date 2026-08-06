@@ -17,6 +17,5 @@
 
 from .polygonModifier import PolygonModifier
 from .movingModifier import MovingModifier
-__all__ = ['PolygonModifier', 'MovingModifier']
 
-
+__all__ = ["PolygonModifier", "MovingModifier"]

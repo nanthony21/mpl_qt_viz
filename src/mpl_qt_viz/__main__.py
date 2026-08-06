@@ -1,5 +1,4 @@
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Just run a quick test
     import numpy as np
     import sys
@@ -18,8 +17,8 @@ if __name__ == '__main__':
 
     w = DockablePlotWindow("MyWindow")
 
-    fig, ax = w.subplots("Here", 'left')
-    fig2, ax2 = w.subplots("There", 'right')
+    fig, ax = w.subplots("Here", "left")
+    fig2, ax2 = w.subplots("There", "right")
 
     ax.plot(np.arange(50), np.random.random((50,)))
     ax2.imshow(data.mean(axis=2))

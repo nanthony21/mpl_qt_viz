@@ -10,12 +10,14 @@ y = np.linspace(0, 1, num=100)
 z = np.linspace(0, 3, num=40)
 X, Y, Z = np.meshgrid(x, y, z)
 # Create a 3-dimensional example data array.
-arr = np.sin(2 * np.pi * 1 * Z) + .5 * X + np.cos(2 * np.pi * 4 * Y)
+arr = np.sin(2 * np.pi * 1 * Z) + 0.5 * X + np.cos(2 * np.pi * 4 * Y)
 
-#Run an application with the PlotNd widget
+# Run an application with the PlotNd widget
 app = QApplication(sys.argv)
-p = PlotNd(data=arr,
-           names=('Dim1', 'D2', 'D3'),  # Manually sets how each dimension is labeled.
-           indices=[y, x, z])  # Specifies the data range for each dimension.
-p.setColorMap('plasma')
+p = PlotNd(
+    data=arr,
+    names=("Dim1", "D2", "D3"),  # Manually sets how each dimension is labeled.
+    indices=[y, x, z],
+)  # Specifies the data range for each dimension.
+p.setColorMap("plasma")
 sys.exit(app.exec_())

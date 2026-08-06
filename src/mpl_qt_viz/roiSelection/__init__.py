@@ -40,6 +40,7 @@ Utility
    PolygonModifier
 
 """
+
 from ._utilityClasses.adjustableSelector import AdjustableSelector
 from ._modifierWidgets.polygonModifier import PolygonModifier
 from ._modifierWidgets.movingModifier import MovingModifier
@@ -54,6 +55,18 @@ from ._creatorWidgets._base import CreatorWidgetBase
 from ._coreClasses import InteractiveWidgetBase
 from ._modifierWidgets._base import ModifierWidgetBase
 
-__all__ = ['AdjustableSelector', 'EllipseCreator', 'LassoCreator', 'RegionalPaintCreator',
-           'SquareCreator', 'FullImPaintCreator', 'WaterShedPaintCreator', 'PolygonModifier',
-           'MovingModifier', 'PointCreator', 'CreatorWidgetBase', 'InteractiveWidgetBase', 'ModifierWidgetBase']
+__all__ = [
+    "AdjustableSelector",
+    "EllipseCreator",
+    "LassoCreator",
+    "RegionalPaintCreator",
+    "SquareCreator",
+    "FullImPaintCreator",
+    "WaterShedPaintCreator",
+    "PolygonModifier",
+    "MovingModifier",
+    "PointCreator",
+    "CreatorWidgetBase",
+    "InteractiveWidgetBase",
+    "ModifierWidgetBase",
+]

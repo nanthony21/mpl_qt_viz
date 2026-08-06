@@ -121,15 +121,15 @@ class PlotNdCanvas(FigureCanvasQTAgg):
 
         self._data = data
 
-        Max = np.percentile(self.data[np.logical_not(np.isnan(self.data))], 99.99)
-        Min = np.percentile(self.data[np.logical_not(np.isnan(self.data))], 0.01)
-        self.updateLimits(Max, Min)
-
         self.coords = (
             tuple(i // 2 for i in data.shape)
             if initialCoords is None
             else initialCoords
         )
+
+        Max = np.percentile(self.data[np.logical_not(np.isnan(self.data))], 99.99)
+        Min = np.percentile(self.data[np.logical_not(np.isnan(self.data))], 0.01)
+        self.updateLimits(Max, Min)
 
         self.spectraViewActive = True
         self.mpl_connect("button_press_event", self._onclick)
@@ -200,10 +200,7 @@ class PlotNdCanvas(FigureCanvasQTAgg):
             sp.setRange(self.min, self.max)
         self.cbar.draw()
         self.draw_idle()
-        try:
-            self.updatePlots()  # This will fail when this is run in the constructor.
-        except Exception:
-            pass
+        self.updatePlots()
 
     def setAxesNames(self, names: typing.Iterable[str]):
         """Set the names of to label each plot.

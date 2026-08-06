@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QWidget, QLabel, QSlider, QHBoxLayout
 
 class LabeledSlider(QWidget):
     """A slider with a label that indicates the current value."""
+
     def __init__(self, Min, Max, Step, Value, parent=None):
         super().__init__(parent)
         self.display = QLabel(self)
@@ -18,13 +19,13 @@ class LabeledSlider(QWidget):
         self.value = lambda: self.slider.value()
         self.valueChanged = self.slider.valueChanged
 
-        l = QHBoxLayout()
-        l.setContentsMargins(0, 0, 0, 0)
-        l.addWidget(self.slider)
-        l.addWidget(self.display)
-        l.setStretch(0, 0)
-        l.setStretch(1, 1)
-        self.setLayout(l)
+        layout = QHBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.addWidget(self.slider)
+        layout.addWidget(self.display)
+        layout.setStretch(0, 0)
+        layout.setStretch(1, 1)
+        self.setLayout(layout)
 
         self.setMinimum(Min)
         self.setMaximum(Max)

@@ -24,6 +24,7 @@ from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 from matplotlib.widgets import AxesWidget
 import typing as t_
+
 if typing.TYPE_CHECKING:
     from matplotlib.backend_bases import LocationEvent, KeyEvent, MouseEvent
     from matplotlib.image import AxesImage
@@ -36,7 +37,8 @@ class AxManager:
         ax: The matplotlib Axes object to draw on.
 
     """
-    _AX_ATTR = '_mpl_qt_viz_axManager'  # When a manager is attached to a Matplotlib Axes this attribute will be added to the axis. Allows making sure we only add one manager per axis.
+
+    _AX_ATTR = "_mpl_qt_viz_axManager"  # When a manager is attached to a Matplotlib Axes this attribute will be added to the axis. Allows making sure we only add one manager per axis.
 
     class ManagerAlreadyAssignedException(Exception):
         def __init__(self, axMan: AxManager):
@@ -47,13 +49,17 @@ class AxManager:
 
     def __init__(self, ax: Axes):
         if hasattr(ax, AxManager._AX_ATTR):
-            raise AxManager.ManagerAlreadyAssignedException(getattr(ax, AxManager._AX_ATTR))
+            raise AxManager.ManagerAlreadyAssignedException(
+                getattr(ax, AxManager._AX_ATTR)
+            )
 
-        setattr(ax, AxManager._AX_ATTR, self)  # Store reference to self in Axes so we don't assign multiple managers.
+        setattr(
+            ax, AxManager._AX_ATTR, self
+        )  # Store reference to self in Axes so we don't assign multiple managers.
         self.artists = []
         self.ax = ax
         self.canvas = self.ax.figure.canvas
-        self.canvas.mpl_connect('draw_event', self._update_background)
+        self.canvas.mpl_connect("draw_event", self._update_background)
         self.background = None
 
     def addArtist(self, artist: Artist):
@@ -62,7 +68,7 @@ class AxManager:
         Args:
             artist: A new matplotlib `Artist` to be managed.
         """
-        #TODO implement more cases here.
+        # TODO implement more cases here.
         self.artists.append(artist)
         if isinstance(artist, Patch):
             self.ax.add_patch(artist)
@@ -96,7 +102,7 @@ class AxManager:
                         pass  # This can happen if the figure hasn't already had it's initial draw
             try:
                 self.canvas.blit(self.ax.bbox)
-            except AttributeError: #Sometimes this happens when first opening
+            except AttributeError:  # Sometimes this happens when first opening
                 self.canvas.draw_idle()
         else:
             self.canvas.draw_idle()
@@ -134,15 +140,19 @@ class InteractiveWidgetBase(AxesWidget):
             self._axMan = e.getExistingManager()
         self.ax = ax
         self.image = image
-        self._artists: t_.Dict[Artist, bool] = {}  # Keeps track of active artists and whether or not they should be visible.
-        self.connect_event('motion_notify_event', self.onmove)
-        self.connect_event('button_press_event', self.press)
-        self.connect_event('button_release_event', self.release)
-        self.connect_event('key_press_event', self.on_key_press)
-        self.connect_event('key_release_event', self.on_key_release)
-        self.connect_event('scroll_event', self.on_scroll)
+        self._artists: t_.Dict[
+            Artist, bool
+        ] = {}  # Keeps track of active artists and whether or not they should be visible.
+        self.connect_event("motion_notify_event", self.onmove)
+        self.connect_event("button_press_event", self.press)
+        self.connect_event("button_release_event", self.release)
+        self.connect_event("key_press_event", self.on_key_press)
+        self.connect_event("key_release_event", self.on_key_release)
+        self.connect_event("scroll_event", self.on_scroll)
 
-        self._state_modifier_keys = dict(space=' ', clear='escape', shift='shift', control='control')
+        self._state_modifier_keys = dict(
+            space=" ", clear="escape", shift="shift", control="control"
+        )
 
         # will save the data (position at mouseclick)
         self.eventpress = None
@@ -174,11 +184,15 @@ class InteractiveWidgetBase(AxesWidget):
             return True
         if not self.canvas.widgetlock.available(self):  # If canvas was locked
             return True
-        if not hasattr(event, 'button'):
+        if not hasattr(event, "button"):
             event.button = None
-        if self.eventpress is None:  # If no button was pressed yet ignore the event if it was out of the axes
+        if (
+            self.eventpress is None
+        ):  # If no button was pressed yet ignore the event if it was out of the axes
             return event.inaxes != self.ax
-        if event.button == self.eventpress.button:  # If a button was pressed, check if the release-button is the same.
+        if (
+            event.button == self.eventpress.button
+        ):  # If a button was pressed, check if the release-button is the same.
             return False
         # If a button was pressed, check if the release-button is the same.
         return event.inaxes != self.ax or event.button != self.eventpress.button
@@ -214,11 +228,11 @@ class InteractiveWidgetBase(AxesWidget):
         if not self.ignore(event):
             event = self.__clean_event(event)
             self.eventpress = event
-            key = event.key or ''
-            key = key.replace('ctrl', 'control')
+            key = event.key or ""
+            key = key.replace("ctrl", "control")
             # space state is locked in on a button press
-            if key == self._state_modifier_keys['space']:
-                self.state.add('space')
+            if key == self._state_modifier_keys["space"]:
+                self.state.add("space")
             self._press(event)
             return True
         return False
@@ -231,7 +245,7 @@ class InteractiveWidgetBase(AxesWidget):
             self._release(event)
             self.eventpress = None
             self.eventrelease = None
-            self.state.discard('space')
+            self.state.discard("space")
             return True
         return False
 
@@ -254,12 +268,12 @@ class InteractiveWidgetBase(AxesWidget):
     def on_key_press(self, event: KeyEvent):
         """Key press event handler and validator for all selection widgets"""
         if self.active:
-            key = event.key or ''
-            key = key.replace('ctrl', 'control')
+            key = event.key or ""
+            key = key.replace("ctrl", "control")
             # if key == self._state_modifier_keys['clear']: # This kind of thing can be handled individually by subclasses
             #     self.set_visible(False)
             #     return
-            for (state, modifier) in self._state_modifier_keys.items():
+            for state, modifier in self._state_modifier_keys.items():
                 if modifier in key:
                     self.state.add(state)
             self._on_key_press(event)
@@ -267,8 +281,8 @@ class InteractiveWidgetBase(AxesWidget):
     def on_key_release(self, event: KeyEvent):
         """Key release event handler and validator"""
         if self.active:
-            key = event.key or ''
-            for (state, modifier) in self._state_modifier_keys.items():
+            key = event.key or ""
+            for state, modifier in self._state_modifier_keys.items():
                 if modifier in key:
                     self.state.discard(state)
             self._on_key_release(event)
@@ -282,17 +296,23 @@ class InteractiveWidgetBase(AxesWidget):
             artist: The artist to have its visibility set.
             visible: Whether or not the artist should be visible
         """
-        self._artists[artist] = visible  # Keep track if the artist should be visible. Used when toggling visibility of entire Interactor.
+        self._artists[artist] = (
+            visible  # Keep track if the artist should be visible. Used when toggling visibility of entire Interactor.
+        )
         artist.set_visible(visible)
 
     def addArtist(self, artist: Artist):
         """Add a matplotlib artist to be managed."""
         self._axMan.addArtist(artist)
-        self._artists[artist] = True  # New artists are assumed that they should be visible.
+        self._artists[artist] = (
+            True  # New artists are assumed that they should be visible.
+        )
 
     def removeArtists(self):
         """Remove all artist objects associated with this selector"""
-        while len(self._artists) > 0:  # Using a for loop here has problems since we remove items as we go.
+        while (
+            len(self._artists) > 0
+        ):  # Using a for loop here has problems since we remove items as we go.
             self.removeArtist(list(self._artists.keys())[0])
 
     def removeArtist(self, artist: Artist):

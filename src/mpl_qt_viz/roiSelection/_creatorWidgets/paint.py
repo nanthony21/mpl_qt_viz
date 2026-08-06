@@ -39,14 +39,22 @@ class RegionalPaintCreator(CreatorWidgetBase):
             for computer vision related tasks.
         onselect: A callback function that will be called when the selector finishes a selection.
 
-     """
+    """
+
     def __init__(self, ax: Axes, im: AxesImage, onselect=None):
         super().__init__(ax, im)
         self.onselect = onselect
         self.started = False
         self.selectionTime = False
         self.contours = []
-        self.box = Rectangle((0, 0), 0, 0, facecolor=(1, 0, 1, 0.01), edgecolor=(0, 0, 1, 0.4), animated=True)
+        self.box = Rectangle(
+            (0, 0),
+            0,
+            0,
+            facecolor=(1, 0, 1, 0.01),
+            edgecolor=(0, 0, 1, 0.4),
+            animated=True,
+        )
         self.addArtist(self.box)
 
     @staticmethod
@@ -72,24 +80,40 @@ class RegionalPaintCreator(CreatorWidgetBase):
         y = int(y)
         x2 = int(x + rect.get_width())
         y2 = int(y + rect.get_height())
-        xslice = slice(x, x2+1) if x2 > x else slice(x2, x+1)
-        yslice = slice(y, y2+1) if y2 > y else slice(y2, y+1)
+        xslice = slice(x, x2 + 1) if x2 > x else slice(x2, x + 1)
+        yslice = slice(y, y2 + 1) if y2 > y else slice(y2, y + 1)
         image = self.image.get_array()[(yslice, xslice)]
         polys = segmentOtsu(image)
         for i in range(len(polys)):
-            polys[i] = shapely.affinity.translate(polys[i], xslice.start, yslice.start)  # Apply offset so that coordinates are globally correct.
-            polys[i] = polys[i].simplify(3)  # Simplify the polygon a little bit for much faster saving.
+            polys[i] = shapely.affinity.translate(
+                polys[i], xslice.start, yslice.start
+            )  # Apply offset so that coordinates are globally correct.
+            polys[i] = polys[i].simplify(
+                3
+            )  # Simplify the polygon a little bit for much faster saving.
         self._drawRois(polys)
 
     def _drawRois(self, polys: typing.List[shapelyPolygon]):
         """Draw ROIs detected by `findContours."""
         if len(polys) > 0:
             alpha = 0.3
-            colorCycler = cycler(color=[(1, 0, 0, alpha), (0, 1, 0, alpha), (0, 0, 1, alpha), (1, 1, 0, alpha), (1, 0, 1, alpha)])
+            colorCycler = cycler(
+                color=[
+                    (1, 0, 0, alpha),
+                    (0, 1, 0, alpha),
+                    (0, 0, 1, alpha),
+                    (1, 1, 0, alpha),
+                    (1, 0, 1, alpha),
+                ]
+            )
             for poly, color in zip(polys, colorCycler()):
-                if isinstance(poly, MultiPolygon):  # There is a chance for this a Multipolygon rather than just a Polygon.
-                    poly = max(poly, key=lambda a: a.area)  # To fix this we extract the largest polygon from the multipolygon
-                p = Polygon(poly.exterior.coords, color=color['color'], animated=True)
+                if isinstance(
+                    poly, MultiPolygon
+                ):  # There is a chance for this a Multipolygon rather than just a Polygon.
+                    poly = max(
+                        poly, key=lambda a: a.area
+                    )  # To fix this we extract the largest polygon from the multipolygon
+                p = Polygon(poly.exterior.coords, color=color["color"], animated=True)
                 self.addArtist(p)
                 self.contours.append(p)
             self.updateAxes()
@@ -105,11 +129,15 @@ class RegionalPaintCreator(CreatorWidgetBase):
                 for artist in self.contours:
                     assert isinstance(artist, Polygon)
                     if artist.get_path().contains_point(coord):
-                        l = shapelyPolygon(LinearRing(artist.xy))
-                        l = l.simplify(l.length / 100, preserve_topology=False)
-                        if isinstance(l, MultiPolygon):# There is a chance for this to convert a Polygon to a Multipolygon.
-                            l = max(l, key=lambda a: a.area) #To fix this we extract the largest polygon from the multipolygon
-                        handles = l.exterior.coords
+                        polygon = shapelyPolygon(LinearRing(artist.xy))
+                        polygon = polygon.simplify(polygon.length / 100, preserve_topology=False)
+                        if isinstance(
+                            polygon, MultiPolygon
+                        ):  # There is a chance for this to convert a Polygon to a Multipolygon.
+                            polygon = max(
+                                polygon, key=lambda a: a.area
+                            )  # To fix this we extract the largest polygon from the multipolygon
+                        handles = polygon.exterior.coords
                         self.onselect(artist.xy, handles)
                         break
                 self.reset()
@@ -128,4 +156,3 @@ class RegionalPaintCreator(CreatorWidgetBase):
             self.findContours(self.box)
             self.selectionTime = True
             self.started = False
-

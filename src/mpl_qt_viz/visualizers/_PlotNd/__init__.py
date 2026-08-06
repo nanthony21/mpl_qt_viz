@@ -19,8 +19,18 @@ import typing as t_
 import matplotlib as mpl
 from PyQt6 import QtCore, QtGui
 from PyQt6.QtCore import QSizeF, QTimer
-from PyQt6.QtWidgets import QWidget, QGridLayout, QApplication, QPushButton, QGraphicsView, \
-    QGraphicsScene, QGroupBox, QVBoxLayout, QCheckBox, QButtonGroup
+from PyQt6.QtWidgets import (
+    QWidget,
+    QGridLayout,
+    QApplication,
+    QPushButton,
+    QGraphicsView,
+    QGraphicsScene,
+    QGroupBox,
+    QVBoxLayout,
+    QCheckBox,
+    QButtonGroup,
+)
 from matplotlib import pyplot
 
 from matplotlib.backends.backend_qt5 import NavigationToolbar2QT, FigureCanvasQT
@@ -40,6 +50,7 @@ class _MyView(QGraphicsView):
         plot: A matplotlib FigureCanvas that is compatible with Qt (FigureCanvasQT or FigureCanvasQTAgg)
 
     """
+
     def __init__(self, plot: FigureCanvasQT):
         super().__init__()
         self.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
@@ -59,10 +70,16 @@ class _MyView(QGraphicsView):
         to maximize its size without changing aspect ratio."""
         w, h = self.size().width(), self.size().height()
         r = self.scene().sceneRect()
-        s = min([w, h])  # Get the side length of the biggest square that can fit within the rectangle view area.
-        self.plot.resize(s, s)  # Set the plot to the size of the square that fits in view.
+        s = min(
+            [w, h]
+        )  # Get the side length of the biggest square that can fit within the rectangle view area.
+        self.plot.resize(
+            s, s
+        )  # Set the plot to the size of the square that fits in view.
         r.setSize(QSizeF(s, s))
-        self.scene().setSceneRect(r)  # Set the scene size to the square that fits in view.
+        self.scene().setSceneRect(
+            r
+        )  # Set the scene size to the square that fits in view.
 
     def resizeEvent(self, event: QtGui.QResizeEvent):
         """Every time that the view is resized this event will fire and start the debounce timer. The timer will only
@@ -89,18 +106,37 @@ class PlotNd(QWidget):  # TODO add function and GUI method to set coordinates of
     Attributes:
         data: A reference to the 3D or greater numpy array. This can be safely modified.
     """
-    _defaultNames = ('y', 'x', 'z', '4th', '5th', '6th', '7th', '8th', '9th', '10th', '11th')
 
-    def __init__(self, data: np.ndarray, names: t_.Tuple[str, ...] = None,
-                 initialCoords: t_.Optional[t_.Tuple[int, ...]] = None, title: t_.Optional[str] = '',
-                 parent: t_.Optional[QWidget] = None, indices: t_.Sequence[np.ndarray] = None, flags=QtCore.Qt.WindowType.Window):
+    _defaultNames = (
+        "y",
+        "x",
+        "z",
+        "4th",
+        "5th",
+        "6th",
+        "7th",
+        "8th",
+        "9th",
+        "10th",
+        "11th",
+    )
+
+    def __init__(
+        self,
+        data: np.ndarray,
+        names: t_.Tuple[str, ...] = None,
+        initialCoords: t_.Optional[t_.Tuple[int, ...]] = None,
+        title: t_.Optional[str] = "",
+        parent: t_.Optional[QWidget] = None,
+        indices: t_.Sequence[np.ndarray] = None,
+        flags=QtCore.Qt.WindowType.Window,
+    ):
         super().__init__(parent=parent, flags=flags)
-
 
         self.setWindowTitle(str(title))  # Convert to string just in case
 
         if names is None:
-            names = PlotNd._defaultNames[:len(data.shape)]
+            names = PlotNd._defaultNames[: len(data.shape)]
 
         if data.dtype == bool:
             data = data.astype(np.uint8)
@@ -117,23 +153,35 @@ class PlotNd(QWidget):  # TODO add function and GUI method to set coordinates of
         self._sliderDebounceTimer = QTimer()
         self._sliderDebounceTimer.setSingleShot(True)
         self._sliderDebounceTimer.setInterval(40)
+
         def debounce():
             self.canvas.updateLimits(self.slider.end(), self.slider.start())
+
         self._sliderDebounceTimer.timeout.connect(debounce)
 
-        self.slider.startValueChanged.connect(lambda val: self._sliderDebounceTimer.start())
-        self.slider.endValueChanged.connect(lambda val: self._sliderDebounceTimer.start())
+        self.slider.startValueChanged.connect(
+            lambda val: self._sliderDebounceTimer.start()
+        )
+        self.slider.endValueChanged.connect(
+            lambda val: self._sliderDebounceTimer.start()
+        )
 
         self._lastButton = None
-        self.selector = AdjustableSelector(self.canvas.image.ax, self.canvas.image.im, LassoCreator,
-                                           onfinished=self._selectorFinished)
+        self.selector = AdjustableSelector(
+            self.canvas.image.ax,
+            self.canvas.image.im,
+            LassoCreator,
+            onfinished=self._selectorFinished,
+        )
 
         self.buttonWidget = QGroupBox("Control", self)
         self.buttonWidget.setLayout(QVBoxLayout())
         check = QCheckBox("Cursor Active")
         self.buttonWidget.layout().addWidget(check)
         check.setChecked(self.canvas.spectraViewActive)  # Get the right initial value
-        check.stateChanged.connect(lambda state: self.canvas.setSpectraViewActive(state != 0))
+        check.stateChanged.connect(
+            lambda state: self.canvas.setSpectraViewActive(state != 0)
+        )
 
         self.buttonGroup = QButtonGroup()
         self.pointButton = QPushButton("Point")
@@ -177,7 +225,11 @@ class PlotNd(QWidget):  # TODO add function and GUI method to set coordinates of
             self.canvas.coords = self.canvas.coords[:2] + (z,) + self.canvas.coords[3:]
             self.canvas.updatePlots()
 
-        dlg = AnimationDlg(self.canvas.fig, (animationUpdaterFunc, range(self.canvas.data.shape[2])), self)
+        dlg = AnimationDlg(
+            self.canvas.fig,
+            (animationUpdaterFunc, range(self.canvas.data.shape[2])),
+            self,
+        )
         dlg.exec()
 
     def _updateLimits(self):
@@ -205,6 +257,7 @@ class PlotNd(QWidget):  # TODO add function and GUI method to set coordinates of
         """When an ROI selector finishes selecting a region the vertex coordinates of the selection are passed to this
         function. The function then uses the vertices to plot the average of the data in the ROI"""
         import cv2
+
         newVerts = []
         for vert in verts:  # Convert `verts` from being in terms of the values in self.canvas._indexes to being in terms of the element locations of the data array.
             v1 = self.canvas.image.verticalValueToCoord(vert[1])
@@ -213,13 +266,21 @@ class PlotNd(QWidget):  # TODO add function and GUI method to set coordinates of
         verts = newVerts
 
         # Convert from vertices to a boolean mask
-        iVerts = np.rint([verts]).astype(np.int32)  # The brackets here convert to a 3d array which is what cv2.fillpoly expects. We have to round to integers for cv2 to work.
+        iVerts = np.rint(
+            [verts]
+        ).astype(
+            np.int32
+        )  # The brackets here convert to a 3d array which is what cv2.fillpoly expects. We have to round to integers for cv2 to work.
         mask = np.zeros(self.canvas.data.shape[:2], dtype=np.int32)
         cv2.fillPoly(mask, iVerts, 1)
         mask = mask.astype(bool)
 
-        selected = self.canvas.data[mask]  # For a 3d data array this will now be 2d . For a 4d array it will be 3d etc. The 0th axis is one element for each selected pixel.
-        selected = selected.mean(axis=0)  # Get the average over all selected pixels. We are now down to 1d for a 3d data array, 2d for a 4d data array, et.
+        selected = self.canvas.data[
+            mask
+        ]  # For a 3d data array this will now be 2d . For a 4d array it will be 3d etc. The 0th axis is one element for each selected pixel.
+        selected = selected.mean(
+            axis=0
+        )  # Get the average over all selected pixels. We are now down to 1d for a 3d data array, 2d for a 4d data array, et.
         if len(selected.shape) == 1:
             fig, ax = pyplot.subplots()
             ax.plot(self.canvas.indexes[2], selected)
@@ -228,12 +289,21 @@ class PlotNd(QWidget):  # TODO add function and GUI method to set coordinates of
         elif len(selected.shape) == 2:
             fig, ax = pyplot.subplots()
             im = ax.imshow(selected)
-            im.set_extent([self.canvas.indexes[3][0], self.canvas.indexes[3][-1], self.canvas.indexes[2][0], self.canvas.indexes[2][-1]])
+            im.set_extent(
+                [
+                    self.canvas.indexes[3][0],
+                    self.canvas.indexes[3][-1],
+                    self.canvas.indexes[2][0],
+                    self.canvas.indexes[2][-1],
+                ]
+            )
             ax.set_xlabel(self.canvas.names[3])
             ax.set_ylabel(self.canvas.names[2])
             fig.show()
         else:  # selected must be 3d or greater. This means our original data was 5d or greater.
-            p = PlotNd(selected, names=self.canvas.names[2:], indices=self.canvas.indexes[2:])
+            PlotNd(
+                selected, names=self.canvas.names[2:], indices=self.canvas.indexes[2:]
+            )
 
         self.selector.setActive(True)  # Reset the selector.
 
@@ -258,16 +328,17 @@ class PlotNd(QWidget):  # TODO add function and GUI method to set coordinates of
 
     def setColorMap(self, cmap: t_.Union[str, mpl.colors.Colormap]):
         """
-         Set the colormap used to display data.
+        Set the colormap used to display data.
 
-         Args:
-              cmap: This value will be have the same effect as the argument of Matplotlib's `AxesImage.set_cmap()`
-         """
+        Args:
+             cmap: This value will be have the same effect as the argument of Matplotlib's `AxesImage.set_cmap()`
+        """
         self.canvas.setColorMap(cmap)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import sys
+
     print("Starting")
     x = np.linspace(0, 1, num=100)
     y = np.linspace(0, 1, num=50)
@@ -275,10 +346,11 @@ if __name__ == '__main__':
     # t = np.linspace(0, 1, num=3)
     # c = np.linspace(12, 13, num=3)
     X, Y, Z = np.meshgrid(x, y, z)
-    arr = np.sin(2 * np.pi * 1 * Z) + .5 * X + np.cos(2*np.pi*4*Y)# * T**1.5 * C*.1
+    arr = (
+        np.sin(2 * np.pi * 1 * Z) + 0.5 * X + np.cos(2 * np.pi * 4 * Y)
+    )  # * T**1.5 * C*.1
     app = QApplication(sys.argv)
-    p = PlotNd(arr[:,:,:], names=('y', 'x', 'z'), indices=[y, x, z])  # 3d
+    p = PlotNd(arr[:, :, :], names=("y", "x", "z"), indices=[y, x, z])  # 3d
     # p = PlotNd(arr[:,:,:,:,0], names=('y', 'x', 'z', 't'), indices=[y, x, z, t]) #4d
     # p = PlotNd(arr, names=('y', 'x', 'z', 't', 'c'), indices=[y, x, z, t, c]) #5d
     sys.exit(app.exec())
-

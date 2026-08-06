@@ -35,4 +35,4 @@ from ._multiPlot import MultiPlot
 from ._PlotNd import PlotNd, PlotNdCanvas
 from ._dockPlot import DockablePlotWindow
 
-__all__ = ['MultiPlot', 'PlotNd', 'PlotNdCanvas', 'DockablePlotWindow']
+__all__ = ["MultiPlot", "PlotNd", "PlotNdCanvas", "DockablePlotWindow"]

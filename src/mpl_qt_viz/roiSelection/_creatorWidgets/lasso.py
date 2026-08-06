@@ -35,14 +35,18 @@ class LassoCreator(CreatorWidgetBase):
             for computer vision related tasks.
         onselect: A callback function that will be called when the selector finishes a selection.
     """
+
     def __init__(self, ax: Axes, image: AxesImage, onselect=None):
         super().__init__(ax, image)
         self.onselect = onselect
         self.verts = None
-        self.polygon = Polygon([[0, 0]], facecolor=(0, 0, 1, .1), animated=True, edgecolor=(0, 0, 1, .8))
+        self.polygon = Polygon(
+            [[0, 0]], facecolor=(0, 0, 1, 0.1), animated=True, edgecolor=(0, 0, 1, 0.8)
+        )
         self.polygon.set_visible(False)
         self.addArtist(self.polygon)
-#        self.set_active(True) #needed for blitting to work
+
+    #        self.set_active(True) #needed for blitting to work
 
     @staticmethod
     def getHelpText():
@@ -56,17 +60,21 @@ class LassoCreator(CreatorWidgetBase):
         self.verts = [(event.xdata, event.ydata)]
 
     def _release(self, event):
-        if event.button == 1: #Left click
+        if event.button == 1:  # Left click
             if (self.verts is not None) and (self.onselect is not None):
                 try:
-                    l = shapelyPolygon(LinearRing(self.verts))
+                    polygon = shapelyPolygon(LinearRing(self.verts))
                 except ValueError:
                     return  # If the user clicks without dragging there will just be a single coordinate, this will result in an error when trying to convert to a `LinearRing`
-                l = l.buffer(0)
-                l = l.simplify(l.length ** .5 / 5, preserve_topology=False)
-                if isinstance(l, MultiPolygon):  # There is a chance for this to be a Multipolygon.
-                    l = max(l, key=lambda a: a.area)  # To fix this we extract the largest polygon from the multipolygon
-                handles = l.exterior.coords
+                polygon = polygon.buffer(0)
+                polygon = polygon.simplify(polygon.length**0.5 / 5, preserve_topology=False)
+                if isinstance(
+                    polygon, MultiPolygon
+                ):  # There is a chance for this to be a Multipolygon.
+                    polygon = max(
+                        polygon, key=lambda a: a.area
+                    )  # To fix this we extract the largest polygon from the multipolygon
+                handles = polygon.exterior.coords
                 self.onselect(self.verts, handles)
 
     def _ondrag(self, event):
@@ -76,7 +84,8 @@ class LassoCreator(CreatorWidgetBase):
         self.polygon.set_xy(self.verts)
         self.updateAxes()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     import matplotlib.pyplot as plt
     import numpy as np
     from PyQt6.QtWidgets import QApplication
@@ -88,13 +97,15 @@ if __name__ == '__main__':
     im = np.ones((size, size))
     x = y = np.linspace(0, 1, num=size)
     X, Y = np.meshgrid(x, y)
-    im = im * np.sin(20*X) * np.sin(20*Y)
+    im = im * np.sin(20 * X) * np.sin(20 * Y)
 
     fig, ax = plt.subplots()
-    im = ax.imshow(im, cmap='gray')
-    sel = LassoCreator(ax, im, onselect=lambda verts, handles: print("excellent choice!"))
+    im = ax.imshow(im, cmap="gray")
+    sel = LassoCreator(
+        ax, im, onselect=lambda verts, handles: print("excellent choice!")
+    )
     fig.show()
-    plt.pause(.1)
+    plt.pause(0.1)
     sel.set_active(True)
     plt.show()
 

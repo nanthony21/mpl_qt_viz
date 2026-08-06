@@ -1,14 +1,37 @@
-from PyQt6.QtWidgets import QWidget, QFrame, QHBoxLayout, QPushButton, QVBoxLayout, QApplication, QButtonGroup, \
-    QScrollArea
+from PyQt6.QtWidgets import (
+    QWidget,
+    QFrame,
+    QHBoxLayout,
+    QPushButton,
+    QVBoxLayout,
+    QApplication,
+    QButtonGroup,
+    QScrollArea,
+)
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 import matplotlib.pyplot as plt
-from mpl_qt_viz.roiSelection import EllipseCreator, LassoCreator, RegionalPaintCreator, SquareCreator,\
-    FullImPaintCreator, WaterShedPaintCreator, PointCreator, CreatorWidgetBase
+from mpl_qt_viz.roiSelection import (
+    EllipseCreator,
+    LassoCreator,
+    RegionalPaintCreator,
+    SquareCreator,
+    FullImPaintCreator,
+    WaterShedPaintCreator,
+    PointCreator,
+    CreatorWidgetBase,
+)
 import numpy as np
 
 
-creatorClasses = [EllipseCreator, LassoCreator, RegionalPaintCreator, SquareCreator,
-    FullImPaintCreator, WaterShedPaintCreator, PointCreator]
+creatorClasses = [
+    EllipseCreator,
+    LassoCreator,
+    RegionalPaintCreator,
+    SquareCreator,
+    FullImPaintCreator,
+    WaterShedPaintCreator,
+    PointCreator,
+]
 
 
 class TestWidg(QWidget):
@@ -18,13 +41,11 @@ class TestWidg(QWidget):
         self._canvas = FigureCanvasQTAgg(figure=fig)
 
         X, Y = np.meshgrid(np.linspace(-1, 1, num=1024), np.linspace(-1, 1, num=1024))
-        arr = np.sin(5*X) + np.cos(6*Y)
+        arr = np.sin(5 * X) + np.cos(6 * Y)
         im = ax.imshow(arr)
 
-        onSelection = lambda coords, coords2: print(coords)
-
         self._activeSelector: CreatorWidgetBase = None
-        creators = [clazz(ax, im, onSelection) for clazz in creatorClasses]
+        creators = [clazz(ax, im, lambda coords, coords2: print(coords)) for clazz in creatorClasses]
 
         buttonWidg = QFrame(self)
         buttonWidg.setLayout(QVBoxLayout())
@@ -55,7 +76,8 @@ class TestWidg(QWidget):
         self._activeSelector = creator
         self._activeSelector.set_active(True)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app = QApplication([])
     t = TestWidg()
     t.show()

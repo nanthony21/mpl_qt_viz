@@ -62,6 +62,7 @@ def pnt2line(pnt: Point3, start: Point3, end: Point3) -> typing.Tuple[float, Poi
             dist: The distance from `pnt` to the nearest point on the line
             nearest: The nearest point on the line to `pnt`
     """
+
     def dot(v, w):
         x, y, z = v
         X, Y, Z = w
@@ -173,15 +174,25 @@ class PolygonModifier(ModifierWidgetBase):
     Attributes:
         epsilon: The pixel distance required to detect a mouse-over event.
     """
+
     epsilon: int = 10  # max pixel distance to count as a vertex hit
 
-    def __init__(self, ax: Axes, onselect: typing.Optional[ModifierWidgetBase.SelectionFunction] = None, onCancelled: typing.Optional[typing.Callable] = None):
+    def __init__(
+        self,
+        ax: Axes,
+        onselect: typing.Optional[ModifierWidgetBase.SelectionFunction] = None,
+        onCancelled: typing.Optional[typing.Callable] = None,
+    ):
         super().__init__(ax, None, onselect=onselect)
         self._cancelFunc = onCancelled
-        self.markers = Line2D([0], [0], ls="", marker='o', markerfacecolor='r', animated=True)
+        self.markers = Line2D(
+            [0], [0], ls="", marker="o", markerfacecolor="r", animated=True
+        )
         self._ind = None  # the active vert
         self._hoverInd = None
-        self.poly = Polygon([[0, 0]], animated=True, facecolor=(0, 1, 0, .1), edgecolor=(0, 0, 1, .9))
+        self.poly = Polygon(
+            [[0, 0]], animated=True, facecolor=(0, 1, 0, 0.1), edgecolor=(0, 0, 1, 0.9)
+        )
         self.addArtist(self.poly)
         self.addArtist(self.markers)
 
@@ -190,13 +201,17 @@ class PolygonModifier(ModifierWidgetBase):
         return """PolygonModifier: Click and drag the handle points to adjust the ROI. Press 'd' to delete a point. 
         Press 'i' to insert a new point. Press 'enter' to accept the selection."""
 
-    def initialize(self, handles: typing.Sequence[typing.Sequence[typing.Tuple[float, float]]]):
+    def initialize(
+        self, handles: typing.Sequence[typing.Sequence[typing.Tuple[float, float]]]
+    ):
         """Given a set of points this will initialize the artists to them to begin modification.
 
         Args:
             handles: A sequence of 2d coordinates to intialize the polygon to. Each point will become a draggable handle
         """
-        handles = handles[0]  # We don't support multiple polygons in this widget, just select out the first if multiple are passed.
+        handles = handles[
+            0
+        ]  # We don't support multiple polygons in this widget, just select out the first if multiple are passed.
         x, y = zip(*handles)
         self.markers.set_data(x, y)
         self._interpolate()
@@ -216,7 +231,7 @@ class PolygonModifier(ModifierWidgetBase):
         xyt = self.markers.get_transform().transform(xy)
         xt, yt = xyt[:, 0], xyt[:, 1]
         d = np.hypot(xt - event.x, yt - event.y)
-        indseq, = np.nonzero(d == d.min())
+        (indseq,) = np.nonzero(d == d.min())
         ind = indseq[0]
         if d[ind] >= self.epsilon:
             ind = None
@@ -230,20 +245,24 @@ class PolygonModifier(ModifierWidgetBase):
 
     def _release(self, event):
         """whenever a mouse button is released. Set self._ind to None."""
-        if (event.button != 1):
+        if event.button != 1:
             return
         self._ind = None
 
     def _on_key_press(self, event):
         """whenever a key is pressed"""
-        if event.key == 'd':
+        if event.key == "d":
             ind = self._get_ind_under_point(event)
             if ind is not None:
                 x, y = self.markers.get_data()
                 self.markers.set_data(np.delete(x, ind), np.delete(y, ind))
                 self._interpolate()
-        elif event.key == 'i':
-            xys = list(self.markers.get_transform().transform(np.array(self.markers.get_data()).T))
+        elif event.key == "i":
+            xys = list(
+                self.markers.get_transform().transform(
+                    np.array(self.markers.get_data()).T
+                )
+            )
             p = np.array([event.x, event.y, 0])  # display coords
             d = []
             for i in range(len(xys) - 1):
@@ -252,16 +271,19 @@ class PolygonModifier(ModifierWidgetBase):
                 d.append(pnt2line(p, s0, s1)[0])  # distance from line to click point
             d = np.array(d)
             i = d.argmin()
-            if d.min() <= (self.epsilon * 5): #The 5 here was decided arbitrarily
+            if d.min() <= (self.epsilon * 5):  # The 5 here was decided arbitrarily
                 x, y = self.markers.get_data()
-                self.markers.set_data(np.insert(x, i + 1, event.xdata), np.insert(y, i + 1, event.ydata))
+                self.markers.set_data(
+                    np.insert(x, i + 1, event.xdata), np.insert(y, i + 1, event.ydata)
+                )
                 self._interpolate()
-        elif event.key == 'enter':
+        elif event.key == "enter":
             self.onselect([self.poly.xy], [self.markers.get_data()])
             return
-        elif event.key == 'escape':
+        elif event.key == "escape":
             self.set_active(False)
-            if self._cancelFunc is not None: self._cancelFunc() # Cancel
+            if self._cancelFunc is not None:
+                self._cancelFunc()  # Cancel
 
         self.updateAxes()
 
@@ -273,9 +295,9 @@ class PolygonModifier(ModifierWidgetBase):
         self._hoverInd = self._get_ind_under_point(event)
         if lastHoverInd != self._hoverInd:
             if self._hoverInd is not None:
-                self.markers.set_markerfacecolor((0, .9, 1, 1))
+                self.markers.set_markerfacecolor((0, 0.9, 1, 1))
             else:
-                self.markers.set_markerfacecolor('r')
+                self.markers.set_markerfacecolor("r")
         self.updateAxes()
 
     def _ondrag(self, event):

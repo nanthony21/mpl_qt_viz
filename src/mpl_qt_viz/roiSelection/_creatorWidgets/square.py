@@ -27,7 +27,7 @@ if typing.TYPE_CHECKING:
 
 class SquareCreator(CreatorWidgetBase):
     def __init__(self, ax: Axes, image: AxesImage, onselect=None, sideLength: int = 5):
-        """ A selector widget that facilitates the selection of a square region in an image.
+        """A selector widget that facilitates the selection of a square region in an image.
 
         Args:
             ax (Axes): A reference to the matplotlib `Axes` that this selector widget is active on.
@@ -43,7 +43,9 @@ class SquareCreator(CreatorWidgetBase):
         self.sideLength = sideLength
         self.patch = Rectangle((0, 0), 1, 1, facecolor=(1, 0, 0, 0.5), animated=True)
         self.patch.set_visible(False)
-        self.ghostPatch = Rectangle((0, 0), 1, 1, facecolor=(1, 0, 0, 0.2), animated=True)
+        self.ghostPatch = Rectangle(
+            (0, 0), 1, 1, facecolor=(1, 0, 0, 0.2), animated=True
+        )
         self.ghostPatch.set_width(self.sideLength)
         self.ghostPatch.set_height(self.sideLength)
         self.addArtist(self.patch)
@@ -57,13 +59,18 @@ class SquareCreator(CreatorWidgetBase):
         return "For selecting a single point with radius of `side`."
 
     def _onhover(self, event):
-        self.ghostPatch.set_xy((event.xdata - self.sideLength / 2, event.ydata - self.sideLength / 2))
+        self.ghostPatch.set_xy(
+            (event.xdata - self.sideLength / 2, event.ydata - self.sideLength / 2)
+        )
         self.updateAxes()
 
     def _press(self, event):
         if event.button != 1:
             return
-        self.point = [event.xdata - self.sideLength / 2, event.ydata - self.sideLength / 2]
+        self.point = [
+            event.xdata - self.sideLength / 2,
+            event.ydata - self.sideLength / 2,
+        ]
         self.patch.set_xy(self.point)
         self.patch.set_width(self.sideLength)
         self.patch.set_height(self.sideLength)

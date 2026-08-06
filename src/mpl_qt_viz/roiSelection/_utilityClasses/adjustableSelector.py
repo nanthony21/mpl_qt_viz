@@ -18,6 +18,7 @@
 from __future__ import annotations
 import typing
 from .._modifierWidgets import PolygonModifier
+
 if typing.TYPE_CHECKING:
     from matplotlib.axes import Axes
     from matplotlib.image import AxesImage
@@ -36,13 +37,24 @@ class AdjustableSelector:
         onfinished: a callback function when the selection finished. The function should accept a single input argument
             which is a list of the 2d coordinated outlining the selected polygon.
     """
-    def __init__(self, ax: Axes, image: AxesImage, selectorClass: typing.Type[CreatorWidgetBase],
-                 onfinished: typing.Optional[typing.Callable] = None, onPolyTuningCancelled: typing.Optional[typing.Callable] = None):
+
+    def __init__(
+        self,
+        ax: Axes,
+        image: AxesImage,
+        selectorClass: typing.Type[CreatorWidgetBase],
+        onfinished: typing.Optional[typing.Callable] = None,
+        onPolyTuningCancelled: typing.Optional[typing.Callable] = None,
+    ):
         self.ax = ax
         self.image = image
-        self.selector: CreatorWidgetBase = selectorClass(self.ax, self.image, onselect=self._goPoly)
+        self.selector: CreatorWidgetBase = selectorClass(
+            self.ax, self.image, onselect=self._goPoly
+        )
         self.selector.active = False
-        self.adjuster = PolygonModifier(self.ax, onselect=self.finish, onCancelled=onPolyTuningCancelled)
+        self.adjuster = PolygonModifier(
+            self.ax, onselect=self.finish, onCancelled=onPolyTuningCancelled
+        )
         self.adjuster.active = False
         self.adjustable = False
         self.onfinished = onfinished
@@ -84,12 +96,18 @@ class AdjustableSelector:
         self.selector = selectorClass(self.ax, self.image)
         self.adjustable = self.adjustable
 
-    def _goPoly(self, verts: typing.Sequence[typing.Tuple[float, float]], handles: typing.Sequence[typing.Tuple[float, float]]):
+    def _goPoly(
+        self,
+        verts: typing.Sequence[typing.Tuple[float, float]],
+        handles: typing.Sequence[typing.Tuple[float, float]],
+    ):
         """This callback is registered with the selectorWidget when we are in adjustable mode. Upon completion of the
         initial selection this callback passes the handles to the polygon adjuster."""
         self.selector.set_active(False)
         self.adjuster.set_active(True)
-        self.adjuster.initialize([handles])  # It's important that this happens after `set_active` otherwise we get weird drawing issues
+        self.adjuster.initialize(
+            [handles]
+        )  # It's important that this happens after `set_active` otherwise we get weird drawing issues
 
     def finish(self, verts, handles):
         """This callback is registered with the selectorWidget when we are not in adjustable mode. In adjustable mode it
@@ -97,6 +115,8 @@ class AdjustableSelector:
         self.setActive(False)
         if self.onfinished is not None:
             if self.adjustable:
-                self.onfinished(verts[0])  # The polygon interactor has a slightly different signature than the `creatorwidgets`
+                self.onfinished(
+                    verts[0]
+                )  # The polygon interactor has a slightly different signature than the `creatorwidgets`
             else:
                 self.onfinished(verts)

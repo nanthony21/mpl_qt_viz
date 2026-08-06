@@ -19,8 +19,20 @@
 import traceback
 from enum import Enum
 import typing as t_
-from PyQt6.QtWidgets import QDialog, QSpinBox, QLineEdit, QPushButton, QComboBox, QVBoxLayout, \
-    QLabel, QMessageBox, QFileDialog, QFileIconProvider, QHBoxLayout, QWidget
+from PyQt6.QtWidgets import (
+    QDialog,
+    QSpinBox,
+    QLineEdit,
+    QPushButton,
+    QComboBox,
+    QVBoxLayout,
+    QLabel,
+    QMessageBox,
+    QFileDialog,
+    QFileIconProvider,
+    QHBoxLayout,
+    QWidget,
+)
 from matplotlib import animation
 from matplotlib.artist import Artist
 import sys
@@ -29,7 +41,8 @@ from numbers import Number
 import numpy as np
 from PyQt6 import QtCore, QtGui, QtWidgets
 
-__all__ = ['AnimationDlg', 'QRangeSlider']
+__all__ = ["AnimationDlg", "QRangeSlider"]
+
 
 class AnimationDlg(QDialog):
     """A dialog box that facilitates the saving an animation.
@@ -40,14 +53,24 @@ class AnimationDlg(QDialog):
             to the `frames` argument.
         parent (QWidget): The widget that this dialog will act as the child for.
     """
+
     class SaveMethods(Enum):
-        MP4 = 'ffmpeg'
-        GIF = 'pillow'
-        HTML = 'html'
+        MP4 = "ffmpeg"
+        GIF = "pillow"
+        HTML = "html"
 
-    Extensions = {SaveMethods.GIF: '.gif', SaveMethods.HTML: '.html', SaveMethods.MP4: '.mp4'}
+    Extensions = {
+        SaveMethods.GIF: ".gif",
+        SaveMethods.HTML: ".html",
+        SaveMethods.MP4: ".mp4",
+    }
 
-    def __init__(self, fig, input: t_.Union[t_.List[t_.List[Artist]], t_.Tuple[t_.Callable, t_.Iterable]], parent: QWidget):
+    def __init__(
+        self,
+        fig,
+        input: t_.Union[t_.List[t_.List[Artist]], t_.Tuple[t_.Callable, t_.Iterable]],
+        parent: QWidget,
+    ):
         super().__init__(parent)
         self.setModal(True)
         self.setWindowTitle("Save Animation")
@@ -63,7 +86,9 @@ class AnimationDlg(QDialog):
 
         self.fPath = QLineEdit(self)
 
-        self.browseButton = QPushButton(QFileIconProvider().icon(QFileIconProvider.IconType.Folder), '')
+        self.browseButton = QPushButton(
+            QFileIconProvider().icon(QFileIconProvider.IconType.Folder), ""
+        )
         self.browseButton.released.connect(self.browseFile)
 
         self.methodCombo = QComboBox(self)
@@ -99,30 +124,43 @@ class AnimationDlg(QDialog):
             saveMethod = self.methodCombo.currentData()
             savePath = self.fPath.text()
             frameIntervalMs = self.intervalSpinBox.value()
-            if os.path.splitext(savePath)[1] != self.Extensions[saveMethod]:  # Make sure we have the right file extension to avoid an error.
+            if (
+                os.path.splitext(savePath)[1] != self.Extensions[saveMethod]
+            ):  # Make sure we have the right file extension to avoid an error.
                 savePath += self.Extensions[saveMethod]
             if callable(self.input[0]):
-                ani = animation.FuncAnimation(self.figure, self.input[0], frames=self.input[1], interval=frameIntervalMs)
+                ani = animation.FuncAnimation(
+                    self.figure,
+                    self.input[0],
+                    frames=self.input[1],
+                    interval=frameIntervalMs,
+                )
             else:
-                ani = animation.ArtistAnimation(self.figure, self.input, interval=frameIntervalMs)
+                ani = animation.ArtistAnimation(
+                    self.figure, self.input, interval=frameIntervalMs
+                )
             Writer = animation.writers[saveMethod.value]
             if Writer is animation.FFMpegWriter:
-                writer = Writer(bitrate=-1, fps=1000/frameIntervalMs)  # We previously had codec='libx264' here to improve quality. But starting in matplotlib 3.3.1 this prevented the videos from working on windows.
+                writer = Writer(
+                    bitrate=-1, fps=1000 / frameIntervalMs
+                )  # We previously had codec='libx264' here to improve quality. But starting in matplotlib 3.3.1 this prevented the videos from working on windows.
             else:
-                writer = Writer(fps=1000/frameIntervalMs)
+                writer = Writer(fps=1000 / frameIntervalMs)
             ani.save(savePath, writer=writer)
         except Exception as e:
             traceback.print_exc()
-            msg = QMessageBox.warning(self, 'Warning', str(e))
+            QMessageBox.warning(self, "Warning", str(e))
         self.accept()
 
     def browseFile(self):
-        fname, extension = QFileDialog.getSaveFileName(self, 'Save Location', os.getcwd())
-        if fname != '':
+        fname, extension = QFileDialog.getSaveFileName(
+            self, "Save Location", os.getcwd()
+        )
+        if fname != "":
             self.fPath.setText(fname)
 
 
-DEFAULT_CSS= """
+DEFAULT_CSS = """
 QRangeSlider * {
     border: 0px;
     padding: 0px;
@@ -153,12 +191,14 @@ def scale(val: Number, src: t_.Tuple[Number, Number], dst: t_.Tuple[Number, Numb
     """src is a tuple containing the original minimum and maximum values.
     dst is a tuple containing the new min and max values.
     This function will return the value of val scaled from src to dst"""
-    if src[1] == src[0]: #These cases will result in a nan value.
-        return (dst[1] + dst[0])/2
+    if src[1] == src[0]:  # These cases will result in a nan value.
+        return (dst[1] + dst[0]) / 2
     elif dst[0] == dst[1]:
         return dst[0]
     else:
-        return float(((val - src[0]) / float(src[1] - src[0])) * (dst[1] - dst[0]) + dst[0])
+        return float(
+            ((val - src[0]) / float(src[1] - src[0])) * (dst[1] - dst[0]) + dst[0]
+        )
 
 
 class Element(QtWidgets.QWidget):
@@ -171,9 +211,9 @@ class Element(QtWidgets.QWidget):
         return self._textColor
 
     def setTextColor(self, color: t_.Union[int, t_.Tuple[int, int, int]]):
-        if type(color) == tuple and len(color) == 3:
+        if type(color) is tuple and len(color) == 3:
             self._textColor = QtGui.QColor(color[0], color[1], color[2])
-        elif type(color) == int:
+        elif type(color) is int:
             self._textColor = QtGui.QColor(color, color, color)
 
     def paintEvent(self, event):
@@ -182,16 +222,18 @@ class Element(QtWidgets.QWidget):
             self.drawText(event, qp)
 
     def drawText(self, event, painter):
-        pass #Override this to draw text.
+        pass  # Override this to draw text.
 
     def setStyleSheet(self, styleSheet: str) -> None:
         super().setStyleSheet(styleSheet)
-        self.setAutoFillBackground(True) # For some reason if this isn't done then setting the stylesheet turns everything gray.
+        self.setAutoFillBackground(
+            True
+        )  # For some reason if this isn't done then setting the stylesheet turns everything gray.
 
 
 def numFormat(num: Number) -> str:
     num = np.abs(num)
-    if num < 1 or num>=1000:
+    if num < 1 or num >= 1000:
         return f"{num:.2E}"
     else:
         return f"{num:.2f}"
@@ -203,8 +245,10 @@ class Head(Element):
 
     def drawText(self, event, qp):
         qp.setPen(self.textColor())
-        qp.setFont(QtGui.QFont('Arial', 10))
-        qp.drawText(event.rect(), QtCore.Qt.AlignmentFlag.AlignLeft, numFormat(self.main.min()))
+        qp.setFont(QtGui.QFont("Arial", 10))
+        qp.drawText(
+            event.rect(), QtCore.Qt.AlignmentFlag.AlignLeft, numFormat(self.main.min())
+        )
 
 
 class Tail(Element):
@@ -213,8 +257,10 @@ class Tail(Element):
 
     def drawText(self, event, qp):
         qp.setPen(self.textColor())
-        qp.setFont(QtGui.QFont('Arial', 10))
-        qp.drawText(event.rect(), QtCore.Qt.AlignmentFlag.AlignRight, numFormat(self.main.max()))
+        qp.setFont(QtGui.QFont("Arial", 10))
+        qp.drawText(
+            event.rect(), QtCore.Qt.AlignmentFlag.AlignRight, numFormat(self.main.max())
+        )
 
 
 class Handle(Element):
@@ -223,20 +269,26 @@ class Handle(Element):
 
     def drawText(self, event, qp):
         qp.setPen(self.textColor())
-        qp.setFont(QtGui.QFont('Arial', 10))
-        qp.drawText(event.rect(), QtCore.Qt.AlignmentFlag.AlignLeft, numFormat(self.main.start()))
-        qp.drawText(event.rect(), QtCore.Qt.AlignmentFlag.AlignRight, numFormat(self.main.end()))
+        qp.setFont(QtGui.QFont("Arial", 10))
+        qp.drawText(
+            event.rect(),
+            QtCore.Qt.AlignmentFlag.AlignLeft,
+            numFormat(self.main.start()),
+        )
+        qp.drawText(
+            event.rect(), QtCore.Qt.AlignmentFlag.AlignRight, numFormat(self.main.end())
+        )
 
     def mouseMoveEvent(self, event):
         event.accept()
         mx = event.globalX()
-        _mx = getattr(self, '__mx', None)
+        _mx = getattr(self, "__mx", None)
         if not _mx:
-            setattr(self, '__mx', mx)
+            setattr(self, "__mx", mx)
             dx = 0
         else:
             dx = mx - _mx
-        setattr(self, '__mx', mx)
+        setattr(self, "__mx", mx)
         if dx == 0:
             event.ignore()
             return
@@ -271,8 +323,8 @@ class QRangeSlider(QtWidgets.QWidget):
         self._splitter.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self._splitter.setOrientation(QtCore.Qt.Orientation.Horizontal)
         self.gridLayout.addWidget(self._splitter, 0, 0, 1, 1)
-        self.head = Head(main=self)  #The order that these are added matters.
-        self.head.setObjectName("Head") # These names are used by the stylesheet
+        self.head = Head(main=self)  # The order that these are added matters.
+        self.head.setObjectName("Head")  # These names are used by the stylesheet
         self.handle = Handle(main=self)
         self.handle.setObjectName("Span")
         self.tail = Tail(main=self)
@@ -285,7 +337,9 @@ class QRangeSlider(QtWidgets.QWidget):
 
         self.setStyleSheet(DEFAULT_CSS)
 
-        self.setMouseTracking(False)  # Don't fire mouse events unless a button is clicked.
+        self.setMouseTracking(
+            False
+        )  # Don't fire mouse events unless a button is clicked.
         self._splitter.splitterMoved.connect(self._handleMoveSplitter)
         self.handle.setTextColor((150, 255, 150))
         self._setMin(0)
@@ -295,19 +349,21 @@ class QRangeSlider(QtWidgets.QWidget):
         self.setDrawValues(True)
 
     def showEvent(self, evt):
-        self.head.setAutoFillBackground(True) #IDK why but the colors from the stylesheet won't fill in if we don't do this.
+        self.head.setAutoFillBackground(
+            True
+        )  # IDK why but the colors from the stylesheet won't fill in if we don't do this.
         self.tail.setAutoFillBackground(True)
         self.handle.setAutoFillBackground(True)
         super().showEvent(evt)
 
     def min(self):
-        return getattr(self, '__min', None)
+        return getattr(self, "__min", None)
 
     def max(self):
-        return getattr(self, '__max', None)
+        return getattr(self, "__max", None)
 
     def _setMin(self, value):
-        setattr(self, '__min', value)
+        setattr(self, "__min", value)
         self.minValueChanged.emit(value)
 
     def setMin(self, value):
@@ -316,7 +372,7 @@ class QRangeSlider(QtWidgets.QWidget):
             self._setStart(value)
 
     def _setMax(self, value):
-        setattr(self, '__max', value)
+        setattr(self, "__max", value)
         self.maxValueChanged.emit(value)
 
     def setMax(self, value):
@@ -325,13 +381,13 @@ class QRangeSlider(QtWidgets.QWidget):
             self._setEnd(value)
 
     def start(self):
-        return getattr(self, '__start', None)
+        return getattr(self, "__start", None)
 
     def end(self):
-        return getattr(self, '__end', None)
+        return getattr(self, "__end", None)
 
     def _setStart(self, value):
-        setattr(self, '__start', value)
+        setattr(self, "__start", value)
         self.startValueChanged.emit(value)
 
     def setStart(self, value):
@@ -342,7 +398,7 @@ class QRangeSlider(QtWidgets.QWidget):
         self._setStart(value)
 
     def _setEnd(self, value):
-        setattr(self, '__end', value)
+        setattr(self, "__end", value)
         self.endValueChanged.emit(value)
 
     def setEnd(self, value):
@@ -353,10 +409,10 @@ class QRangeSlider(QtWidgets.QWidget):
         self._setEnd(value)
 
     def drawValues(self):
-        return getattr(self, '__drawValues', None)
+        return getattr(self, "__drawValues", None)
 
     def setDrawValues(self, draw):
-        setattr(self, '__drawValues', draw)
+        setattr(self, "__drawValues", draw)
 
     def getRange(self):
         return self.start(), self.end()
@@ -368,11 +424,11 @@ class QRangeSlider(QtWidgets.QWidget):
     def keyPressEvent(self, event):
         key = event.key()
         if key == QtCore.Qt.Key.Key_Left:
-            s = self.start()-1
-            e = self.end()-1
+            s = self.start() - 1
+            e = self.end() - 1
         elif key == QtCore.Qt.Key.Key_Right:
-            s = self.start()+1
-            e = self.end()+1
+            s = self.start() + 1
+            e = self.end() + 1
         else:
             event.ignore()
             return
@@ -392,42 +448,44 @@ class QRangeSlider(QtWidgets.QWidget):
         return scale(xpos, (0, self.width()), (self.min(), self.max()))
 
     def _handleMoveSplitter(self, xpos, index):
-        hw = self._splitter.handleWidth()
+
         def _lockWidth(widget):
             width = widget.size().width()
             widget.setMinimumWidth(width)
             widget.setMaximumWidth(width)
+
         def _unlockWidth(widget):
             widget.setMinimumWidth(0)
             widget.setMaximumWidth(16777215)
+
         v = self._posToValue(xpos)
         if index == self._SPLIT_START:
             _lockWidth(self.tail)
             if v >= self.end():
                 return
-            offset = -20
-            w = xpos + offset
             self._setStart(v)
         elif index == self._SPLIT_END:
             _lockWidth(self.head)
             if v <= self.start():
                 return
-            offset = -40
-            w = self.width() - xpos + offset
             self._setEnd(v)
         _unlockWidth(self.tail)
         _unlockWidth(self.head)
         _unlockWidth(self.handle)
 
-if __name__ == '__main__':
 
+if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     rs = QRangeSlider()
     rs.show()
 
     rs.setMax(100)
     rs.setMin(0.015)
-    rs.setRange(.017, .50)
-    rs.setBackgroundStyle('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #222, stop:1 #333);')
-    rs.handle.setStyleSheet('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282, stop:1 #393);')
+    rs.setRange(0.017, 0.50)
+    rs.setBackgroundStyle(
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #222, stop:1 #333);"
+    )
+    rs.handle.setStyleSheet(
+        "background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282, stop:1 #393);"
+    )
     app.exec()

@@ -3,6 +3,7 @@ import typing
 from abc import ABCMeta, abstractmethod
 from matplotlib.image import AxesImage
 from mpl_qt_viz.roiSelection._coreClasses import InteractiveWidgetBase
+
 if typing.TYPE_CHECKING:
     from matplotlib.axes import Axes
 
@@ -29,8 +30,12 @@ class CreatorWidgetBase(InteractiveWidgetBase, metaclass=ABCMeta):
     PolygonCoords = typing.Sequence[typing.Tuple[float, float]]
     SelectionFunction = typing.Callable[[PolygonCoords, PolygonCoords], None]
 
-    def __init__(self, ax: Axes, image: typing.Optional[AxesImage] = None,
-                 onselect: typing.Optional[SelectionFunction] = None):
+    def __init__(
+        self,
+        ax: Axes,
+        image: typing.Optional[AxesImage] = None,
+        onselect: typing.Optional[SelectionFunction] = None,
+    ):
         super().__init__(ax, image)
         self._onselect = onselect
 
@@ -45,7 +50,9 @@ class CreatorWidgetBase(InteractiveWidgetBase, metaclass=ABCMeta):
         """Reset the state of the selector so it's ready for a new selection."""
         pass
 
-    def onselect(self, verts: PolygonCoords, handles: PolygonCoords):  # This method only exists to make the signature of onselect more obvious
+    def onselect(
+        self, verts: PolygonCoords, handles: PolygonCoords
+    ):  # This method only exists to make the signature of onselect more obvious
         """This method should be called when the interaction is done to execute whatever finalization function was specified
         in the constructor.
 

@@ -21,13 +21,16 @@ from matplotlib.image import AxesImage
 from matplotlib.patches import Circle
 from ._base import CreatorWidgetBase
 import typing as t_
+
 if typing.TYPE_CHECKING:
     from matplotlib.axes import Axes
 
 
 class PointCreator(CreatorWidgetBase):
-    def __init__(self, ax: Axes, image: AxesImage, onselect=None, markerKwargs: t_.Dict = None):
-        """ A selector widget that facilitates the selection of a single point in an image. Displayed by a marker
+    def __init__(
+        self, ax: Axes, image: AxesImage, onselect=None, markerKwargs: t_.Dict = None
+    ):
+        """A selector widget that facilitates the selection of a single point in an image. Displayed by a marker
         Args:
             ax (Axes): A reference to the matplotlib `Axes` that this selector widget is active on.
             image (AxesImage): the matplotlib image object in use.
@@ -40,10 +43,16 @@ class PointCreator(CreatorWidgetBase):
         super().__init__(ax, image, onselect=onselect)
         self.onselect = onselect
 
-        self._radius = self.__scale_axis_to_data(.01)  # This scaling is done so that no matter how zoomed in/out the data is we still have a reasonable on-screen size.
-        self._patch = Circle((0, 0), radius=self._radius, facecolor=(1, 0, 0, 0.9), animated=True)
+        self._radius = self.__scale_axis_to_data(
+            0.01
+        )  # This scaling is done so that no matter how zoomed in/out the data is we still have a reasonable on-screen size.
+        self._patch = Circle(
+            (0, 0), radius=self._radius, facecolor=(1, 0, 0, 0.9), animated=True
+        )
         self.setArtistVisible(self._patch, False)
-        self._ghostPatch = Circle((0, 0), radius=self._radius, facecolor=(0, 0, 1, 0.5), animated=True)
+        self._ghostPatch = Circle(
+            (0, 0), radius=self._radius, facecolor=(0, 0, 1, 0.5), animated=True
+        )
         self.addArtist(self._patch)
         self.addArtist(self._ghostPatch)
         self.setArtistVisible(self._patch, False)
@@ -68,14 +77,14 @@ class PointCreator(CreatorWidgetBase):
         self._patch.set_radius(self._radius)
         self.setArtistVisible(self._patch, True)
         if self.onselect:
-            verts = (_point, )
+            verts = (_point,)
             handles = verts
             self.onselect(verts, handles)
 
     def _on_scroll(self, event):
         delta = event.step
         self._radius *= 1 + delta / 10
-        minR = self.__scale_axis_to_data(.005)
+        minR = self.__scale_axis_to_data(0.005)
         maxR = self.__scale_axis_to_data(0.05)
         print(minR, self._radius)
         if self._radius < minR:

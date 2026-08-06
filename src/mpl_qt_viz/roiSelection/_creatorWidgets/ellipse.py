@@ -31,6 +31,7 @@ if typing.TYPE_CHECKING:
 
 class _SelectionStatus(enum.Enum):
     """Helps keep track of where we are in the selection process"""
+
     NotStarted = enum.auto()
     FirstAxis = enum.auto()
     SecondAxis = enum.auto()
@@ -45,14 +46,29 @@ class EllipseCreator(CreatorWidgetBase):
             for computer vision related tasks.
         onselect: A callback that will be called when the user hits 'enter'. Should have signature (polygonCoords, sparseHandleCoords).
     """
+
     def __init__(self, ax: Axes, image: AxesImage, onselect: typing.Callable = None):
         super().__init__(ax, image, onselect=onselect)
         self._status = _SelectionStatus.NotStarted
         self._startPoint: typing.Tuple[float, float] = None
         self._clickTime = time()
-        self.patch = Ellipse((0, 0), 0, 0, 0, facecolor=(0, 0, 1, .1), animated=True, edgecolor=(0, 0, 1, .8))
+        self.patch = Ellipse(
+            (0, 0),
+            0,
+            0,
+            0,
+            facecolor=(0, 0, 1, 0.1),
+            animated=True,
+            edgecolor=(0, 0, 1, 0.8),
+        )
         self.addArtist(self.patch)
-        self.circleGuide = Circle((0, 0), animated=True, edgecolor=(1, 0, 0, .6), facecolor=(0, 0, 0, 0), linestyle='dotted')
+        self.circleGuide = Circle(
+            (0, 0),
+            animated=True,
+            edgecolor=(1, 0, 0, 0.6),
+            facecolor=(0, 0, 0, 0),
+            linestyle="dotted",
+        )
         self.addArtist(self.circleGuide)
 
     @staticmethod
@@ -78,28 +94,39 @@ class EllipseCreator(CreatorWidgetBase):
             self.patch.set_center(self._startPoint)
             self.circleGuide.set_center(self._startPoint)
             self._status = _SelectionStatus.FirstAxis
-        elif self._status is _SelectionStatus.FirstAxis:  # If we were on the first axis transition to the second axis.
+        elif (
+            self._status is _SelectionStatus.FirstAxis
+        ):  # If we were on the first axis transition to the second axis.
             self._status = _SelectionStatus.SecondAxis
-        elif self._status is _SelectionStatus.SecondAxis:  # If we were on the second axis then finalize.
+        elif (
+            self._status is _SelectionStatus.SecondAxis
+        ):  # If we were on the second axis then finalize.
             self._status = _SelectionStatus.NotStarted
             if self.onselect:
-                angle = np.linspace(0, 2*np.pi, num=100)
-                x_ = self.patch.width/2 * np.cos(angle) #unrotated ellipse centered at origin
-                y_ = self.patch.height/2 * np.sin(angle)
+                angle = np.linspace(0, 2 * np.pi, num=100)
+                x_ = (
+                    self.patch.width / 2 * np.cos(angle)
+                )  # unrotated ellipse centered at origin
+                y_ = self.patch.height / 2 * np.sin(angle)
                 s = np.sin(np.radians(self.patch.angle))
                 c = np.cos(np.radians(self.patch.angle))
                 x = x_ * c - y_ * s  # rotate ellipse
                 y = x_ * s + y_ * c
-                x += self.patch.center[0] #translate ellipse
+                x += self.patch.center[0]  # translate ellipse
                 y += self.patch.center[1]
                 verts = list(zip(x, y))
-                handles = [verts[0], verts[len(verts)//4], verts[len(verts)//2], verts[3*len(verts)//4], verts[0]]
+                handles = [
+                    verts[0],
+                    verts[len(verts) // 4],
+                    verts[len(verts) // 2],
+                    verts[3 * len(verts) // 4],
+                    verts[0],
+                ]
                 self.onselect(verts, handles)
 
     def _ondrag(self, event):
         """If an initial point has been selected then draw to draw the length of the ellipse."""
-        self._onhover(event) # Dragging and hovering are both allowed.
-
+        self._onhover(event)  # Dragging and hovering are both allowed.
 
     def _onhover(self, event):
         """When drawing the first axis allow the angle of the ellipse to be changed. Also update the circle guide.
@@ -111,22 +138,30 @@ class EllipseCreator(CreatorWidgetBase):
         if self._status is _SelectionStatus.FirstAxis:
             self.patch.height = np.sqrt(dx**2 + dy**2)
             self.patch.width = self.patch.height / 4
-            self.patch.set_center([self._startPoint[0] + dx / 2, self._startPoint[1] + dy / 2])
+            self.patch.set_center(
+                [self._startPoint[0] + dx / 2, self._startPoint[1] + dy / 2]
+            )
             self.patch.angle = np.degrees(np.arctan2(dy, dx)) - 90
-            self.circleGuide.set_center([self._startPoint[0] + dx / 2, self._startPoint[1] + dy / 2])
-            self.circleGuide.set_radius(np.sqrt(dx**2 + dy**2)/2)
+            self.circleGuide.set_center(
+                [self._startPoint[0] + dx / 2, self._startPoint[1] + dy / 2]
+            )
+            self.circleGuide.set_radius(np.sqrt(dx**2 + dy**2) / 2)
         elif self._status is _SelectionStatus.SecondAxis:
             h = np.sqrt(dx**2 + dy**2)
             theta = np.arctan2(dy, dx) - np.radians(self.patch.angle)
-            self.patch.width = 2*h*np.cos(theta)
+            self.patch.width = 2 * h * np.cos(theta)
         self.updateAxes()
 
     def _release(self, event):
-        if time() - self._clickTime >= 0.3: # In order to make dragging and hovering both behave the same we need to only respond to a release if we think that the mouse has been dragged.
+        if (
+            time() - self._clickTime >= 0.3
+        ):  # In order to make dragging and hovering both behave the same we need to only respond to a release if we think that the mouse has been dragged.
             self._press(event)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     import matplotlib.pyplot as plt
+
     fig, ax = plt.subplots()
     sel = EllipseCreator(ax, None, lambda verts, handles: print(handles))
     plt.show()

@@ -31,3 +31,8 @@ where = ["src"]
 
 [tool.setuptools_scm]
 write_to = "src/mpl_qt_viz/version.py"
+
+[dependency-groups]
+dev = [
+    "pytest>=7.4.4",
+]

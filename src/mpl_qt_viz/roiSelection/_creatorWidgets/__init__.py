@@ -16,4 +16,3 @@
 # along with mpl_qt_viz.  If not, see <https://www.gnu.org/licenses/>.
 
 
-

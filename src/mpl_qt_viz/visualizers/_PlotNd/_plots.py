@@ -54,6 +54,16 @@ class PlotBase(ABC):
         pass
 
     @property
+    def markerArtists(self) -> typing.Iterable[Artist]:
+        """The subset of `artists` that make up the position marker (crosshair). Defaults to none."""
+        return []
+
+    def setMarkerVisible(self, visible: bool):
+        """Show or hide the position marker (crosshair) artists. Hidden artists are skipped by `drawArtists`."""
+        for artist in self.markerArtists:
+            artist.set_visible(visible)
+
+    @property
     @abstractmethod
     def data(self) -> np.ndarray:
         """Subclasses should have a settable `data` property that refers to the data currently displayed by the plot."""
@@ -92,10 +102,14 @@ class ImPlot(PlotBase):
     ):
         super().__init__(ax, dims)
         self.shape = (len(verticalIndex), len(horizontalIndex))
+        # NOTE: The image is intentionally NOT animated. It is drawn during normal
+        # draw() calls so that it becomes part of the background snapshot captured by
+        # blitting (both this canvas's and any ROI selector's AxManager sharing these
+        # axes). If it were animated it would be excluded from those snapshots and get
+        # wiped whenever another blitter restores the background (e.g. ROI mouse-move).
         self.im = self.ax.imshow(
             np.zeros(self.shape),
             aspect="auto",
-            animated=True,
             interpolation=None,
             cmap=cmap,
         )
@@ -121,6 +135,10 @@ class ImPlot(PlotBase):
     @property
     def artists(self) -> typing.Iterable[Artist]:
         return [self.im, self.hLine, self.vLine]
+
+    @property
+    def markerArtists(self) -> typing.Iterable[Artist]:
+        return [self.hLine, self.vLine]
 
     def setRange(self, Min, Max):
         """Sets the value range (clim) of the image."""
@@ -257,6 +275,10 @@ class SidePlot(PlotBase):
     @property
     def artists(self) -> typing.Iterable[Artist]:
         return [self.plot, self.markerLine]
+
+    @property
+    def markerArtists(self) -> typing.Iterable[Artist]:
+        return [self.markerLine]
 
     def setMarker(self, pos: typing.Tuple[float]):
         """Set the position of the marker line. Should be given in terms of this plot's `index`"""

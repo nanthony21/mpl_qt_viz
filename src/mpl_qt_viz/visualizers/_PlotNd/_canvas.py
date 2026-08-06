@@ -142,8 +142,13 @@ class PlotNdCanvas(FigureCanvasQTAgg):
         """Determines whether or not the Nd crosshair respons to mouse input. Allows us to disable the crosshair if we
         want the mouse to trigger other sorts of actions (e.g. ROI drawing)"""
         self.spectraViewActive = active
-        if not active:
-            self.draw()  # This will clear the spectraviewer related crosshairs and plots.
+        # Hide the crosshair markers while the crosshair is inactive (e.g. an ROI tool
+        # is in use) and show them again when it is reactivated.
+        for artistManager in self.artistManagers:
+            artistManager.setMarkerVisible(active)
+        # Redraw so the visibility change takes effect. The draw_event handler re-blits
+        # the animated artists (skipping the now-hidden markers) so the image stays visible.
+        self.draw()
 
     def _updateBackground(self, event):
         """This handler is tied to the matplotlib `draw_event` event. loops through all `artistManagers` and draws
@@ -151,6 +156,10 @@ class PlotNdCanvas(FigureCanvasQTAgg):
         for artistManager in self.artistManagers:
             artistManager.updateBackground()
         self.cbar.draw()
+        # A full draw() does not render the `animated` artists (side-plot lines,
+        # crosshairs). Re-blit them here so they are visible after every draw,
+        # including the initial draw and the one triggered by the widget being shown.
+        self.performBlit()
 
     def updatePlots(self, blit=True):
         """This should be called after `self.coords` have been changed to update the data of each plot.
@@ -239,6 +248,7 @@ class PlotNdCanvas(FigureCanvasQTAgg):
         self.coords = (self.coords[-1],) + tuple(self.coords[:-1])
         axes = list(range(len(self.data.shape)))
         self.data = np.transpose(self.data, [axes[-1]] + axes[:-1])
+        # The draw_event handler re-blits the animated artists after this draw.
         self.draw()
 
     @property

@@ -251,6 +251,10 @@ class PlotNd(QWidget):  # TODO add function and GUI method to set coordinates of
         if button is self.noneButton and button is not self._lastButton:
             self.selector.setActive(False)
 
+        # Hide the Nd crosshair while an ROI tool is in use so it doesn't interfere
+        # with (or draw on top of) the ROI selection.
+        self.canvas.setSpectraViewActive(button is self.noneButton)
+
         self._lastButton = button
 
     def _selectorFinished(self, verts: np.ndarray):

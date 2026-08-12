@@ -19,5 +19,9 @@ Navigate to the root directory of this Git repository and run `pip install .`
 #### Using the `PlotNd` widget to visualize hyperspectral imagery of a cancer cell
 ![](docSrc/resources/plotNdCell.gif)
 
-#### Using the `DockablePlotsWindow` to help organize a large number of plots.
+#### Using the `DockablePlotWindow` to help organize a large number of plots.
 ![](docSrc/resources/dockablePlotsExample.gif)
+
+### Integrating `DockablePlotWindow` as a Pyplot backend
+In order to have generic Pyplot code open a `DockablePlotWindow` for new figures add `matplotlib.use("module://mpl_qt_viz.backends.backend_dockableagg")`
+prior to importing pyplot. See the example at "examples/dockableBackendExample.py"

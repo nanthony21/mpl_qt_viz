@@ -29,8 +29,8 @@ from PyQt6.QtWidgets import (
     QFileDialog,
 )
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_qt5 import NavigationToolbar2QT
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
+from matplotlib.backends.backend_qt import NavigationToolbar2QT
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
 
 
 class MyFigureCanvas(FigureCanvasQTAgg):
@@ -200,6 +200,46 @@ class DockablePlotWindow(QMainWindow):
             existing = self._docked[dockAreas.index(dockArea)]
             self.tabifyDockWidget(existing, dock)
 
+    def _addCanvasDock(
+        self,
+        canvas: FigureCanvasQTAgg,
+        toolbar: NavigationToolbar2QT,
+        title: str,
+        dockArea: str = "top",
+    ) -> "DockablePlot":
+        """
+        Dock a pre-existing Matplotlib canvas (and its toolbar) into the window.
+
+        Unlike `addFigure`, this reuses the supplied canvas rather than building a new one.
+        It is intended for use by the Matplotlib backend, where the canvas is created by
+        Matplotlib itself. Returns the created `DockablePlot`.
+        """
+        try:
+            dockArea = self._DOCKAREAMAP[dockArea]
+        except KeyError:
+            raise ValueError(
+                f"Dock are `{dockArea}` is not supported. must be: {list(self._DOCKAREAMAP.keys())}"
+            )
+        suffix = 0
+        finalTitle = title
+        titles = [i.title for i in self._plots]
+        while finalTitle in titles:
+            suffix += 1
+            finalTitle = f"{title}_{suffix}"
+        plot = DockablePlot(
+            canvas.figure, finalTitle, self, canvas=canvas, toolbar=toolbar
+        )
+        self._addDockToArea(plot, dockArea)
+        self._plots.append(plot)
+        return plot
+
+    def _removeDock(self, plot: "DockablePlot"):
+        """Remove a single docked plot from the window (used when a figure is destroyed)."""
+        if plot in self._plots:
+            self._plots.remove(plot)
+            self.removeDockWidget(plot)
+            plot.deleteLater()
+
     @property
     def figures(self) -> t_.Dict[str, plt.Figure]:
         """A dictionary of all the dockable figures in this window keyed by their titles."""
@@ -238,12 +278,21 @@ class DockablePlotWindow(QMainWindow):
 
 
 class DockablePlot(QDockWidget):
-    def __init__(self, figure: plt.Figure, title: str, parent: QWidget = None):
+    def __init__(
+        self,
+        figure: plt.Figure,
+        title: str,
+        parent: QWidget = None,
+        canvas: FigureCanvasQTAgg = None,
+        toolbar: NavigationToolbar2QT = None,
+    ):
         super().__init__(title, parent=parent)
-        self._canv = MyFigureCanvas(figure=figure)
+        # A pre-built canvas/toolbar may be supplied (e.g. by the matplotlib backend, which
+        # creates the canvas itself). Otherwise build them from the figure as before.
+        self._canv = canvas if canvas is not None else MyFigureCanvas(figure=figure)
         self._canv.setFocusPolicy(QtCore.Qt.FocusPolicy.ClickFocus)
         self._canv.setFocus()
-        self._bar = NavigationToolbar2QT(self._canv, self)
+        self._bar = toolbar if toolbar is not None else NavigationToolbar2QT(self._canv, self)
         layout = QGridLayout()
         layout.addWidget(self._canv, 0, 0)
         layout.addWidget(self._bar, 1, 0)

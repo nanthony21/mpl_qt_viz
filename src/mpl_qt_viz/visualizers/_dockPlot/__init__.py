@@ -31,6 +31,11 @@ from PyQt6.QtWidgets import (
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt import NavigationToolbar2QT
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
+from matplotlib.figure import Figure
+import inspect
+
+
+_FIG_KWARGS = frozenset(inspect.signature(Figure.__init__).parameters) - {'self', 'kwargs'}  # Get the kwargs to "Figure" constructor
 
 
 class MyFigureCanvas(FigureCanvasQTAgg):
@@ -172,24 +177,11 @@ class DockablePlotWindow(QMainWindow):
             subplot_kw = {}
         if subplots_kwargs is None:
             subplots_kwargs = {}
-        interactive = False
-        if plt.isinteractive():  # Turn of interactive mode so our new figure doesn't automatically appear in it's own window.
-            interactive = True
-            plt.ioff()
-        fig, ax = plt.subplots(subplot_kw=subplot_kw, **subplots_kwargs)
-        if interactive:
-            plt.ion()  # Set back to interactive if it originally was.
+        fig_kwargs = {k: subplots_kwargs.pop(k) for k in subplots_kwargs.keys() if k in _FIG_KWARGS}  # Extract args for the constructor
+        fig = Figure(**fig_kwargs)
+        ax = fig.subplots(subplot_kw=subplot_kw, **subplots_kwargs)
         fig.suptitle(title)
         self.addFigure(fig, title, dockArea=dockArea)
-        # suffix = 0
-        # finalTitle = title
-        # titles = [i.title for i in self._plots]
-        # while finalTitle in titles:
-        #     suffix += 1
-        #     finalTitle = f"{title}_{suffix}"
-        # plot = DockablePlot(fig, finalTitle, self)
-        # self._addDockToArea(plot, dockArea)
-        # self._plots.append(plot)
         return fig, ax
 
     def _addDockToArea(self, dock: QDockWidget, dockArea):

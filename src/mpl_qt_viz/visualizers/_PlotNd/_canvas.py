@@ -56,6 +56,7 @@ class PlotNdCanvas(FigureCanvasQTAgg):
         indices: typing.Optional[typing.List] = None,
         cmap: mpl.colors.Colormap = plt.cm.gray,
     ):
+        self._drawWhenShown = False
         assert len(data.shape) >= 3
         assert len(names) == len(data.shape)
         fig = plt.Figure(figsize=(6, 6), tight_layout=True)
@@ -159,7 +160,20 @@ class PlotNdCanvas(FigureCanvasQTAgg):
         # A full draw() does not render the `animated` artists (side-plot lines,
         # crosshairs). Re-blit them here so they are visible after every draw,
         # including the initial draw and the one triggered by the widget being shown.
-        self.performBlit()
+        self._performBlit()
+
+    def draw_idle(self, *args, **kwargs):
+        """Request a redraw, defer until visible"""
+        if not self.isVisible():
+            self._drawWhenShown = True
+            return
+        super().draw_idle(*args, **kwargs)
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        if self._drawWhenShown:
+            self._drawWhenShown = False
+            super().draw_idle()
 
     def updatePlots(self, blit=True):
         """This should be called after `self.coords` have been changed to update the data of each plot.
@@ -180,11 +194,11 @@ class PlotNdCanvas(FigureCanvasQTAgg):
             )
             plot.setMarker(newCoords)
         if blit:
-            self.performBlit()
+            self._performBlit()
         else:
-            self.draw()
+            self.draw_idle()
 
-    def performBlit(self):
+    def _performBlit(self):
         """Re-render the axes efficiently using matplotlib `blitting`."""
         for artistManager in self.artistManagers:  # The fact that spX is first here makes it not render on click. sometimes not sure why.
             if artistManager.background is not None:
